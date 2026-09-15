@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Matriz viva de competências do Videirafoo baseada em evidências públicas verificáveis no GitHub, CI, deploy e open source.">
+  <title>Matriz Viva de Competências — Videirafoo</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0d1117;--panel:#161b22;--soft:#11161d;--border:#30363d;--text:#f0f6fc;--muted:#8b949e;--accent:#58a6ff;--ok:#3fb950;--warn:#d29922;--bad:#f85149}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.55}a{color:var(--accent)}
+    main{width:min(1180px,calc(100% - 28px));margin:auto;padding:28px 0 70px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.top nav{display:flex;gap:8px;flex-wrap:wrap}.top a,.button{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 12px;border:1px solid var(--border);border-radius:9px;background:var(--soft);color:var(--text);text-decoration:none;font-weight:700}.button{cursor:pointer}.eyebrow{margin-top:30px;color:var(--ok);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}h1{font-size:clamp(2.2rem,6vw,4.3rem);line-height:1.02;letter-spacing:-.04em;margin:8px 0 14px}.lead{max-width:900px;color:var(--muted);font-size:1.04rem}.notice{margin:18px 0 24px;padding:14px 16px;border-left:4px solid var(--accent);background:var(--soft);border-radius:8px;color:var(--muted)}
+    .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:22px 0}.metric{padding:15px;background:var(--panel);border:1px solid var(--border);border-radius:14px}.metric strong{display:block;font-size:1.8rem}.metric span{color:var(--muted);font-size:.88rem}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:18px 0;flex-wrap:wrap}.small{color:var(--muted);font-size:.88rem}
+    .matrix{display:grid;gap:14px}.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px}.card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.level{display:inline-flex;padding:4px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted);font-size:.78rem;font-weight:800}.state{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:.78rem;font-weight:800}.state-forte{border:1px solid var(--ok);color:var(--ok)}.state-parcial{border:1px solid var(--warn);color:var(--warn)}.state-sem_evidencia{border:1px solid var(--bad);color:var(--bad)}.state-indisponivel{border:1px solid var(--muted);color:var(--muted)}.card h2{margin:6px 0}.desc{color:var(--muted);margin:0}.evidence-list{display:grid;gap:8px;margin-top:15px}.evidence{padding:11px 12px;border:1px solid var(--border);border-radius:10px;background:var(--soft)}.evidence-top{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap}.evidence p{margin:5px 0 0;color:var(--muted);font-size:.9rem}.evidence a{text-decoration:none;font-weight:700;font-size:.88rem}.dot{font-weight:900}.dot.verificada{color:var(--ok)}.dot.parcial{color:var(--warn)}.dot.ausente{color:var(--bad)}.dot.indisponivel{color:var(--muted)}.next{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);color:var(--muted)}.error{padding:14px;border:1px solid var(--bad);border-radius:12px;color:var(--bad);background:var(--soft)}
+    @media(max-width:700px){main{width:min(100% - 18px,1180px);padding-top:18px}.top nav{width:100%}.top nav a{flex:1}.button{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <a href="/">← Student Dashboard</a>
+    <nav aria-label="Navegação da matriz">
+      <a href="/trilha">Trilha</a>
+      <a href="/laboratorio">Laboratório</a>
+      <a href="https://github.com/Videirafoo/Videirafoo" target="_blank" rel="noreferrer">Código</a>
+    </nav>
+  </header>
+
+  <div class="eyebrow">Evidência, não autodeclaração</div>
+  <h1>Matriz Viva de Competências</h1>
+  <p class="lead">A matriz cruza artefatos públicos do GitHub, execução de CI, healthcheck e contribuição open source. Ela não diz “você domina X”. Ela diz apenas quais competências possuem evidências públicas fortes, parciais ou ainda não verificadas.</p>
+  <div class="notice"><strong>Regra:</strong> repositório existente, código, teste, CI verde, deploy e PR têm pesos conceituais diferentes. Um PR aberto comprova contribuição enviada; somente merge público comprova aceitação externa.</div>
+
+  <section id="resumo" class="summary" aria-label="Resumo da matriz">
+    <div class="metric"><strong>—</strong><span>competências</span></div>
+    <div class="metric"><strong>—</strong><span>evidências verificadas</span></div>
+    <div class="metric"><strong>—</strong><span>evidência forte</span></div>
+    <div class="metric"><strong>—</strong><span>evidência parcial</span></div>
+  </section>
+
+  <div class="toolbar">
+    <div id="atualizacao" class="small">Carregando evidências públicas…</div>
+    <button id="atualizar" class="button" type="button">Atualizar matriz</button>
+  </div>
+
+  <section id="erro" class="error" hidden></section>
+  <section id="matriz" class="matrix" aria-live="polite"></section>
+</main>
+<script src="/static/competencias.js" defer></script>
+</body>
+</html>
