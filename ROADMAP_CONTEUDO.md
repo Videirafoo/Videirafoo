@@ -86,26 +86,25 @@ A coleção agora ensina progressivamente:
 
 - [x] `alibaba/open-code-review` estudado como referência de arquitetura híbrida: validações determinísticas + agente/LLM para contexto e julgamento.
 - [x] princípio incorporado: **automatizar deterministicamente o que pode ser provado e usar IA para explicar, orientar e revisar pontos ambíguos**.
-- [x] referência registrada em `REFERENCIAS_OPEN_SOURCE.md`.
+- [x] `DenverCoder1` estudado como referência de descoberta, projetos reutilizáveis e apresentação de contribuições open source.
+- [x] `IanLunn/Hover` estudado como referência de microinterações; os padrões úteis foram reimplementados com CSS próprio, acessível e mobile-friendly.
+- [x] referências registradas em `REFERENCIAS_OPEN_SOURCE.md` quando aplicável.
 
 ## Fase 4 — Projeto público principal
 
 ### GitHub Student Dashboard
 
-Status: **em desenvolvimento**.
+Status: **MVP público em produção e recebendo feedback**.
 
-Construir uma ferramenta realmente útil para estudantes que analise repositórios e identifique:
+Produção:
 
-- README ausente ou incompleto;
-- falta de licença;
-- falta de topics;
-- organização de projetos;
-- linguagens usadas;
-- progresso de estudos;
-- sugestões de melhoria;
-- checklist de boas práticas.
+https://github-student-dashboard-videirafoo.onrender.com
 
-### Arquitetura planejada
+Código:
+
+`projetos/github_student_dashboard/`
+
+### Arquitetura aplicada
 
 **Camada determinística**
 
@@ -114,17 +113,18 @@ Construir uma ferramenta realmente útil para estudantes que analise repositóri
 - produzir evidências objetivas;
 - evitar recomendações inventadas ou baseadas apenas em prompt.
 
-**Camada de IA**
+**Camada de explicação**
 
 - explicar os achados para iniciantes;
 - priorizar melhorias;
 - sugerir próximos passos;
 - adaptar a explicação ao nível do projeto;
-- nunca substituir uma verificação objetiva quando ela puder ser feita por código.
+- nunca substituir uma verificação objetiva quando ela puder ser feita por código;
+- funcionar também sem provedor externo de IA.
 
-### Primeiro núcleo reaproveitável
+### Núcleo reaproveitado
 
-O Mini Sistema 10 implementou localmente:
+O Mini Sistema 10 originou os primeiros checks locais:
 
 - detecção de README;
 - `.gitignore`;
@@ -138,62 +138,81 @@ O Mini Sistema 10 implementou localmente:
 - recomendações;
 - exportação JSON.
 
-### MVP remoto já entregue
+### Entregas concluídas
 
 - [x] consumir GitHub API pública;
 - [x] aceitar `usuario/repositorio` e URL do GitHub;
 - [x] analisar repositório remoto;
+- [x] analisar perfil completo do estudante;
 - [x] ler metadados, árvore de arquivos e linguagens;
 - [x] separar engine de checks da interface;
 - [x] calcular score reproduzível;
 - [x] gerar recomendações objetivas;
-- [x] disponibilizar CLI;
-- [x] disponibilizar endpoint `GET /api/analisar`;
-- [x] criar interface web responsiva;
-- [x] testes da engine;
-- [x] testes da interface web;
-- [x] CI própria do dashboard;
-- [x] documentação do MVP.
+- [x] evidências detalhadas por check;
+- [x] verificar status real da última CI;
+- [x] analisar qualidade estrutural do README;
+- [x] comparação entre repositórios;
+- [x] histórico versionado de evolução por commit;
+- [x] camada explicativa local;
+- [x] IA opcional apenas para explicação e priorização;
+- [x] CLI;
+- [x] endpoints JSON;
+- [x] interface web responsiva;
+- [x] testes automatizados;
+- [x] CI própria do Dashboard;
+- [x] deploy público com Gunicorn no Render;
+- [x] `/healthz`, `robots.txt` e `sitemap.xml`;
+- [x] formulário e issue pública para feedback;
+- [x] documentação de comunidade e segurança;
+- [x] navegação rápida entre as ferramentas;
+- [x] microinterações acessíveis para desktop, teclado e touch/mobile;
+- [x] perfil GitHub atualizado para destacar o Dashboard e suas evidências públicas.
 
-### Próximas entregas
+### Próximas melhorias do produto
 
-- [ ] análise do perfil completo do estudante;
-- [ ] evidências detalhadas por check;
 - [ ] melhorar detecção de testes por stack;
-- [ ] verificar status real da última CI;
-- [ ] analisar qualidade mínima do README;
-- [ ] comparação entre repositórios;
-- [ ] histórico de análises;
-- [ ] camada de IA apenas para explicação e priorização;
-- [ ] deploy público;
-- [ ] receber feedback de usuários.
+- [ ] cobertura real de testes quando a stack fornecer essa informação;
+- [ ] verificação de links quebrados;
+- [ ] análise de vulnerabilidades/dependências em modo informativo;
+- [ ] histórico persistente das análises executadas pelo produto;
+- [ ] priorizar melhorias a partir de feedback real de estudantes;
+- [ ] screenshots e demonstrações curtas para documentação.
 
 ## Fase 5 — Open source externo
 
-- [ ] encontrar projetos beginner-friendly
-- [ ] começar por documentação, testes ou pequenos bugs
-- [ ] abrir PRs pequenos e bem descritos
-- [ ] aprender revisão de código
-- [ ] registrar contribuições relevantes no perfil
+- [x] encontrar projeto beginner-friendly para a primeira contribuição;
+- [x] selecionar uma tarefa pequena e verificável: `fork-commit-merge/fork-commit-merge` Issue #8017;
+- [x] documentar o passo a passo em `OPEN_SOURCE_START.md`;
+- [x] preparar a contribuição em `CONTRIBUICAO_EXTERNA_001.md`;
+- [x] registrar o acompanhamento na Issue #6 do `Videirafoo`;
+- [ ] criar o fork na conta `Videirafoo`;
+- [ ] implementar a mudança no fork;
+- [ ] abrir o primeiro Pull Request externo;
+- [ ] acompanhar revisão e responder aos maintainers;
+- [ ] registrar no perfil apenas contribuições públicas verificáveis.
 
 ## Fase 6 — Comunidade
 
-- [ ] publicar conteúdos curtos baseados nos projetos
-- [ ] criar desafios semanais para estudantes
-- [ ] incentivar issues e PRs de iniciantes
-- [ ] organizar pequenos encontros ou workshops
-- [ ] explorar elegibilidade para GitHub Campus Experts
+- [x] criar `COMMUNITY.md`;
+- [x] criar `CODE_OF_CONDUCT.md`;
+- [x] criar `SECURITY.md`;
+- [x] abrir canal estruturado de feedback para o Dashboard;
+- [ ] publicar conteúdos curtos baseados nos projetos;
+- [ ] criar desafios semanais para estudantes;
+- [ ] incentivar issues e PRs de iniciantes;
+- [ ] organizar pequenos encontros ou workshops;
+- [ ] explorar elegibilidade para GitHub Campus Experts.
 
 ## Fase 7 — Reconhecimento
 
 Buscar reconhecimento como consequência de trabalho útil:
 
-- Developer Program Member
-- contribuições open source relevantes
-- participação em hackathons
-- Campus Experts, quando elegível
-- crescimento orgânico de stars, forks e seguidores
-- GitHub Stars como objetivo de longo prazo
+- Developer Program Member;
+- contribuições open source relevantes;
+- participação em hackathons;
+- Campus Experts, quando elegível;
+- crescimento orgânico de stars, forks e seguidores;
+- GitHub Stars como objetivo de longo prazo.
 
 ## Métricas saudáveis
 
