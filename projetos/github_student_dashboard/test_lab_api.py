@@ -3,13 +3,55 @@ import unittest
 from projetos.github_student_dashboard.lab_api import (
     analisar_projeto_lab,
     atualizar_tarefa_lab,
+    concluir_lista_tarefa_lab,
+    criar_contato_lab,
+    criar_lista_tarefa_lab,
     criar_tarefa_lab,
+    excluir_contato_lab,
+    excluir_lista_tarefa_lab,
     excluir_tarefa_lab,
     listar_tarefas_lab,
 )
 
 
 class LabApiTest(unittest.TestCase):
+    def test_agenda_reutiliza_validacao_e_regra_de_duplicidade(self):
+        criada = criar_contato_lab([], "Ana", "21999999999")
+        contatos = criada["contatos"]
+
+        self.assertEqual(criada["resultado"]["nome"], "Ana")
+        self.assertEqual(len(contatos), 1)
+
+        with self.assertRaisesRegex(ValueError, "Já existe"):
+            criar_contato_lab(contatos, " ana ", "21888888888")
+
+        removida = excluir_contato_lab(contatos, contatos[0]["id"])
+        self.assertEqual(removida["contatos"], [])
+        self.assertEqual(removida["resultado"]["nome"], "Ana")
+
+    def test_lista_02_cria_conclui_reabre_e_exclui_com_codigo_original(self):
+        criada = criar_lista_tarefa_lab([], "Revisar funções", "alta")
+        tarefas = criada["tarefas"]
+
+        self.assertEqual(criada["resultado"]["titulo"], "Revisar funções")
+        self.assertFalse(criada["resultado"]["concluida"])
+
+        concluida = concluir_lista_tarefa_lab(tarefas, 1, True)
+        self.assertTrue(concluida["resultado"]["concluida"])
+
+        reaberta = concluir_lista_tarefa_lab(concluida["tarefas"], 1, False)
+        self.assertFalse(reaberta["resultado"]["concluida"])
+
+        removida = excluir_lista_tarefa_lab(reaberta["tarefas"], 1)
+        self.assertEqual(removida["tarefas"], [])
+
+    def test_lista_02_migra_estado_antigo_do_navegador(self):
+        antiga = [{"id": "uuid-antigo", "texto": "Tarefa antiga", "concluida": False}]
+        criada = criar_lista_tarefa_lab(antiga, "Nova tarefa")
+
+        self.assertEqual([item["id"] for item in criada["tarefas"]], [1, 2])
+        self.assertEqual(criada["tarefas"][0]["titulo"], "Tarefa antiga")
+
     def test_cria_lista_atualiza_e_exclui_tarefa(self):
         criada = criar_tarefa_lab([], "Estudar Flask", "alta")
         tarefas = criada["tarefas"]
