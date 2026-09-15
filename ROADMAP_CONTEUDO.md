@@ -62,8 +62,14 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] testes automatizados em todos os sistemas
 - [x] CI geral com descoberta automática de testes
 - [x] CI com instalação das dependências da API
+- [x] laboratório web com experiência prática para os 10 mini sistemas
+- [x] links diretos do laboratório para código Python e testes correspondentes
 
 Conteúdo atual: `conteudos/mini_sistemas/`.
+
+Laboratório público:
+
+https://github-student-dashboard-videirafoo.onrender.com/laboratorio
 
 ### Resultado da fase
 
@@ -80,7 +86,8 @@ A coleção agora ensina progressivamente:
 - HTTP e REST;
 - testes;
 - CI;
-- análise determinística de projetos.
+- análise determinística de projetos;
+- comparação direta entre comportamento no navegador, implementação Python e testes.
 
 ## Referências arquiteturais estudadas
 
@@ -174,14 +181,17 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] showcase e diagrama de arquitetura dentro do próprio GitHub;
 - [x] changelog público do projeto;
 - [x] template de Pull Request para contribuidores;
-- [x] `good first issue` real para a comunidade.
+- [x] `good first issue` real para a comunidade;
+- [x] laboratório público com os 10 mini sistemas interativos.
 
 ### Melhorias recentes concluídas
 
 - [x] ampliar detecção de testes por stack para Python, JS/TS, Go, Dart/Flutter, Ruby, Java/Kotlin, C# e PHP;
 - [x] evitar falsos positivos simples na detecção de testes;
 - [x] verificar links internos do README usando a árvore do próprio repositório;
-- [x] exibir links internos quebrados na página de qualidade do README sem fazer requisições arbitrárias a URLs externas.
+- [x] exibir links internos quebrados na página de qualidade do README sem fazer requisições arbitrárias a URLs externas;
+- [x] transformar os 10 mini sistemas em experiências utilizáveis no navegador;
+- [x] manter cada experiência ligada ao código e aos testes reais do GitHub.
 
 ### Próximas melhorias do produto
 
@@ -198,11 +208,19 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] documentar o passo a passo em `OPEN_SOURCE_START.md`;
 - [x] preparar a contribuição em `CONTRIBUICAO_EXTERNA_001.md`;
 - [x] registrar o acompanhamento na Issue #6 do `Videirafoo`;
-- [ ] criar o fork na conta `Videirafoo`;
-- [ ] implementar a mudança no fork;
-- [ ] abrir o primeiro Pull Request externo;
+- [x] criar o fork `Videirafoo/fork-commit-merge`;
+- [x] criar branch `feat/flask-easy-8017`;
+- [x] implementar a tarefa Flask no fork;
+- [x] limitar a mudança a `tasks/flask/easy/app.py`;
+- [x] abrir o primeiro Pull Request externo: `fork-commit-merge/fork-commit-merge#8150`;
+- [x] registrar o PR público no perfil e no showcase;
+- [ ] aguardar aprovação dos workflows pelo mantenedor;
 - [ ] acompanhar revisão e responder aos maintainers;
-- [ ] registrar no perfil apenas contribuições públicas verificáveis.
+- [ ] registrar o merge como contribuição aceita, se aprovado.
+
+PR atual:
+
+https://github.com/fork-commit-merge/fork-commit-merge/pull/8150
 
 ## Fase 6 — Comunidade
 
