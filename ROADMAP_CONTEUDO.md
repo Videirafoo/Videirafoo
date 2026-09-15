@@ -59,7 +59,9 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] persistência em JSON no Cadastro de Alunos
 - [x] testes automatizados do Cadastro de Alunos
 - [x] CI configurada para descobrir todos os testes dos mini sistemas
-- [ ] Mini Sistema 04 — Controle de Estoque
+- [x] Mini Sistema 04 — Controle de Estoque
+- [x] persistência em JSON no Controle de Estoque
+- [x] testes automatizados do Controle de Estoque
 - [ ] Mini Sistema 05 — Sistema de Biblioteca
 - [ ] Mini Sistema 06 — Caixa de Mercado
 - [ ] Mini Sistema 07 — Controle Financeiro Pessoal
