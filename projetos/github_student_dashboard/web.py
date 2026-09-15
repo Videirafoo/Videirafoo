@@ -13,7 +13,12 @@ from projetos.github_student_dashboard.history import analisar_historico_remoto
 from projetos.github_student_dashboard.lab_api import (
     analisar_projeto_lab,
     atualizar_tarefa_lab,
+    concluir_lista_tarefa_lab,
+    criar_contato_lab,
+    criar_lista_tarefa_lab,
     criar_tarefa_lab,
+    excluir_contato_lab,
+    excluir_lista_tarefa_lab,
     excluir_tarefa_lab,
     listar_tarefas_lab,
 )
@@ -205,6 +210,62 @@ def create_app(
         except GitHubApiError as erro:
             return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
         return jsonify(relatorio), 200
+
+    @app.route("/api/laboratorio/agenda", methods=["POST", "DELETE"])
+    def laboratorio_agenda():
+        dados = request.get_json(silent=True)
+        if not isinstance(dados, dict):
+            return jsonify({"erro": "Envie um objeto JSON válido."}), 400
+        try:
+            estado = dados.get("contatos", [])
+            if request.method == "POST":
+                resultado = criar_contato_lab(
+                    estado,
+                    dados.get("nome", ""),
+                    dados.get("telefone", ""),
+                    dados.get("email", ""),
+                )
+                return jsonify(resultado), 201
+
+            resultado = excluir_contato_lab(estado, dados.get("id"))
+            if resultado is None:
+                return jsonify({"erro": "Contato não encontrado."}), 404
+            return jsonify(resultado), 200
+        except ValueError as erro:
+            return jsonify({"erro": str(erro)}), 400
+
+    @app.route("/api/laboratorio/lista-tarefas", methods=["POST", "PATCH", "DELETE"])
+    def laboratorio_lista_tarefas():
+        dados = request.get_json(silent=True)
+        if not isinstance(dados, dict):
+            return jsonify({"erro": "Envie um objeto JSON válido."}), 400
+        try:
+            estado = dados.get("tarefas", [])
+            if request.method == "POST":
+                resultado = criar_lista_tarefa_lab(
+                    estado,
+                    dados.get("titulo", ""),
+                    dados.get("prioridade", "media"),
+                )
+                return jsonify(resultado), 201
+
+            tarefa_id = dados.get("id")
+            if request.method == "PATCH":
+                resultado = concluir_lista_tarefa_lab(
+                    estado,
+                    tarefa_id,
+                    dados.get("concluida", True),
+                )
+                if resultado is None:
+                    return jsonify({"erro": "Tarefa não encontrada."}), 404
+                return jsonify(resultado), 200
+
+            resultado = excluir_lista_tarefa_lab(estado, tarefa_id)
+            if resultado is None:
+                return jsonify({"erro": "Tarefa não encontrada."}), 404
+            return jsonify(resultado), 200
+        except ValueError as erro:
+            return jsonify({"erro": str(erro)}), 400
 
     @app.route("/api/laboratorio/tarefas", methods=["GET", "POST", "PATCH", "DELETE"])
     def laboratorio_tarefas():
