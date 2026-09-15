@@ -15,6 +15,7 @@ class LabWebApiTest(unittest.TestCase):
         conteudo = resposta.get_data(as_text=True)
 
         self.assertEqual(resposta.status_code, 200)
+        self.assertIn("/static/laboratorio_systems_real.js", conteudo)
         self.assertIn("/static/laboratorio_api_real.js", conteudo)
 
     def test_agenda_cria_e_exclui_contato_no_backend_real(self):
@@ -70,6 +71,41 @@ class LabWebApiTest(unittest.TestCase):
         )
         self.assertEqual(excluida.status_code, 200)
         self.assertEqual(excluida.get_json()["tarefas"], [])
+
+    def test_aluno_media_executa_regras_python_reais(self):
+        resposta = self.cliente.post(
+            "/api/laboratorio/aluno-media",
+            json={"nome": "Fernando", "notas": [8, 7, 9]},
+        )
+
+        self.assertEqual(resposta.status_code, 200)
+        dados = resposta.get_json()
+        self.assertEqual(dados["media"], 8.0)
+        self.assertEqual(dados["situacao"], "aprovado")
+
+        invalida = self.cliente.post(
+            "/api/laboratorio/aluno-media",
+            json={"nome": "Fernando", "notas": [8, 11, 9]},
+        )
+        self.assertEqual(invalida.status_code, 400)
+
+    def test_estoque_cria_e_exclui_produto_no_backend_real(self):
+        criada = self.cliente.post(
+            "/api/laboratorio/estoque",
+            json={"produtos": [], "nome": "Caderno", "quantidade": 2, "preco": 15.5},
+        )
+        self.assertEqual(criada.status_code, 201)
+        dados = criada.get_json()
+        produtos = dados["produtos"]
+        self.assertEqual(produtos[0]["codigo"], "LAB-1")
+        self.assertEqual(dados["valor_total"], 31.0)
+
+        excluida = self.cliente.delete(
+            "/api/laboratorio/estoque",
+            json={"produtos": produtos, "id": produtos[0]["id"]},
+        )
+        self.assertEqual(excluida.status_code, 200)
+        self.assertEqual(excluida.get_json()["produtos"], [])
 
     def test_fluxo_http_criar_listar_atualizar_excluir(self):
         criada = self.cliente.post(
