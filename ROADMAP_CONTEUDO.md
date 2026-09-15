@@ -73,7 +73,10 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] receitas, despesas, categorias, saldo, filtros e relatórios
 - [x] persistência em JSON no Controle Financeiro
 - [x] testes automatizados do Controle Financeiro
-- [ ] Mini Sistema 08 — Gerenciador de Hábitos
+- [x] Mini Sistema 08 — Gerenciador de Hábitos
+- [x] hábitos, metas semanais, registros diários, sequência e progresso
+- [x] persistência em JSON no Gerenciador de Hábitos
+- [x] testes automatizados do Gerenciador de Hábitos
 - [ ] Mini Sistema 09 — API de Tarefas
 - [ ] Mini Sistema 10 — Projeto integrado
 
