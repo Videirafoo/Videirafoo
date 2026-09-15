@@ -59,6 +59,18 @@ class LearningPathWebTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("/trilha</loc>", response.get_data(as_text=True))
 
+    def test_dashboard_exibe_atalhos_para_trilha_e_laboratorio(self):
+        response = self.app.get("/")
+        self.assertEqual(response.status_code, 200)
+        html = response.get_data(as_text=True)
+        self.assertIn('href="/trilha"', html)
+        self.assertIn('href="/laboratorio"', html)
+
+    def test_laboratorio_exibe_atalho_para_trilha(self):
+        response = self.app.get("/laboratorio")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('href="/trilha"', response.get_data(as_text=True))
+
 
 if __name__ == "__main__":
     unittest.main()
