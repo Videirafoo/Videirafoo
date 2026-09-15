@@ -31,5 +31,5 @@ jobs:
       - name: Validate Python syntax
         run: python -m compileall -q conteudos
 
-      - name: Run mini system tests
-        run: python -m unittest conteudos.mini_sistemas.agenda_contatos.test_main
+      - name: Run all mini system tests
+        run: python -m unittest discover -s conteudos/mini_sistemas -t . -p "test_*.py"
