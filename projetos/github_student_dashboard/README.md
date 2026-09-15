@@ -12,20 +12,23 @@ O projeto nasce depois da trilha Python e dos 10 mini sistemas, reaproveitando o
 
 ## Estado atual
 
-Primeiro núcleo funcional implementado:
+O MVP já possui:
 
-- recebe `usuario/repositorio` ou URL do GitHub;
-- consulta a API pública do GitHub;
-- lê metadados do repositório;
-- lê árvore de arquivos da branch padrão;
-- lê linguagens reportadas pelo GitHub;
-- executa checks determinísticos;
-- calcula score reproduzível;
-- gera evidências;
-- gera recomendações objetivas;
-- possui CLI;
-- possui testes automatizados;
-- possui CI própria.
+- entrada por `usuario/repositorio` ou URL do GitHub;
+- cliente para a API pública do GitHub;
+- leitura de metadados do repositório;
+- leitura da árvore de arquivos da branch padrão;
+- leitura de linguagens reportadas pelo GitHub;
+- checks determinísticos;
+- score reproduzível;
+- evidências;
+- recomendações objetivas;
+- CLI;
+- endpoint `GET /api/analisar`;
+- interface web responsiva;
+- testes da engine;
+- testes da interface web;
+- CI própria.
 
 ## Checks do MVP
 
@@ -51,13 +54,18 @@ github_student_dashboard/
 ├── github_client.py
 ├── engine.py
 ├── cli.py
+├── web.py
+├── requirements.txt
+├── templates/
+│   └── index.html
 ├── test_engine.py
+├── test_web.py
 └── README.md
 ```
 
 ### `github_client.py`
 
-Responsável por comunicação com a GitHub API.
+Responsável pela comunicação com a GitHub API.
 
 ### `engine.py`
 
@@ -72,17 +80,27 @@ Responsável por:
 
 ### `cli.py`
 
-Interface inicial para uso pelo terminal.
+Interface para uso pelo terminal.
 
-## Como executar
+### `web.py`
+
+Expõe a interface web e o endpoint JSON sem misturar regras de análise com apresentação.
+
+## Instalação
 
 Na raiz do repositório `Videirafoo/Videirafoo`:
+
+```bash
+python -m pip install -r projetos/github_student_dashboard/requirements.txt
+```
+
+## Usar pelo terminal
 
 ```bash
 python -m projetos.github_student_dashboard.cli Videirafoo/Videirafoo
 ```
 
-Para receber o relatório completo em JSON:
+Relatório completo em JSON:
 
 ```bash
 python -m projetos.github_student_dashboard.cli Videirafoo/Videirafoo --json
@@ -93,6 +111,22 @@ Também é possível informar uma URL:
 ```bash
 python -m projetos.github_student_dashboard.cli https://github.com/Videirafoo/Videirafoo
 ```
+
+## Executar a interface web
+
+```bash
+python -m projetos.github_student_dashboard.web
+```
+
+Depois abra o endereço local mostrado pelo Flask e informe um repositório público.
+
+## Endpoint de análise
+
+```http
+GET /api/analisar?repo=Videirafoo/Videirafoo
+```
+
+A resposta contém score, checks, evidências e recomendações.
 
 ## GitHub API e autenticação
 
@@ -141,9 +175,9 @@ Ação: adicionar topics relacionados à linguagem, domínio e finalidade do pro
 
 Ainda não existe nesta versão:
 
-- interface web;
-- análise de perfil inteiro;
+- análise do perfil inteiro;
 - comparação entre repositórios;
+- evidência detalhada individual para cada recomendação;
 - qualidade interna do README;
 - status real da última CI;
 - cobertura de testes;
@@ -156,16 +190,16 @@ Ainda não existe nesta versão:
 
 ## Próximas entregas
 
-1. interface web simples;
-2. endpoint de análise;
-3. análise do perfil completo do estudante;
-4. evidências detalhadas por check;
-5. melhorar detecção de testes por stack;
-6. verificar status real da CI;
-7. analisar qualidade mínima do README;
-8. histórico de análises;
-9. camada de IA somente para explicação e priorização;
-10. deploy público e feedback de usuários.
+1. análise do perfil completo do estudante;
+2. evidências detalhadas por check;
+3. melhorar detecção de testes por stack;
+4. verificar status real da CI;
+5. analisar qualidade mínima do README;
+6. comparação entre repositórios;
+7. histórico de análises;
+8. camada de IA somente para explicação e priorização;
+9. deploy público;
+10. coletar feedback de usuários e evoluir os checks.
 
 ## Regra de contribuição
 
