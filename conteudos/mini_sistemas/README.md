@@ -29,7 +29,7 @@ Cada projeto terá:
 4. [Controle de Estoque](./controle_estoque/README.md) — produtos, entradas, saídas, estoque mínimo e JSON
 5. [Sistema de Biblioteca](./sistema_biblioteca/README.md) — livros, usuários, empréstimos, devoluções e JSON
 6. [Caixa de Mercado](./caixa_mercado/README.md) — catálogo, carrinho, estoque, descontos, vendas e JSON
-7. Controle Financeiro Pessoal
+7. [Controle Financeiro Pessoal](./controle_financeiro/README.md) — receitas, despesas, categorias, saldo, filtros, relatórios e JSON
 8. Gerenciador de Hábitos
 9. API de Tarefas
 10. Projeto final integrado
