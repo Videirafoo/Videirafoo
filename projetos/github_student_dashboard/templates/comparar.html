@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparar repositórios — GitHub Student Dashboard</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0d1117;
+      --panel: #161b22;
+      --border: #30363d;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --success: #3fb950;
+      --danger: #f85149;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+    main { width: min(1100px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 80px; }
+    a { color: var(--accent); }
+    h1 { margin: 0 0 8px; font-size: clamp(2rem, 5vw, 3.2rem); }
+    .muted { color: var(--muted); }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-top: 20px; }
+    form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; }
+    input, button { min-height: 46px; border-radius: 10px; border: 1px solid var(--border); font: inherit; }
+    input { width: 100%; padding: 0 14px; background: var(--bg); color: var(--text); }
+    button { padding: 0 20px; background: var(--accent); border-color: var(--accent); color: #07111f; font-weight: 700; cursor: pointer; }
+    button:disabled { opacity: .65; cursor: wait; }
+    .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
+    .metric { font-size: 2rem; font-weight: 800; }
+    .check-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .ok { color: var(--success); font-weight: 700; }
+    .missing { color: var(--danger); font-weight: 700; }
+    .error { color: var(--danger); font-weight: 600; }
+    .hidden { display: none; }
+    ul { padding-left: 20px; }
+    @media (max-width: 760px) {
+      form { grid-template-columns: 1fr; }
+      .grid2 { grid-template-columns: 1fr; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p><a href="/">← Voltar ao Dashboard</a></p>
+    <h1>Comparar repositórios</h1>
+    <p class="muted">Compare evidências verificáveis lado a lado. O sistema não escolhe um vencedor geral.</p>
+
+    <section class="panel">
+      <form id="form">
+        <input id="repoA" placeholder="Ex.: Videirafoo/Videirafoo" required>
+        <input id="repoB" placeholder="Ex.: Videirafoo/Lista-01-segundo-periodo" required>
+        <button id="submit" type="submit">Comparar</button>
+      </form>
+      <p id="erro" class="error hidden"></p>
+    </section>
+
+    <section id="resultado" class="panel hidden">
+      <div class="grid2">
+        <article class="card">
+          <h2 id="nomeA">Repositório A</h2>
+          <div class="metric"><span id="scoreA">0</span>/100</div>
+          <p>README: <strong id="readmeA">0%</strong></p>
+          <p>CI real: <strong id="ciA">—</strong></p>
+        </article>
+        <article class="card">
+          <h2 id="nomeB">Repositório B</h2>
+          <div class="metric"><span id="scoreB">0</span>/100</div>
+          <p>README: <strong id="readmeB">0%</strong></p>
+          <p>CI real: <strong id="ciB">—</strong></p>
+        </article>
+      </div>
+
+      <h2>Checks lado a lado</h2>
+      <div id="checks"></div>
+
+      <div class="grid2">
+        <article class="card">
+          <h3>Diferenças exclusivas do A</h3>
+          <ul id="vantagensA"></ul>
+        </article>
+        <article class="card">
+          <h3>Diferenças exclusivas do B</h3>
+          <ul id="vantagensB"></ul>
+        </article>
+      </div>
+
+      <p id="observacao" class="muted"></p>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector('#form');
+    const submit = document.querySelector('#submit');
+    const erro = document.querySelector('#erro');
+    const resultado = document.querySelector('#resultado');
+
+    const labels = {
+      readme: 'README', descricao: 'Descrição', licenca: 'Licença', gitignore: '.gitignore',
+      topics: 'Topics', ci: 'CI', testes: 'Testes', dependencias: 'Dependências'
+    };
+
+    function preencherLista(elemento, itens) {
+      elemento.innerHTML = '';
+      if (!itens.length) {
+        const li = document.createElement('li');
+        li.textContent = 'Nenhuma diferença exclusiva nos checks atuais.';
+        elemento.appendChild(li);
+        return;
+      }
+      itens.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = labels[item] || item;
+        elemento.appendChild(li);
+      });
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const a = document.querySelector('#repoA').value.trim();
+      const b = document.querySelector('#repoB').value.trim();
+      if (!a || !b) return;
+
+      submit.disabled = true;
+      submit.textContent = 'Comparando...';
+      erro.classList.add('hidden');
+      resultado.classList.add('hidden');
+
+      try {
+        const response = await fetch(`/api/comparar?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.erro || 'Não foi possível comparar os repositórios.');
+
+        document.querySelector('#nomeA').textContent = data.repositorio_a.repositorio;
+        document.querySelector('#nomeB').textContent = data.repositorio_b.repositorio;
+        document.querySelector('#scoreA').textContent = data.repositorio_a.score;
+        document.querySelector('#scoreB').textContent = data.repositorio_b.score;
+        document.querySelector('#readmeA').textContent = `${data.repositorio_a.readme.cobertura_percentual}%`;
+        document.querySelector('#readmeB').textContent = `${data.repositorio_b.readme.cobertura_percentual}%`;
+        document.querySelector('#ciA').textContent = data.repositorio_a.ci_real.estado || 'indisponível';
+        document.querySelector('#ciB').textContent = data.repositorio_b.ci_real.estado || 'indisponível';
+
+        const checks = document.querySelector('#checks');
+        checks.innerHTML = '';
+        data.comparacao_checks.forEach((item) => {
+          const row = document.createElement('div');
+          row.className = 'check-row';
+
+          const nome = document.createElement('div');
+          nome.textContent = labels[item.nome] || item.nome;
+          const valorA = document.createElement('div');
+          valorA.textContent = item.a ? 'OK' : 'Falta';
+          valorA.className = item.a ? 'ok' : 'missing';
+          const valorB = document.createElement('div');
+          valorB.textContent = item.b ? 'OK' : 'Falta';
+          valorB.className = item.b ? 'ok' : 'missing';
+
+          row.append(nome, valorA, valorB);
+          checks.appendChild(row);
+        });
+
+        preencherLista(document.querySelector('#vantagensA'), data.diferencas_objetivas.checks_exclusivos_a);
+        preencherLista(document.querySelector('#vantagensB'), data.diferencas_objetivas.checks_exclusivos_b);
+        document.querySelector('#observacao').textContent = data.observacao;
+        resultado.classList.remove('hidden');
+      } catch (e) {
+        erro.textContent = e.message;
+        erro.classList.remove('hidden');
+      } finally {
+        submit.disabled = false;
+        submit.textContent = 'Comparar';
+      }
+    });
+  </script>
+</body>
+</html>
