@@ -14,7 +14,7 @@ OpenCodeReview combina duas camadas:
 1. **engenharia determinística** para tarefas que precisam ser previsíveis e verificáveis;
 2. **agente com LLM** para decisões, busca de contexto e explicações que exigem julgamento.
 
-Essa separação é especialmente útil para o futuro **GitHub Student Dashboard** do `Videirafoo`.
+Essa separação é especialmente útil para o **GitHub Student Dashboard** do `Videirafoo`.
 
 ### Padrões absorvidos
 
@@ -99,10 +99,10 @@ Quando IA ajudar a produzir uma contribuição para projeto externo:
 
 O projeto da Alibaba **não será copiado nem incorporado como segunda plataforma**.
 
-Vamos usar apenas ideias arquiteturais generalizadas para melhorar:
+Usamos apenas ideias arquiteturais generalizadas para melhorar:
 
-- processo de revisão dos nossos mini sistemas;
-- futuro GitHub Student Dashboard;
+- processo de revisão dos mini sistemas;
+- GitHub Student Dashboard;
 - checklists educacionais;
 - CI e qualidade;
 - preparação para contribuições open source.
@@ -121,7 +121,7 @@ Fontes estudadas: perfil `DenverCoder1/DenverCoder1` e projetos públicos como `
 
 O perfil mostra um padrão importante para crescimento open source: não depender apenas de um README visual, mas construir **ferramentas reutilizáveis por outras pessoas**, destacar contribuições externas e transformar projetos em produtos pequenos e fáceis de descobrir.
 
-O projeto `readme-typing-svg`, por exemplo, resolve um problema simples de personalização de perfis, possui licença MIT, topics claros e milhares de stars/forks. O aprendizado principal não é copiar a ferramenta, e sim entender o padrão: **uma utilidade pequena, clara, compartilhável e fácil de experimentar pode alcançar muita gente**.
+O projeto `readme-typing-svg`, por exemplo, resolve um problema simples de personalização de perfis. O aprendizado principal não é copiar a ferramenta, e sim entender o padrão: **uma utilidade pequena, clara, compartilhável e fácil de experimentar pode alcançar muita gente**.
 
 ### Padrões absorvidos
 
@@ -129,7 +129,7 @@ O projeto `readme-typing-svg`, por exemplo, resolve um problema simples de perso
 
 O perfil deve destacar primeiro projetos com valor público, não apenas exercícios acadêmicos.
 
-Aplicação futura no `Videirafoo`:
+Aplicação no `Videirafoo`:
 
 - GitHub Student Dashboard;
 - ferramentas educacionais pequenas;
@@ -139,18 +139,18 @@ Aplicação futura no `Videirafoo`:
 
 #### 2. Separar “meus projetos” de “projetos para os quais contribuí”
 
-Quando houver contribuições externas reais, o perfil deverá ganhar uma seção específica para elas. Isso mostra colaboração, revisão de código e participação em comunidades diferentes.
+Contribuições externas reais ficam em seção específica. Isso mostra colaboração, revisão de código e participação em comunidades diferentes.
 
 #### 3. Transformar ensino em produto open source
 
 Conteúdo educacional pode virar ferramenta.
 
-Exemplos de direção para o `Videirafoo`:
+Exemplos de direção:
 
 - verificador de README para iniciantes;
-- gerador de checklist de projeto acadêmico;
+- checklist de projeto acadêmico;
 - analisador de organização de repositório;
-- gerador de estrutura inicial de projeto Python;
+- estrutura inicial de projeto Python;
 - painel de progresso de estudos;
 - badges educacionais baseados em evidências reais.
 
@@ -182,8 +182,163 @@ Não precisamos copiar a quantidade de imagens ou badges do DenverCoder1. A refe
 
 Projetos que melhoram a experiência de outros desenvolvedores no GitHub têm potencial natural de descoberta dentro da própria comunidade.
 
-Essa ideia reforça o GitHub Student Dashboard como projeto principal da trajetória `Videirafoo`.
-
 ### Regra aplicada
 
 > **Não copiar o perfil de quem já tem visibilidade; copiar o princípio de criar algo tão útil que outras pessoas tenham motivo para voltar, compartilhar e contribuir.**
+
+---
+
+## BEPb — progressão, competências e prática pública
+
+Fontes estudadas:
+
+- `BEPb/BEPb`;
+- `BEPb/Python-100-days`;
+- `BEPb/Programmer_Competency_Matrix`;
+- `BEPb/first-contributions`.
+
+### Por que é relevante
+
+O conjunto mostra quatro padrões educacionais úteis quando vistos em conjunto:
+
+1. **progressão longa dividida em etapas pequenas**;
+2. **muitos exemplos concretos**, em vez de apenas tópicos teóricos;
+3. **competências avaliadas por níveis observáveis**;
+4. **redução da barreira para a primeira contribuição open source**.
+
+O perfil principal também mostra muitas métricas, badges e elementos visuais. Para o `Videirafoo`, o aprendizado útil não é reproduzir essa quantidade visual, e sim tornar **progresso e evidências fáceis de enxergar**.
+
+### Padrões absorvidos
+
+#### 1. Trilha progressiva
+
+`Python-100-days` reforça que uma base grande pode ser dividida em unidades pequenas e encadeadas.
+
+Aplicação no `Videirafoo`:
+
+- Nível 1 — Fundamentos;
+- Nível 2 — Estruturas e Algoritmos;
+- Nível 3 — Mini Sistemas;
+- Nível 4 — Aplicações Reais;
+- Nível 5 — Engenharia de Software;
+- Nível 6 — IA Aplicada.
+
+Essa progressão agora existe também como **rota interativa `/trilha`**, e não apenas como texto no repositório.
+
+#### 2. Competência precisa de evidência
+
+A matriz de competências reforça que “sei Git”, “sei testes” ou “sei algoritmos” é vago demais.
+
+No `Videirafoo`, cada competência deve ser conectada a uma evidência observável, como:
+
+- explicar um algoritmo passo a passo;
+- modificar código e preservar testes;
+- criar uma branch e um PR pequeno;
+- interpretar cobertura e CI;
+- verificar manualmente uma evidência apresentada pelo Dashboard.
+
+#### 3. Aprender com exemplos antes de aumentar complexidade
+
+Uma trilha educacional deve oferecer exemplos curtos, depois exercícios guiados, depois desafios independentes e finalmente sistemas.
+
+Isso complementa `PADRAO_DE_ENSINO.md` e o laboratório dos mini sistemas.
+
+#### 4. Primeira contribuição com baixo atrito
+
+A referência `first-contributions` mostra a importância de explicar claramente o ciclo:
+
+`fork/branch` → `alteração pequena` → `commit` → `push` → `pull request` → `review`.
+
+No `Videirafoo`, isso se conecta a:
+
+- `OPEN_SOURCE_START.md`;
+- `CONTRIBUICAO_EXTERNA_001.md`;
+- `good first issue`;
+- primeira contribuição externa verificável.
+
+### O que não vamos copiar
+
+- excesso de badges sem função pedagógica;
+- métricas como substituto de software executável;
+- conteúdo traduzido ou exemplos de terceiros como se fossem nossos;
+- checklists marcados sem prova prática.
+
+### Regra aplicada
+
+> **Progresso educacional deve mostrar o que a pessoa consegue fazer, explicar, modificar e testar — não apenas o que ela já leu.**
+
+---
+
+## Agency Agents — aprender por papel e entregável
+
+Fonte estudada: `msitarzewski/agency-agents`.
+
+### Por que é relevante
+
+A coleção organiza especialistas por papéis claros, missão, processo e entregáveis. Para uma base educacional, o padrão útil é transformar assuntos avançados em **responsabilidades que a pessoa consegue praticar**.
+
+### Padrões absorvidos
+
+#### 1. Papel antes da ferramenta
+
+Em vez de ensinar apenas nomes de bibliotecas, a trilha pode perguntar “o que esse papel precisa entregar?”.
+
+Exemplos:
+
+- Backend → endpoint correto, validação e erro HTTP;
+- DevOps → CI reproduzível e deploy verificável;
+- Code Reviewer → evidência, impacto e ação;
+- Technical Writer → outra pessoa consegue executar sem ajuda;
+- SRE → healthcheck, logs e sinais de falha;
+- AI Engineer → avaliação, fallback e proveniência.
+
+#### 2. Entregável verificável
+
+Cada etapa deve terminar em algo que possa ser inspecionado:
+
+- código;
+- teste;
+- endpoint;
+- relatório;
+- PR;
+- execução de CI;
+- evidência de produção.
+
+#### 3. Especialização só depois da base
+
+Papéis especializados fazem mais sentido depois que a pessoa domina fundamentos, estruturas, pequenos sistemas e aplicações reais.
+
+Isso evita transformar a trilha em catálogo de buzzwords.
+
+### O que não vamos copiar
+
+- prompts/personas integrais;
+- identidades dos agentes;
+- catálogos enormes apenas para aumentar quantidade;
+- especialização sem exercício executável.
+
+### Regra aplicada
+
+> **Uma competência avançada só entra na trilha quando pode virar uma missão prática com entregável verificável.**
+
+---
+
+## Síntese para a base educacional
+
+As referências convergem para uma arquitetura simples:
+
+```text
+conceito
+  ↓
+exemplo pequeno
+  ↓
+missão prática
+  ↓
+evidência observável
+  ↓
+teste / CI / revisão
+  ↓
+próximo nível
+```
+
+A implementação canônica dessa direção é a **Trilha Educacional pública** do GitHub Student Dashboard, combinada com os mini sistemas executáveis e com a qualidade verificável do próprio repositório.
