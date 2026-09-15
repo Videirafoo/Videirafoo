@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, Response, jsonify, render_template, request
 
 from projetos.github_student_dashboard.ai_explainer import explicar_repositorio_remoto
 from projetos.github_student_dashboard.comparison import comparar_repositorios_remotos
@@ -9,6 +9,10 @@ from projetos.github_student_dashboard.engine import (
 from projetos.github_student_dashboard.github_client import GitHubApiError
 from projetos.github_student_dashboard.history import analisar_historico_remoto
 from projetos.github_student_dashboard.readme_quality import analisar_readme_remoto
+
+
+PUBLIC_BASE_URL = "https://github-student-dashboard-videirafoo.onrender.com"
+PUBLIC_PAGES = ["/", "/readme", "/comparar", "/historico", "/explicar"]
 
 
 def _status_para_erro_github(erro):
@@ -53,6 +57,32 @@ def create_app(
     @app.get("/favicon.ico")
     def favicon():
         return "", 204
+
+    @app.get("/healthz")
+    def healthz():
+        return jsonify({"status": "ok", "service": "github-student-dashboard"}), 200
+
+    @app.get("/robots.txt")
+    def robots():
+        conteudo = (
+            "User-agent: *\n"
+            "Allow: /\n"
+            f"Sitemap: {PUBLIC_BASE_URL}/sitemap.xml\n"
+        )
+        return Response(conteudo, mimetype="text/plain")
+
+    @app.get("/sitemap.xml")
+    def sitemap():
+        urls = "".join(
+            f"<url><loc>{PUBLIC_BASE_URL}{path}</loc></url>" for path in PUBLIC_PAGES
+        )
+        xml = (
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+            f"{urls}"
+            "</urlset>"
+        )
+        return Response(xml, mimetype="application/xml")
 
     @app.get("/api/analisar")
     def analisar():
