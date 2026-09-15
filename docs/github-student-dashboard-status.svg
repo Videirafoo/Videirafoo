@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="300" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
   <title id="title">GitHub Student Dashboard — status público</title>
-  <desc id="desc">Resumo visual do estado verificável do projeto: produção ativa, CI passando, 147 testes, 92,9 por cento de cobertura e gate mínimo de 90 por cento.</desc>
+  <desc id="desc">Resumo visual do estado verificável do projeto: produção ativa, CI passando, 177 testes, 92,6 por cento de cobertura e gate mínimo de 90 por cento.</desc>
   <style>
     text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif}
     .title{fill:#f0f6fc;font-size:30px;font-weight:800}
@@ -28,13 +28,13 @@
   <g transform="translate(400 105)">
     <rect width="168" height="92" rx="13" fill="#161b22" stroke="#238636"/>
     <text class="label" x="16" y="27">Testes</text>
-    <text class="value" x="16" y="58">147</text>
+    <text class="value" x="16" y="58">177</text>
     <text class="ok" x="16" y="79">automatizados</text>
   </g>
   <g transform="translate(584 105)">
     <rect width="168" height="92" rx="13" fill="#161b22" stroke="#238636"/>
     <text class="label" x="16" y="27">Cobertura</text>
-    <text class="value" x="16" y="58">92,9%</text>
+    <text class="value" x="16" y="58">92,6%</text>
     <text class="ok" x="16" y="79">branches incluídos</text>
   </g>
   <g transform="translate(768 105)">
@@ -45,7 +45,7 @@
   </g>
 
   <rect x="32" y="220" width="896" height="48" rx="12" fill="#11161d" stroke="#30363d"/>
-  <text class="subtitle" x="50" y="242">10 playgrounds → Flask → funções Python reais → testes → cobertura → CI → deploy público</text>
-  <text class="subtitle" x="50" y="260">Execução de referência: CI #108 • pip-audit: nenhuma vulnerabilidade conhecida reportada nesse run</text>
+  <text class="subtitle" x="50" y="242">10 playgrounds + Trilha + Matriz Viva → Python real → testes → CI → deploy público</text>
+  <text class="subtitle" x="50" y="260">Execução de referência: CI #125 • pip-audit: nenhuma vulnerabilidade conhecida reportada nesse run</text>
   <text class="subtitle" x="32" y="286">Estado documentado em 15/09/2026 — valores podem evoluir com novos commits e feedback.</text>
 </svg>
