@@ -18,10 +18,12 @@ No laboratório você pode usar:
 6. caixa de mercado com catálogo, carrinho, desconto e fechamento;
 7. controle financeiro com receitas, despesas e saldo;
 8. gerenciador de hábitos com meta semanal e conclusão diária;
-9. console HTTP didático da API de tarefas;
+9. API de tarefas com **HTTP real + Flask real + regras Python reais** executadas no backend;
 10. analisador local de repositórios, núcleo que evoluiu para o GitHub Student Dashboard.
 
 Há também um playground extra de **busca binária visual**.
+
+No Mini Sistema 09, o estado didático permanece no navegador para não misturar dados de visitantes, mas as operações `GET`, `POST`, `PATCH` e `DELETE` são processadas pelo servidor usando as mesmas funções Python versionadas em `api_tarefas/app.py`.
 
 Depois de usar um sistema, abra o código Python e os testes diretamente pelo card correspondente.
 
