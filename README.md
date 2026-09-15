@@ -28,6 +28,12 @@ Sou estudante de **Engenharia de Software** e desenvolvedor focado em transforma
 
 O **GitHub Student Dashboard** nasceu dentro desta trajetória para ajudar estudantes e pessoas iniciantes a entenderem, com evidências objetivas, como melhorar seus próprios repositórios.
 
+[![GitHub Student Dashboard CI](https://github.com/Videirafoo/Videirafoo/actions/workflows/student-dashboard.yml/badge.svg)](https://github.com/Videirafoo/Videirafoo/actions/workflows/student-dashboard.yml)
+
+<p align="center">
+  <img src="./docs/github-student-dashboard-status.svg" alt="Status público do GitHub Student Dashboard" width="960" />
+</p>
+
 ### O que já está funcionando
 
 - análise de repositório por `usuario/repositorio` ou URL;
@@ -49,6 +55,8 @@ O **GitHub Student Dashboard** nasceu dentro desta trajetória para ajudar estud
 ### Acesse e acompanhe
 
 - **Demo pública:** https://github-student-dashboard-videirafoo.onrender.com
+- **Showcase completo:** [`SHOWCASE.md`](./SHOWCASE.md)
+- **Arquitetura visual:** [`docs/github-student-dashboard-flow.svg`](./docs/github-student-dashboard-flow.svg)
 - **Código:** [`projetos/github_student_dashboard`](./projetos/github_student_dashboard)
 - **Documentação:** [`README do Dashboard`](./projetos/github_student_dashboard/README.md)
 - **Feedback:** [abrir formulário estruturado](https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml)
