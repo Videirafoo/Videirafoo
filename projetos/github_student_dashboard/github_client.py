@@ -95,3 +95,11 @@ class GitHubClient:
         repo = quote(repo, safe="")
         limite = max(1, min(int(limite), 10))
         return self.get_json(f"/repos/{owner}/{repo}/commits?per_page={limite}")
+
+    def buscar_pull_request(self, owner, repo, numero):
+        owner = quote(owner, safe="")
+        repo = quote(repo, safe="")
+        numero = int(numero)
+        if numero < 1:
+            raise ValueError("O número do pull request deve ser maior que zero.")
+        return self.get_json(f"/repos/{owner}/{repo}/pulls/{numero}")
