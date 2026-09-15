@@ -64,6 +64,9 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] CI com instalação das dependências da API
 - [x] laboratório web com experiência prática para os 10 mini sistemas
 - [x] links diretos do laboratório para código Python e testes correspondentes
+- [x] regras centrais dos 10 playgrounds executadas pelo backend Flask com reaproveitamento dos módulos Python originais
+- [x] estado didático isolado no navegador quando possível, sem misturar dados entre visitantes
+- [x] data local do visitante respeitada no Gerenciador de Hábitos para conclusão e progresso semanal
 
 Conteúdo atual: `conteudos/mini_sistemas/`.
 
@@ -87,7 +90,8 @@ A coleção agora ensina progressivamente:
 - testes;
 - CI;
 - análise determinística de projetos;
-- comparação direta entre comportamento no navegador, implementação Python e testes.
+- integração navegador → Flask → funções Python reais;
+- comparação direta entre comportamento, implementação e testes.
 
 ## Referências arquiteturais estudadas
 
@@ -182,7 +186,8 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] changelog público do projeto;
 - [x] template de Pull Request para contribuidores;
 - [x] `good first issue` real para a comunidade;
-- [x] laboratório público com os 10 mini sistemas interativos.
+- [x] laboratório público com os 10 mini sistemas interativos;
+- [x] backend real do laboratório reutilizando os 10 mini sistemas Python em vez de manter apenas simulações de interface.
 
 ### Melhorias recentes concluídas
 
@@ -191,7 +196,9 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] verificar links internos do README usando a árvore do próprio repositório;
 - [x] exibir links internos quebrados na página de qualidade do README sem fazer requisições arbitrárias a URLs externas;
 - [x] transformar os 10 mini sistemas em experiências utilizáveis no navegador;
-- [x] manter cada experiência ligada ao código e aos testes reais do GitHub.
+- [x] manter cada experiência ligada ao código e aos testes reais do GitHub;
+- [x] executar regras de negócio no backend pelas funções Python originais;
+- [x] validar integrações do laboratório com testes unitários, HTTP e sintaxe JavaScript.
 
 ### Próximas melhorias do produto
 
