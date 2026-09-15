@@ -13,7 +13,7 @@ Transformar o GitHub `Videirafoo` em uma referência prática para estudantes in
 - [x] padronizar README dos projetos acadêmicos
 - [x] adicionar CI aos projetos em que a validação automática é útil
 - [ ] revisar descrições, topics e licenças dos repositórios
-- [ ] adicionar screenshots quando aplicável
+- [x] adicionar showcase visual e arquitetura quando aplicável
 
 ## Fase 2 — Conteúdo para iniciantes
 
@@ -104,6 +104,10 @@ Código:
 
 `projetos/github_student_dashboard/`
 
+Showcase:
+
+`SHOWCASE.md`
+
 ### Arquitetura aplicada
 
 **Camada determinística**
@@ -166,17 +170,26 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] documentação de comunidade e segurança;
 - [x] navegação rápida entre as ferramentas;
 - [x] microinterações acessíveis para desktop, teclado e touch/mobile;
-- [x] perfil GitHub atualizado para destacar o Dashboard e suas evidências públicas.
+- [x] perfil GitHub atualizado para destacar o Dashboard e suas evidências públicas;
+- [x] showcase e diagrama de arquitetura dentro do próprio GitHub;
+- [x] changelog público do projeto;
+- [x] template de Pull Request para contribuidores;
+- [x] `good first issue` real para a comunidade.
+
+### Melhorias recentes concluídas
+
+- [x] ampliar detecção de testes por stack para Python, JS/TS, Go, Dart/Flutter, Ruby, Java/Kotlin, C# e PHP;
+- [x] evitar falsos positivos simples na detecção de testes;
+- [x] verificar links internos do README usando a árvore do próprio repositório;
+- [x] exibir links internos quebrados na página de qualidade do README sem fazer requisições arbitrárias a URLs externas.
 
 ### Próximas melhorias do produto
 
-- [ ] melhorar detecção de testes por stack;
 - [ ] cobertura real de testes quando a stack fornecer essa informação;
-- [ ] verificação de links quebrados;
 - [ ] análise de vulnerabilidades/dependências em modo informativo;
 - [ ] histórico persistente das análises executadas pelo produto;
 - [ ] priorizar melhorias a partir de feedback real de estudantes;
-- [ ] screenshots e demonstrações curtas para documentação.
+- [ ] incorporar screenshots reais nas documentações quando houver um fluxo de assets binários simples e reproduzível.
 
 ## Fase 5 — Open source externo
 
@@ -197,9 +210,12 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] criar `CODE_OF_CONDUCT.md`;
 - [x] criar `SECURITY.md`;
 - [x] abrir canal estruturado de feedback para o Dashboard;
+- [x] abrir primeira `good first issue` real e sem responsável;
+- [x] adicionar labels `good first issue`, `documentation` e `help wanted` à tarefa inicial;
+- [x] adicionar template de Pull Request com checklist para iniciantes;
 - [ ] publicar conteúdos curtos baseados nos projetos;
 - [ ] criar desafios semanais para estudantes;
-- [ ] incentivar issues e PRs de iniciantes;
+- [ ] incentivar e revisar os primeiros PRs de iniciantes;
 - [ ] organizar pequenos encontros ou workshops;
 - [ ] explorar elegibilidade para GitHub Campus Experts.
 
