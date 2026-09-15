@@ -10,29 +10,65 @@ Transformar o GitHub `Videirafoo` em uma referência prática para estudantes in
 - [x] Guia de estudos
 - [x] Ideias de projetos
 - [x] Padrão de ensino
+- [x] padronizar README dos projetos acadêmicos
+- [x] adicionar CI aos projetos em que a validação automática é útil
 - [ ] revisar descrições, topics e licenças dos repositórios
-- [ ] padronizar README dos projetos acadêmicos
-- [ ] adicionar exemplos de execução e screenshots quando aplicável
+- [ ] adicionar screenshots quando aplicável
 
-## Fase 2 — Coleções para iniciantes
+## Fase 2 — Conteúdo para iniciantes
 
-Criar e manter:
+### Python para iniciantes
 
-- `python-para-iniciantes`
-- `algoritmos-e-estruturas`
-- `mini-sistemas-python`
-- `projetos-web-iniciante`
-- `desafios-mobile-flutter`
+- [x] índice do curso
+- [x] módulo 00 — preparação
+- [x] módulo 01 — variáveis e entrada
+- [x] módulo 02 — operadores e cálculos
+- [x] módulo 03 — condicionais
+- [x] módulo 04 — laços
+- [x] módulo 05 — funções
+- [x] módulo 06 — listas e dicionários
+- [x] módulo 07 — busca, ordenação e Big O
+- [x] módulo 08 — recursividade
+- [x] módulo 09 — arquivos e JSON
+- [x] módulo 10 — erros, testes e organização
+- [x] projeto final guiado
 
-Cada coleção deve seguir `PADRAO_DE_ENSINO.md`.
+Conteúdo atual: `conteudos/python-para-iniciantes/`.
 
-## Fase 3 — Projeto público principal
+### Próximas coleções
 
-Criar uma ferramenta realmente útil para estudantes.
+- [ ] `algoritmos-e-estruturas`
+- [ ] `projetos-web-iniciante`
+- [ ] `desafios-mobile-flutter`
 
-### Ideia prioritária: GitHub Student Dashboard
+Todas as coleções devem seguir `PADRAO_DE_ENSINO.md`.
 
-Uma aplicação que analisa repositórios de estudantes e identifica:
+## Fase 3 — Mini Sistemas Python
+
+Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e fáceis de estudar.
+
+- [x] estrutura da coleção
+- [x] Mini Sistema 01 — Agenda de Contatos
+- [x] persistência em JSON na Agenda
+- [x] testes automatizados da Agenda
+- [x] CI dos conteúdos Python
+- [ ] Mini Sistema 02 — Lista de Tarefas
+- [ ] Mini Sistema 03 — Cadastro de Alunos
+- [ ] Mini Sistema 04 — Controle de Estoque
+- [ ] Mini Sistema 05 — Sistema de Biblioteca
+- [ ] Mini Sistema 06 — Caixa de Mercado
+- [ ] Mini Sistema 07 — Controle Financeiro Pessoal
+- [ ] Mini Sistema 08 — Gerenciador de Hábitos
+- [ ] Mini Sistema 09 — API de Tarefas
+- [ ] Mini Sistema 10 — Projeto integrado
+
+Conteúdo atual: `conteudos/mini_sistemas/`.
+
+## Fase 4 — Projeto público principal
+
+### GitHub Student Dashboard
+
+Construir uma ferramenta realmente útil para estudantes que analise repositórios e identifique:
 
 - README ausente ou incompleto;
 - falta de licença;
@@ -52,7 +88,7 @@ Objetivos técnicos:
 - deploy público;
 - receber feedback de usuários.
 
-## Fase 4 — Open source externo
+## Fase 5 — Open source externo
 
 - [ ] encontrar projetos beginner-friendly
 - [ ] começar por documentação, testes ou pequenos bugs
@@ -60,7 +96,7 @@ Objetivos técnicos:
 - [ ] aprender revisão de código
 - [ ] registrar contribuições relevantes no perfil
 
-## Fase 5 — Comunidade
+## Fase 6 — Comunidade
 
 - [ ] publicar conteúdos curtos baseados nos projetos
 - [ ] criar desafios semanais para estudantes
@@ -68,7 +104,7 @@ Objetivos técnicos:
 - [ ] organizar pequenos encontros ou workshops
 - [ ] explorar elegibilidade para GitHub Campus Experts
 
-## Fase 6 — Reconhecimento
+## Fase 7 — Reconhecimento
 
 Buscar reconhecimento como consequência de trabalho útil:
 
