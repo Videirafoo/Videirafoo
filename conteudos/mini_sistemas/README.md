@@ -18,12 +18,13 @@ Cada projeto terá:
 - README didático;
 - testes básicos;
 - CI;
+- checklist de revisão;
 - desafios de evolução.
 
-## Sistemas planejados
+## Sistemas
 
-1. [Agenda de Contatos](./agenda_contatos/README.md)
-2. Lista de Tarefas
+1. [Agenda de Contatos](./agenda_contatos/README.md) — cadastro, busca, edição, exclusão e JSON
+2. [Lista de Tarefas](./lista_tarefas/README.md) — prioridades, filtros, conclusão, busca e JSON
 3. Cadastro de Alunos
 4. Controle de Estoque
 5. Sistema de Biblioteca
@@ -38,3 +39,11 @@ Cada projeto terá:
 Os primeiros projetos usam terminal e JSON. Depois entram testes mais completos, banco de dados, API e interface.
 
 O objetivo é que cada sistema reutilize conhecimentos anteriores e acrescente apenas algumas ideias novas por vez.
+
+## Regra de qualidade
+
+A coleção adota uma regra simples:
+
+> **Automatizar deterministicamente o que pode ser provado; usar IA para explicar, orientar e revisar onde existe ambiguidade.**
+
+Por isso, sintaxe, testes e comportamentos objetivos devem ser validados automaticamente sempre que possível.
