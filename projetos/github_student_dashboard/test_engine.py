@@ -7,6 +7,7 @@ from projetos.github_student_dashboard.engine import (
     analisar_snapshot,
     normalizar_referencia,
     normalizar_usuario,
+    resumir_status_ci,
 )
 
 
@@ -85,6 +86,21 @@ class ClienteFalso:
         self.chamadas.append(("languages", owner, repo))
         return {"Python": 1200}
 
+    def buscar_workflow_runs(self, owner, repo, branch=None, limite=1):
+        self.chamadas.append(("workflow_runs", owner, repo, branch, limite))
+        return {
+            "total_count": 1,
+            "workflow_runs": [
+                {
+                    "name": "CI",
+                    "status": "completed",
+                    "conclusion": "success",
+                    "html_url": f"https://github.com/{owner}/{repo}/actions/runs/1",
+                    "updated_at": "2026-09-15T00:00:00Z",
+                }
+            ],
+        }
+
 
 class GitHubStudentDashboardEngineTest(unittest.TestCase):
     def test_normaliza_owner_repo(self):
@@ -103,6 +119,27 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
     def test_rejeita_referencia_invalida(self):
         with self.assertRaises(ValueError):
             normalizar_referencia("somente-um-nome")
+
+    def test_resumir_ci_success(self):
+        resumo = resumir_status_ci(
+            {
+                "workflow_runs": [
+                    {
+                        "name": "CI",
+                        "status": "completed",
+                        "conclusion": "success",
+                        "html_url": "https://github.com/exemplo/actions/runs/1",
+                        "updated_at": "2026-09-15T00:00:00Z",
+                    }
+                ]
+            }
+        )
+        self.assertEqual(resumo["estado"], "success")
+        self.assertEqual(resumo["workflow"], "CI")
+
+    def test_resumir_ci_sem_execucao(self):
+        resumo = resumir_status_ci({"workflow_runs": []})
+        self.assertEqual(resumo["estado"], "sem_execucao")
 
     def test_snapshot_completo_recebe_score_100(self):
         snapshot = {
@@ -125,6 +162,17 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
                 ],
             },
             "linguagens": {"Python": 1000},
+            "workflow_runs": {
+                "workflow_runs": [
+                    {
+                        "name": "CI",
+                        "status": "completed",
+                        "conclusion": "success",
+                        "html_url": "https://github.com/Videirafoo/projeto/actions/runs/1",
+                        "updated_at": "2026-09-15T00:00:00Z",
+                    }
+                ]
+            },
         }
 
         relatorio = analisar_snapshot(snapshot)
@@ -138,7 +186,8 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
         )
         self.assertTrue(relatorio["detalhes_checks"]["readme"]["passou"])
         self.assertIn("README.md", relatorio["detalhes_checks"]["readme"]["observado"])
-        self.assertIn("ci.yml", relatorio["detalhes_checks"]["ci"]["observado"])
+        self.assertIn("success", relatorio["detalhes_checks"]["ci"]["observado"])
+        self.assertEqual(relatorio["ci_execucao"]["estado"], "success")
 
     def test_snapshot_incompleto_gera_recomendacoes_e_evidencias(self):
         snapshot = {
@@ -155,6 +204,7 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
                 "tree": [{"path": "main.py", "type": "blob"}],
             },
             "linguagens": {"Python": 300},
+            "workflow_runs": None,
         }
 
         relatorio = analisar_snapshot(snapshot)
@@ -163,6 +213,7 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
         self.assertEqual(len(relatorio["recomendacoes"]), 8)
         self.assertFalse(relatorio["checks"]["readme"])
         self.assertFalse(relatorio["checks"]["ci"])
+        self.assertEqual(relatorio["ci_execucao"]["estado"], "sem_workflow")
         self.assertIn("vazio", relatorio["detalhes_checks"]["descricao"]["observado"])
         self.assertIn("Nenhum topic", relatorio["detalhes_checks"]["topics"]["observado"])
         self.assertIn("Nenhum workflow", relatorio["detalhes_checks"]["ci"]["observado"])
@@ -173,9 +224,11 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
         relatorio = analisar_repositorio_remoto("Videirafoo/projeto", client=cliente)
 
         self.assertEqual(relatorio["score"], 100)
+        self.assertEqual(relatorio["ci_execucao"]["estado"], "success")
         self.assertIn(("repo", "Videirafoo", "projeto"), cliente.chamadas)
         self.assertIn(("tree", "Videirafoo", "projeto", "main"), cliente.chamadas)
         self.assertIn(("languages", "Videirafoo", "projeto"), cliente.chamadas)
+        self.assertIn(("workflow_runs", "Videirafoo", "projeto", "main", 1), cliente.chamadas)
 
     def test_perfil_snapshot_calcula_cobertura_sem_nota_arbitraria(self):
         cliente = ClienteFalso()
