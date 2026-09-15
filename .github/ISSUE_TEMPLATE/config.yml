@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Testar o GitHub Student Dashboard
+    url: https://github-student-dashboard-videirafoo.onrender.com
+    about: Antes de abrir uma issue, reproduza o comportamento no site público quando possível.
+  - name: Feedback estruturado do Dashboard
+    url: https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml
+    about: Use este formulário para relatar sua experiência como estudante ou usuário do projeto.
+  - name: Política de segurança
+    url: https://github.com/Videirafoo/Videirafoo/blob/main/SECURITY.md
+    about: Não publique vulnerabilidades sensíveis, chaves, tokens ou dados privados em issues públicas.
