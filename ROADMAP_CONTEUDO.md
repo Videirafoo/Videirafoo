@@ -49,42 +49,38 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 
 - [x] estrutura da coleção
 - [x] Mini Sistema 01 — Agenda de Contatos
-- [x] persistência em JSON na Agenda
-- [x] testes automatizados da Agenda
-- [x] CI dos conteúdos Python
 - [x] Mini Sistema 02 — Lista de Tarefas
-- [x] persistência em JSON na Lista de Tarefas
-- [x] testes automatizados da Lista de Tarefas
 - [x] Mini Sistema 03 — Cadastro de Alunos
-- [x] persistência em JSON no Cadastro de Alunos
-- [x] testes automatizados do Cadastro de Alunos
-- [x] CI configurada para descobrir todos os testes dos mini sistemas
 - [x] Mini Sistema 04 — Controle de Estoque
-- [x] persistência em JSON no Controle de Estoque
-- [x] testes automatizados do Controle de Estoque
 - [x] Mini Sistema 05 — Sistema de Biblioteca
-- [x] persistência em JSON no Sistema de Biblioteca
-- [x] testes automatizados do Sistema de Biblioteca
 - [x] Mini Sistema 06 — Caixa de Mercado
-- [x] catálogo, carrinho, estoque, desconto e fechamento de venda
-- [x] persistência em JSON no Caixa de Mercado
-- [x] testes automatizados do Caixa de Mercado
 - [x] Mini Sistema 07 — Controle Financeiro Pessoal
-- [x] receitas, despesas, categorias, saldo, filtros e relatórios
-- [x] persistência em JSON no Controle Financeiro
-- [x] testes automatizados do Controle Financeiro
 - [x] Mini Sistema 08 — Gerenciador de Hábitos
-- [x] hábitos, metas semanais, registros diários, sequência e progresso
-- [x] persistência em JSON no Gerenciador de Hábitos
-- [x] testes automatizados do Gerenciador de Hábitos
 - [x] Mini Sistema 09 — API de Tarefas
-- [x] endpoints REST com GET, POST, PATCH e DELETE
-- [x] validação, códigos HTTP e persistência em JSON
-- [x] testes HTTP com cliente de teste do Flask
-- [x] CI instala dependências e executa toda a coleção
-- [ ] Mini Sistema 10 — Projeto integrado
+- [x] Mini Sistema 10 — Projeto Integrado: Analisador Local de Repositórios
+- [x] persistência em JSON quando aplicável
+- [x] testes automatizados em todos os sistemas
+- [x] CI geral com descoberta automática de testes
+- [x] CI com instalação das dependências da API
 
 Conteúdo atual: `conteudos/mini_sistemas/`.
+
+### Resultado da fase
+
+A coleção agora ensina progressivamente:
+
+- CRUD;
+- validação;
+- persistência;
+- busca e filtros;
+- regras de negócio;
+- cálculos e relatórios;
+- datas e sequências;
+- relações entre entidades;
+- HTTP e REST;
+- testes;
+- CI;
+- análise determinística de projetos.
 
 ## Referências arquiteturais estudadas
 
@@ -95,6 +91,8 @@ Conteúdo atual: `conteudos/mini_sistemas/`.
 ## Fase 4 — Projeto público principal
 
 ### GitHub Student Dashboard
+
+Status: **próxima fase ativa**.
 
 Construir uma ferramenta realmente útil para estudantes que analise repositórios e identifique:
 
@@ -108,8 +106,6 @@ Construir uma ferramenta realmente útil para estudantes que analise repositóri
 - checklist de boas práticas.
 
 ### Arquitetura planejada
-
-Inspirada em padrões generalizados estudados em projetos open source maduros:
 
 **Camada determinística**
 
@@ -126,14 +122,35 @@ Inspirada em padrões generalizados estudados em projetos open source maduros:
 - adaptar a explicação ao nível do projeto;
 - nunca substituir uma verificação objetiva quando ela puder ser feita por código.
 
-Objetivos técnicos:
+### Primeiro núcleo reaproveitável
 
-- consumir GitHub API;
-- ter interface web simples;
-- documentação completa;
-- testes e CI;
-- deploy público;
-- receber feedback de usuários.
+O Mini Sistema 10 já implementa localmente:
+
+- detecção de README;
+- `.gitignore`;
+- licença;
+- CI;
+- testes;
+- dependências;
+- linguagens estimadas;
+- score reproduzível;
+- evidências;
+- recomendações;
+- exportação JSON.
+
+Esse núcleo servirá como referência para a versão remota via GitHub API.
+
+### Objetivos técnicos
+
+- [ ] consumir GitHub API;
+- [ ] analisar `usuario/repositorio` remotamente;
+- [ ] separar engine de checks da interface;
+- [ ] ter interface web simples;
+- [ ] mostrar evidências para cada recomendação;
+- [ ] testes e CI;
+- [ ] documentação completa;
+- [ ] deploy público;
+- [ ] receber feedback de usuários.
 
 ## Fase 5 — Open source externo
 
