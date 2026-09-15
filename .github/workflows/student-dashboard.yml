@@ -53,6 +53,7 @@ jobs:
           node --check projetos/github_student_dashboard/static/laboratorio_business_real.js
           node --check projetos/github_student_dashboard/static/laboratorio_api_real.js
           node --check projetos/github_student_dashboard/static/trilha.js
+          node --check projetos/github_student_dashboard/static/competencias.js
 
       - name: Run tests with real coverage
         run: |
