@@ -53,7 +53,7 @@ Aplicação pública que analisa repositórios e perfis do GitHub usando checks 
 - laboratório educacional com **10 mini sistemas ligados ao backend Flask e às funções Python originais**;
 - **Trilha Educacional com 6 níveis e 18 missões ligadas a evidências reais**, com progresso local no navegador;
 - **Matriz Viva de Competências com 10 competências**, construída a partir de código público, testes, CI, deploy, documentação e contribuição open source — sem transformar evidência em certificação automática de domínio;
-- **177 testes automatizados passando** na execução de referência;
+- **180 testes automatizados passando** na execução de referência;
 - **92,6% de cobertura real**, medida com branches e protegida por gate mínimo de **90%**;
 - auditoria informativa de dependências com `pip-audit`, sem vulnerabilidade conhecida reportada na execução de referência.
 
@@ -81,7 +81,7 @@ Ela verifica, entre outros sinais:
 - presença dos 10 mini sistemas e seus testes;
 - backend Flask e API HTTP;
 - workflow de CI e gate de cobertura;
-- healthcheck público do deploy;
+- execução pública do serviço;
 - documentação técnica canônica;
 - estado real do Pull Request open source externo;
 - separação entre motor determinístico e camada explicativa de IA.
