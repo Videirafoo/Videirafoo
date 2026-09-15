@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="300" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub Student Dashboard — status público</title>
+  <desc id="desc">Resumo visual do estado público e verificável do projeto.</desc>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif}
+    .title{fill:#f0f6fc;font-size:30px;font-weight:800}
+    .subtitle{fill:#8b949e;font-size:15px}
+    .label{fill:#8b949e;font-size:13px}
+    .value{fill:#f0f6fc;font-size:22px;font-weight:800}
+    .ok{fill:#3fb950;font-size:13px;font-weight:700}
+  </style>
+  <rect x="1" y="1" width="958" height="298" rx="18" fill="#0d1117" stroke="#30363d"/>
+  <text class="title" x="32" y="48">GitHub Student Dashboard</text>
+  <text class="subtitle" x="32" y="74">Evidência primeiro. Explicação depois.</text>
+
+  <g transform="translate(32 105)">
+    <rect width="168" height="92" rx="13" fill="#161b22" stroke="#238636"/>
+    <text class="label" x="16" y="27">Produção</text>
+    <text class="value" x="16" y="58">LIVE</text>
+    <text class="ok" x="16" y="79">Render + Gunicorn</text>
+  </g>
+  <g transform="translate(216 105)">
+    <rect width="168" height="92" rx="13" fill="#161b22" stroke="#238636"/>
+    <text class="label" x="16" y="27">CI real</text>
+    <text class="value" x="16" y="58">PASSANDO</text>
+    <text class="ok" x="16" y="79">GitHub Actions</text>
+  </g>
+  <g transform="translate(400 105)">
+    <rect width="168" height="92" rx="13" fill="#161b22" stroke="#238636"/>
+    <text class="label" x="16" y="27">README</text>
+    <text class="value" x="16" y="58">100%</text>
+    <text class="ok" x="16" y="79">7/7 critérios</text>
+  </g>
+  <g transform="translate(584 105)">
+    <rect width="168" height="92" rx="13" fill="#161b22" stroke="#30363d"/>
+    <text class="label" x="16" y="27">Checks</text>
+    <text class="value" x="16" y="58">8</text>
+    <text class="subtitle" x="16" y="79">determinísticos</text>
+  </g>
+  <g transform="translate(768 105)">
+    <rect width="160" height="92" rx="13" fill="#161b22" stroke="#30363d"/>
+    <text class="label" x="16" y="27">Páginas</text>
+    <text class="value" x="16" y="58">5</text>
+    <text class="subtitle" x="16" y="79">ferramentas web</text>
+  </g>
+
+  <rect x="32" y="220" width="896" height="48" rx="12" fill="#11161d" stroke="#30363d"/>
+  <text class="subtitle" x="50" y="250">Perfil • repositório • CI real • README • comparação • histórico • explicação local/IA • feedback público</text>
+  <text class="subtitle" x="32" y="286">Estado documentado em 15/09/2026 — valores podem evoluir com novos commits e feedback.</text>
+</svg>
