@@ -4,15 +4,15 @@ Este documento registra **evidências reproduzíveis** da qualidade do GitHub St
 
 ## Estado verificado
 
-Execução de referência: [GitHub Student Dashboard CI #127](https://github.com/Videirafoo/Videirafoo/actions/runs/35005178735)
+Execução de referência: [GitHub Student Dashboard CI #129](https://github.com/Videirafoo/Videirafoo/actions/runs/35006113144)
 
 | Evidência | Resultado observado |
 |---|---:|
-| Testes automatizados | **180 passando** |
+| Testes automatizados | **181 passando** |
 | Cobertura total medida | **92,6%** |
 | Gate mínimo de cobertura | **90% — aprovado nessa execução** |
 | `competency_matrix.py` | **89,5%** |
-| `web.py` | **87,2%** |
+| `web.py` | **87,3%** |
 | `github_client.py` | **97,8%** |
 | `lab_api.py` | **99,0%** |
 | `lab_business.py` | **98,5%** |
@@ -49,9 +49,9 @@ A cobertura foi usada como mapa de trabalho, em vez de aumentar números artific
 | Adaptador da API do laboratório | 147 | **92,9%** | normalização, CRUD, branches e checks |
 | Trilha Educacional | 156 | **92,9%** | rota, API, sitemap, progresso e navegação |
 | Matriz Viva de Competências | 177 | **92,6%** | evidências públicas, CI, healthcheck, PR externo e estados parciais |
-| Runtime seguro da Matriz | 180 | **92,6%** | evitar autochamada HTTP em Gunicorn sync e provar comportamento por teste |
+| Runtime seguro da Matriz | 181 | **92,6%** | evitar autochamada HTTP, validar host canônico e proxy reverso |
 
-A execução #127 confirmou **180 testes passando** com o **gate de 90% ativo**.
+A execução #129 confirmou **181 testes passando** com o **gate de 90% ativo**.
 
 ### Módulos fortalecidos
 
@@ -65,7 +65,7 @@ A execução #127 confirmou **180 testes passando** com o **gate de 90% ativo**.
 - `lab_systems.py`: **94,8%**;
 - `lab_web.py`: **94,3%**;
 - `competency_matrix.py`: **89,5%**;
-- `web.py`: **87,2%**;
+- `web.py`: **87,3%**;
 - `readme_quality.py`: **86,9%**;
 - `engine.py`: **82,1%**.
 
@@ -77,7 +77,7 @@ O objetivo não é buscar 100% por aparência. Os próximos testes devem protege
 
 1. `engine.py` — **82,1%**;
 2. `readme_quality.py` — **86,9%**;
-3. `web.py` — **87,2%**;
+3. `web.py` — **87,3%**;
 4. branches residuais da `competency_matrix.py` — **89,5%**, principalmente estados de evidência pouco frequentes;
 5. manter o gate global em **90%** sem perseguir 100% apenas para melhorar a aparência do perfil.
 
@@ -91,7 +91,7 @@ pip-audit -r projetos/github_student_dashboard/requirements.txt
 
 A auditoria é **informativa**. Uma ocorrência futura aparece no resumo e no artefato da CI para revisão, sem ser tratada automaticamente como prova de exploração ou como motivo suficiente para derrubar produção sem análise.
 
-Na execução #127, o log registrou:
+Na execução #129, o log registrou:
 
 ```text
 No known vulnerabilities found
@@ -105,7 +105,7 @@ Cada execução de qualidade publica o artefato `dashboard-quality-evidence` con
 - `coverage.json`;
 - `pip-audit.txt`.
 
-Artefato da execução #127: [dashboard-quality-evidence](https://github.com/Videirafoo/Videirafoo/actions/runs/35005178735/artifacts/10411236426)
+Artefato da execução #129: [dashboard-quality-evidence](https://github.com/Videirafoo/Videirafoo/actions/runs/35006113144/artifacts/10411941787)
 
 ## Princípio
 
