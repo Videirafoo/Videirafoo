@@ -51,8 +51,8 @@ Aplicação pública que analisa repositórios e perfis do GitHub usando checks 
 - explicação local ou IA opcional;
 - interface web, API JSON, testes e CI;
 - laboratório educacional com **10 mini sistemas ligados ao backend Flask e às funções Python originais**;
-- **118 testes automatizados passando** na execução de referência;
-- **81,9% de cobertura real**, medida com branches e protegida por gate mínimo de **80%**;
+- **147 testes automatizados passando** na execução de referência;
+- **92,9% de cobertura real**, medida com branches e protegida por gate mínimo de **90%**;
 - auditoria informativa de dependências com `pip-audit`, sem vulnerabilidade conhecida reportada na execução de referência.
 
 ### Abrir
