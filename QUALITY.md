@@ -4,13 +4,13 @@ Este documento registra **evidências reproduzíveis** da qualidade do GitHub St
 
 ## Estado verificado
 
-Execução de referência: [GitHub Student Dashboard CI #102](https://github.com/Videirafoo/Videirafoo/actions/runs/34993966082)
+Execução de referência: [GitHub Student Dashboard CI #104](https://github.com/Videirafoo/Videirafoo/actions/runs/34994310410)
 
 | Evidência | Resultado observado |
 |---|---:|
 | Testes automatizados | **118 passando** |
 | Cobertura total medida | **81,9%** |
-| Gate mínimo de cobertura | **80%** |
+| Gate mínimo de cobertura | **80% — aprovado nessa execução** |
 | Auditoria de dependências | **nenhuma vulnerabilidade conhecida reportada pelo `pip-audit` nessa execução** |
 | Sintaxe Python | **OK** |
 | Sintaxe JavaScript do laboratório | **OK** |
@@ -40,7 +40,7 @@ A primeira medição desta etapa encontrou:
 - `github_client.py`: **25,0%**;
 - `ai_explainer.py`: **45,3%**.
 
-Depois de adicionar testes direcionados às lacunas encontradas, a execução #102 confirmou:
+Depois de adicionar testes direcionados às lacunas encontradas, a execução #104 confirmou, já com o gate de 80% ativo:
 
 - **118 testes**;
 - **81,9%** de cobertura total;
@@ -72,6 +72,12 @@ pip-audit -r projetos/github_student_dashboard/requirements.txt
 
 A auditoria é **informativa**. Uma ocorrência futura aparecerá no resumo e no artefato da CI para revisão, sem ser tratada automaticamente como prova de exploração ou motivo suficiente para quebrar produção sem análise.
 
+Na execução #104, o log registrou:
+
+```text
+No known vulnerabilities found
+```
+
 ## Evidências geradas pela CI
 
 Cada execução de qualidade publica um artefato `dashboard-quality-evidence` contendo:
@@ -80,7 +86,7 @@ Cada execução de qualidade publica um artefato `dashboard-quality-evidence` co
 - `coverage.json`;
 - `pip-audit.txt`.
 
-Na execução #102, o artefato foi gerado com sucesso e fica associado ao próprio run do GitHub Actions.
+Artefato da execução #104: [dashboard-quality-evidence](https://github.com/Videirafoo/Videirafoo/actions/runs/34994310410/artifacts/10406963062)
 
 ## Princípio
 
