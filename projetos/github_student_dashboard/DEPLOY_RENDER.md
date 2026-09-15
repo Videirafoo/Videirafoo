@@ -10,16 +10,25 @@ https://github.com/Videirafoo/Videirafoo
 
 ## Configuração do serviço
 
-Use estes valores no Render:
+Estado verificado em 2026-09-15:
 
 ```text
+Service: github-student-dashboard-videirafoo
 Runtime: Python
 Branch: main
+Auto Deploy: yes
+Auto Deploy Trigger: commit
 Build Command:
 python -m pip install -r projetos/github_student_dashboard/requirements.txt
 
 Start Command:
-gunicorn -b 0.0.0.0:$PORT projetos.github_student_dashboard.web:app
+gunicorn projetos.github_student_dashboard.web:app --bind 0.0.0.0:$PORT
+```
+
+URL pública:
+
+```text
+https://github-student-dashboard-videirafoo.onrender.com
 ```
 
 ## Variáveis de ambiente
@@ -51,16 +60,29 @@ OPENAI_MODEL=<modelo escolhido>
 
 Nunca publique a chave em screenshots, logs ou arquivos do repositório.
 
+## Fluxo normal de publicação
+
+1. alteração entra em `main`;
+2. GitHub Actions valida sintaxe, testes, cobertura e auditoria de dependências;
+3. o Render detecta o novo commit e inicia promoção automática;
+4. o deploy deve usar exatamente o SHA esperado;
+5. depois de `live`, validar as rotas públicas.
+
 ## Smoke tests após o deploy
 
-Depois que o Render fornecer a URL pública, validar:
+Validar pelo menos:
 
 ```text
 /
+/healthz
+/trilha
+/competencias
+/laboratorio
 /readme
 /comparar
 /historico
 /explicar
+/api/competencias
 /api/analisar?repo=Videirafoo/Videirafoo
 /api/perfil?usuario=Videirafoo
 ```
@@ -68,12 +90,10 @@ Depois que o Render fornecer a URL pública, validar:
 Critérios mínimos:
 
 - página inicial responde HTTP 200;
+- `/healthz` responde corretamente;
+- Matriz Viva e sua API estão disponíveis;
 - análise de `Videirafoo/Videirafoo` retorna relatório;
 - CI real é exibida quando a GitHub API permitir;
-- `/readme` analisa o README de perfil;
-- `/comparar` compara dois repositórios diferentes;
-- `/historico` reconstrói commits reais;
-- `/explicar` funciona mesmo sem IA externa;
 - nenhum segredo aparece em resposta, HTML ou logs.
 
 ## Servidor de desenvolvimento x produção
@@ -84,20 +104,26 @@ Localmente, para estudo:
 python -m projetos.github_student_dashboard.web
 ```
 
-Em produção, não use o servidor de desenvolvimento do Flask. O Render deve iniciar o app com Gunicorn:
+Em produção, não use o servidor de desenvolvimento do Flask. O Render deve iniciar o app com Gunicorn.
 
-```text
-gunicorn -b 0.0.0.0:$PORT projetos.github_student_dashboard.web:app
-```
+## Fallback manual
 
-## Auto deploy
+O deploy manual existe apenas como recuperação quando o auto-deploy não iniciar.
 
-Com auto deploy habilitado, novos commits na branch `main` podem gerar uma nova implantação automaticamente.
+Antes de disparar manualmente:
 
-Antes de considerar uma versão pronta, confirme:
+1. confirmar que não existe promoção automática em andamento;
+2. confirmar o SHA atual da `main`;
+3. disparar uma única promoção;
+4. verificar que o deploy terminou `live` no SHA esperado;
+5. executar smoke das rotas críticas.
 
-1. GitHub Actions verde;
-2. deploy concluído;
-3. smoke tests públicos;
-4. nenhum segredo exposto;
-5. comportamento público coerente com o ambiente local.
+Não disparar deploy manual quando o fluxo automático estiver funcionando, para evitar promoções duplicadas.
+
+## Incidente de 2026-09-15
+
+O serviço reporta `autoDeploy=yes` e `autoDeployTrigger=commit`, ligado a `Videirafoo/Videirafoo` na branch `main`. Apesar disso, commits recentes da Matriz Viva não iniciaram promoção automaticamente.
+
+A versão `faf512a7d9a7d96fa0559cf08d088a26a29e500d` precisou ser promovida manualmente e terminou `live` no deploy `dep-dakp6u8ae00c73a0531g`.
+
+A Issue #10 acompanha a causa e a correção definitiva. Este documento serve também como teste legítimo do gatilho: o commit desta atualização deve produzir uma promoção automática sem chamada manual ao Render.
