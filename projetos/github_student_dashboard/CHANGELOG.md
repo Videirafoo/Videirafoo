@@ -7,6 +7,10 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 ### Melhorias
 
 - laboratório ampliado para os **10 mini sistemas**, todos com experiência prática e links para código/testes reais;
+- Mini Sistema 01 — Agenda de Contatos agora cria, valida duplicidade e exclui contatos pelo backend Flask reutilizando as funções Python originais;
+- Mini Sistema 02 — Lista de Tarefas agora cria, conclui, reabre e exclui tarefas pelo backend Flask reutilizando o código Python original;
+- dados dos Mini Sistemas 01 e 02 permanecem no `localStorage` do visitante; o servidor recebe apenas o estado necessário para executar a operação e devolve o novo estado;
+- estados antigos da Lista de Tarefas, que usavam IDs gerados no navegador e o campo `texto`, são migrados automaticamente para o formato Python (`id`, `titulo`, `prioridade`, `concluida`) na primeira operação real;
 - Mini Sistema 09 deixou de ser apenas uma simulação de contrato: `GET`, `POST`, `PATCH` e `DELETE` agora passam pelo backend Flask real;
 - regras do playground da API reutilizam as funções Python versionadas em `conteudos/mini_sistemas/api_tarefas/app.py`;
 - estado didático da API permanece no navegador, evitando misturar dados de visitantes no servidor público;
@@ -14,8 +18,8 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 - Mini Sistema 10 agora monta um repositório temporário e isolado no servidor e executa o `analisar_repositorio()` original do projeto integrado;
 - o score, checks, evidências e recomendações do playground 10 deixam de ser calculados apenas no JavaScript e passam a vir do Python real;
 - diretórios temporários são descartados depois de cada análise e nenhum caminho informado pelo visitante é acessado pelo servidor;
-- testes automatizados cobrem criação `201`, listagem `200`, atualização `200`, exclusão `204`, erros `400/404`, o analisador real e integração da página com o backend;
-- CI agora valida a sintaxe dos dois arquivos JavaScript do laboratório;
+- testes automatizados cobrem Agenda, Lista de Tarefas, API de Tarefas, erros `400/404`, o analisador real e integração da página com o backend;
+- CI valida sintaxe Python, sintaxe dos JavaScripts do laboratório e toda a suíte de testes;
 - detecção de arquivos de teste ampliada para padrões comuns de Python, JavaScript, TypeScript, JSX, Go, Dart/Flutter, Ruby, Java, Kotlin, C#, PHP e diretórios convencionais de teste;
 - teste automatizado para evitar falsos positivos simples como `contest.py` e `latest.ts`;
 - verificação determinística de links internos do README usando a árvore do próprio repositório;
