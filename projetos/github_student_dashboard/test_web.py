@@ -27,6 +27,16 @@ class StudentDashboardWebTest(unittest.TestCase):
         self.assertIn(b"Qualidade do README", resposta.data)
         self.assertIn(b"Analisar README", resposta.data)
 
+    def test_pagina_comparar_renderiza_interface(self):
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/comparar")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertIn(b"Comparar reposit", resposta.data)
+
     def test_api_exige_repositorio(self):
         app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
@@ -45,11 +55,7 @@ class StudentDashboardWebTest(unittest.TestCase):
                 "checks": {"readme": True, "testes": False},
                 "evidencias": {},
                 "recomendacoes": [
-                    {
-                        "check": "testes",
-                        "prioridade": "alta",
-                        "acao": "Adicionar testes.",
-                    }
+                    {"check": "testes", "prioridade": "alta", "acao": "Adicionar testes."}
                 ],
             }
 
@@ -111,11 +117,7 @@ class StudentDashboardWebTest(unittest.TestCase):
             return {
                 "repositorio": "Videirafoo/Videirafoo",
                 "tipo_detectado": "perfil_github",
-                "cobertura_documental": {
-                    "aprovados": 7,
-                    "total": 7,
-                    "percentual": 100.0,
-                },
+                "cobertura_documental": {"aprovados": 7, "total": 7, "percentual": 100.0},
                 "criterios": {},
                 "metricas": {},
             }
@@ -129,6 +131,33 @@ class StudentDashboardWebTest(unittest.TestCase):
         self.assertEqual(resposta.status_code, 200)
         self.assertEqual(resposta.get_json()["tipo_detectado"], "perfil_github")
         self.assertEqual(resposta.get_json()["cobertura_documental"]["percentual"], 100.0)
+
+    def test_api_comparar_exige_dois_repositorios(self):
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/api/comparar?a=Videirafoo/a")
+
+        self.assertEqual(resposta.status_code, 400)
+
+    def test_api_comparar_retorna_relatorio(self):
+        def comparador(a, b):
+            return {
+                "repositorio_a": {"repositorio": a, "score": 90},
+                "repositorio_b": {"repositorio": b, "score": 70},
+                "comparacao_checks": [],
+                "diferencas_objetivas": {},
+            }
+
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {}, comparador)
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/api/comparar?a=Videirafoo/a&b=Videirafoo/b")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.get_json()["repositorio_a"]["score"], 90)
 
     def test_api_rejeita_referencia_invalida(self):
         def analisador(_):
