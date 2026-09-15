@@ -52,19 +52,47 @@ Aplicação pública que analisa repositórios e perfis do GitHub usando checks 
 - interface web, API JSON, testes e CI;
 - laboratório educacional com **10 mini sistemas ligados ao backend Flask e às funções Python originais**;
 - **Trilha Educacional com 6 níveis e 18 missões ligadas a evidências reais**, com progresso local no navegador;
-- **147 testes automatizados passando** na execução de referência;
-- **92,9% de cobertura real**, medida com branches e protegida por gate mínimo de **90%**;
+- **Matriz Viva de Competências com 10 competências**, construída a partir de código público, testes, CI, deploy, documentação e contribuição open source — sem transformar evidência em certificação automática de domínio;
+- **177 testes automatizados passando** na execução de referência;
+- **92,6% de cobertura real**, medida com branches e protegida por gate mínimo de **90%**;
 - auditoria informativa de dependências com `pip-audit`, sem vulnerabilidade conhecida reportada na execução de referência.
 
 ### Abrir
 
 - **Aplicação:** https://github-student-dashboard-videirafoo.onrender.com
 - **Trilha Educacional:** https://github-student-dashboard-videirafoo.onrender.com/trilha
+- **Matriz Viva de Competências:** https://github-student-dashboard-videirafoo.onrender.com/competencias
 - **Laboratório interativo:** https://github-student-dashboard-videirafoo.onrender.com/laboratorio
 - **Evidências de qualidade:** [`QUALITY.md`](./QUALITY.md)
 - **Showcase:** [`SHOWCASE.md`](./SHOWCASE.md)
 - **Código:** [`projetos/github_student_dashboard`](./projetos/github_student_dashboard)
 - **Documentação:** [`README do Dashboard`](./projetos/github_student_dashboard/README.md)
+
+---
+
+## Matriz Viva de Competências — evidência, não autodeclaração
+
+A matriz existe para responder uma pergunta mais útil do que “quais tecnologias estão na bio?”: **quais competências possuem evidências públicas verificáveis neste momento?**
+
+Ela verifica, entre outros sinais:
+
+- repositórios acadêmicos com código Python;
+- algoritmos e recursividade versionados;
+- presença dos 10 mini sistemas e seus testes;
+- backend Flask e API HTTP;
+- workflow de CI e gate de cobertura;
+- healthcheck público do deploy;
+- documentação técnica canônica;
+- estado real do Pull Request open source externo;
+- separação entre motor determinístico e camada explicativa de IA.
+
+Estados possíveis de uma competência:
+
+`forte` · `parcial` · `sem evidência verificada` · `indisponível`
+
+A regra mais importante é deliberadamente conservadora: **um PR aberto comprova contribuição enviada; só um merge público comprova aceitação externa.** Da mesma forma, a existência de um arquivo ou projeto é evidência técnica, mas não é usada para afirmar domínio pessoal automaticamente.
+
+**Abrir matriz:** https://github-student-dashboard-videirafoo.onrender.com/competencias
 
 ---
 
@@ -138,6 +166,7 @@ A coleção de mini sistemas não é apenas uma lista em Markdown. Há diretóri
 Para quem está começando, o repositório possui uma trilha que combina documentação e prática executável:
 
 - **[Trilha Educacional interativa](https://github-student-dashboard-videirafoo.onrender.com/trilha)** — 6 níveis, 18 missões e progresso baseado em evidências;
+- **[Matriz Viva de Competências](https://github-student-dashboard-videirafoo.onrender.com/competencias)** — competências ligadas a evidências públicas que se atualizam sem inflar progresso artificialmente;
 - [`GUIA_DE_ESTUDOS.md`](./GUIA_DE_ESTUDOS.md) — mapa conceitual e evidências de domínio;
 - [`PADRAO_DE_ENSINO.md`](./PADRAO_DE_ENSINO.md) — regra canônica para criar conteúdo educacional;
 - [`conteudos/python-para-iniciantes`](./conteudos/python-para-iniciantes)
@@ -231,7 +260,7 @@ A regra permanece: **PR aberto é evidência de contribuição enviada; contribu
 
 Construir uma trajetória que outra pessoa consiga verificar e reproduzir:
 
-`fundamento` → `exercício` → `missão prática` → `sistema` → `teste` → `CI` → `deploy` → `feedback` → `melhoria`
+`fundamento` → `exercício` → `missão prática` → `evidência` → `sistema` → `teste` → `CI` → `deploy` → `open source` → `melhoria`
 
 <div align="center">
 
