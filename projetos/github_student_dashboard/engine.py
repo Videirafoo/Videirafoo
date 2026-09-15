@@ -111,21 +111,24 @@ def detectar_ci(caminhos):
     )
 
 
-def detectar_testes(caminhos):
+def arquivos_de_testes(caminhos):
+    encontrados = []
     for caminho in caminhos:
         partes = caminho.lower().split("/")
         nome = partes[-1]
+        if (
+            "tests" in partes
+            or "test" in partes
+            or nome.startswith("test_")
+            or nome.endswith("_test.py")
+            or nome.endswith((".test.js", ".test.ts", ".test.tsx", ".spec.js", ".spec.ts", ".spec.tsx"))
+        ):
+            encontrados.append(caminho)
+    return sorted(encontrados)
 
-        if "tests" in partes or "test" in partes:
-            return True
-        if nome.startswith("test_"):
-            return True
-        if nome.endswith("_test.py"):
-            return True
-        if nome.endswith((".test.js", ".test.ts", ".test.tsx", ".spec.js", ".spec.ts", ".spec.tsx")):
-            return True
 
-    return False
+def detectar_testes(caminhos):
+    return bool(arquivos_de_testes(caminhos))
 
 
 def arquivos_de_dependencias(caminhos):
@@ -139,6 +142,35 @@ def arquivos_de_dependencias(caminhos):
 
 def detectar_dependencias(caminhos):
     return bool(arquivos_de_dependencias(caminhos))
+
+
+def arquivos_de_ci(caminhos):
+    return sorted(
+        caminho
+        for caminho in caminhos
+        if caminho.startswith(".github/workflows/")
+        and caminho.lower().endswith((".yml", ".yaml"))
+    )
+
+
+def arquivo_readme(caminhos):
+    for caminho in sorted(caminhos):
+        if "/" in caminho:
+            continue
+        nome = caminho.lower()
+        if nome == "readme" or nome.startswith("readme."):
+            return caminho
+    return None
+
+
+def arquivo_licenca(caminhos):
+    for caminho in sorted(caminhos):
+        if "/" in caminho:
+            continue
+        nome = caminho.lower()
+        if nome == "license" or nome.startswith("license.") or nome == "licence" or nome.startswith("licence."):
+            return caminho
+    return None
 
 
 def calcular_score(checks):
@@ -166,6 +198,75 @@ def gerar_recomendacoes(checks):
         recomendacoes.append({"check": nome, "prioridade": prioridade, "acao": acao})
 
     return recomendacoes
+
+
+def gerar_detalhes_checks(metadata, caminhos, checks):
+    readme = arquivo_readme(caminhos)
+    licenca_arquivo = arquivo_licenca(caminhos)
+    workflows = arquivos_de_ci(caminhos)
+    testes = arquivos_de_testes(caminhos)
+    dependencias = arquivos_de_dependencias(caminhos)
+    topics = metadata.get("topics") or []
+    licenca_api = metadata.get("license") or {}
+    licenca_nome = licenca_api.get("spdx_id") or licenca_api.get("name")
+    descricao = (metadata.get("description") or "").strip()
+
+    return {
+        "readme": {
+            "passou": checks["readme"],
+            "observado": f"README encontrado: {readme}." if readme else "Nenhum README foi encontrado na raiz do repositório.",
+            "impacto": "O README é a principal porta de entrada para entender objetivo, execução e uso do projeto.",
+            "acao": "Manter o README atualizado e orientado a quem chega pela primeira vez." if readme else "Criar README com objetivo, instalação, execução, exemplos e próximos passos.",
+        },
+        "descricao": {
+            "passou": checks["descricao"],
+            "observado": f"Descrição pública: {descricao}" if descricao else "O campo Description do repositório está vazio.",
+            "impacto": "A descrição ajuda pessoas e mecanismos de busca do GitHub a entenderem rapidamente o projeto.",
+            "acao": "Manter a descrição curta, específica e coerente com o projeto." if descricao else "Preencher uma descrição curta e específica na área About do GitHub.",
+        },
+        "licenca": {
+            "passou": checks["licenca"],
+            "observado": (
+                f"Licença declarada pela API: {licenca_nome}."
+                if licenca_nome
+                else f"Arquivo de licença encontrado: {licenca_arquivo}."
+                if licenca_arquivo
+                else "Nenhuma licença declarada foi encontrada."
+            ),
+            "impacto": "A licença deixa claro como outras pessoas podem usar, estudar e reutilizar o código.",
+            "acao": "Manter a licença compatível com o objetivo do projeto." if checks["licenca"] else "Escolher e adicionar uma licença adequada antes de incentivar reutilização pública.",
+        },
+        "gitignore": {
+            "passou": checks["gitignore"],
+            "observado": "Arquivo .gitignore encontrado na raiz." if checks["gitignore"] else "Arquivo .gitignore não encontrado na raiz.",
+            "impacto": "Um .gitignore adequado reduz o risco de versionar arquivos temporários, ambientes locais e segredos.",
+            "acao": "Revisar o .gitignore quando novas ferramentas forem adicionadas." if checks["gitignore"] else "Adicionar .gitignore adequado às tecnologias usadas.",
+        },
+        "topics": {
+            "passou": checks["topics"],
+            "observado": f"Topics encontrados: {', '.join(topics)}." if topics else "Nenhum topic público foi encontrado.",
+            "impacto": "Topics melhoram contexto e descoberta do repositório dentro do GitHub.",
+            "acao": "Manter apenas topics realmente relacionados ao conteúdo." if topics else "Adicionar topics de linguagem, domínio e finalidade do projeto.",
+        },
+        "ci": {
+            "passou": checks["ci"],
+            "observado": f"Workflows encontrados: {', '.join(workflows)}." if workflows else "Nenhum workflow em .github/workflows foi encontrado.",
+            "impacto": "CI ajuda a detectar regressões automaticamente a cada mudança.",
+            "acao": "Na próxima etapa, verificar também o status real da execução mais recente." if workflows else "Adicionar workflow de CI para testes, sintaxe ou build.",
+        },
+        "testes": {
+            "passou": checks["testes"],
+            "observado": f"Arquivos de teste encontrados: {', '.join(testes[:8])}." if testes else "Nenhum arquivo de teste reconhecido foi encontrado.",
+            "impacto": "Testes automatizados ajudam a provar comportamentos importantes e evitam regressões.",
+            "acao": "Manter testes alinhados às regras de negócio mais importantes." if testes else "Adicionar testes automatizados para os principais comportamentos.",
+        },
+        "dependencias": {
+            "passou": checks["dependencias"],
+            "observado": f"Arquivos de dependências encontrados: {', '.join(dependencias)}." if dependencias else "Nenhum arquivo padrão de dependências foi encontrado.",
+            "impacto": "Dependências declaradas tornam o projeto reproduzível em outras máquinas e ambientes de CI.",
+            "acao": "Manter versões e dependências compatíveis com o projeto." if dependencias else "Registrar dependências em arquivo padrão da tecnologia usada.",
+        },
+    }
 
 
 def montar_snapshot(client, owner, repo):
@@ -201,6 +302,7 @@ def analisar_snapshot(snapshot):
         "branch_padrao": metadata.get("default_branch"),
         "score": calcular_score(checks),
         "checks": checks,
+        "detalhes_checks": gerar_detalhes_checks(metadata, caminhos, checks),
         "evidencias": {
             "arquivos_encontrados": len(caminhos),
             "topics": metadata.get("topics", []),
