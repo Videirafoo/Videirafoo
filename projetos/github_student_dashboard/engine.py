@@ -1,7 +1,7 @@
 from collections import Counter
 from urllib.parse import urlparse
 
-from projetos.github_student_dashboard.github_client import GitHubClient
+from projetos.github_student_dashboard.github_client import GitHubApiError, GitHubClient
 
 PESOS = {
     "readme": 15,
@@ -173,6 +173,70 @@ def arquivo_licenca(caminhos):
     return None
 
 
+def resumir_status_ci(workflow_runs, tem_workflow=True):
+    if not tem_workflow:
+        return {
+            "estado": "sem_workflow",
+            "workflow": None,
+            "url": None,
+            "status": None,
+            "conclusao": None,
+            "executado_em": None,
+        }
+
+    if not workflow_runs:
+        return {
+            "estado": "indisponivel",
+            "workflow": None,
+            "url": None,
+            "status": None,
+            "conclusao": None,
+            "executado_em": None,
+        }
+
+    if workflow_runs.get("erro"):
+        return {
+            "estado": "indisponivel",
+            "workflow": None,
+            "url": None,
+            "status": None,
+            "conclusao": None,
+            "executado_em": None,
+            "erro": workflow_runs["erro"],
+        }
+
+    runs = workflow_runs.get("workflow_runs") or []
+    if not runs:
+        return {
+            "estado": "sem_execucao",
+            "workflow": None,
+            "url": None,
+            "status": None,
+            "conclusao": None,
+            "executado_em": None,
+        }
+
+    run = runs[0]
+    status = run.get("status")
+    conclusao = run.get("conclusion")
+
+    if status and status != "completed":
+        estado = status
+    elif conclusao:
+        estado = conclusao
+    else:
+        estado = status or "desconhecido"
+
+    return {
+        "estado": estado,
+        "workflow": run.get("name"),
+        "url": run.get("html_url"),
+        "status": status,
+        "conclusao": conclusao,
+        "executado_em": run.get("updated_at") or run.get("created_at"),
+    }
+
+
 def calcular_score(checks):
     return sum(PESOS[nome] for nome, passou in checks.items() if passou)
 
@@ -200,7 +264,7 @@ def gerar_recomendacoes(checks):
     return recomendacoes
 
 
-def gerar_detalhes_checks(metadata, caminhos, checks):
+def gerar_detalhes_checks(metadata, caminhos, checks, ci_execucao):
     readme = arquivo_readme(caminhos)
     licenca_arquivo = arquivo_licenca(caminhos)
     workflows = arquivos_de_ci(caminhos)
@@ -210,6 +274,27 @@ def gerar_detalhes_checks(metadata, caminhos, checks):
     licenca_api = metadata.get("license") or {}
     licenca_nome = licenca_api.get("spdx_id") or licenca_api.get("name")
     descricao = (metadata.get("description") or "").strip()
+
+    estado_ci = ci_execucao.get("estado")
+    if workflows:
+        if estado_ci == "success":
+            observado_ci = f"Workflows encontrados: {', '.join(workflows)}. Execução mais recente: success ({ci_execucao.get('workflow') or 'workflow'})."
+            acao_ci = "Manter a CI verde e investigar rapidamente futuras regressões."
+        elif estado_ci in {"failure", "cancelled", "timed_out", "action_required"}:
+            observado_ci = f"Workflows encontrados: {', '.join(workflows)}. Execução mais recente: {estado_ci}."
+            acao_ci = "Abrir a execução mais recente e corrigir a falha antes de considerar a automação saudável."
+        elif estado_ci in {"queued", "in_progress", "waiting", "requested", "pending"}:
+            observado_ci = f"Workflows encontrados: {', '.join(workflows)}. Execução mais recente ainda está em andamento: {estado_ci}."
+            acao_ci = "Aguardar a conclusão e confirmar o resultado final da execução."
+        elif estado_ci == "sem_execucao":
+            observado_ci = f"Workflows encontrados: {', '.join(workflows)}, mas nenhuma execução recente foi localizada."
+            acao_ci = "Executar o workflow e confirmar que a automação realmente passa."
+        else:
+            observado_ci = f"Workflows encontrados: {', '.join(workflows)}. O status real da execução não pôde ser confirmado."
+            acao_ci = "Verificar permissões, limite da API ou abrir a aba Actions no GitHub."
+    else:
+        observado_ci = "Nenhum workflow em .github/workflows foi encontrado."
+        acao_ci = "Adicionar workflow de CI para testes, sintaxe ou build."
 
     return {
         "readme": {
@@ -250,9 +335,9 @@ def gerar_detalhes_checks(metadata, caminhos, checks):
         },
         "ci": {
             "passou": checks["ci"],
-            "observado": f"Workflows encontrados: {', '.join(workflows)}." if workflows else "Nenhum workflow em .github/workflows foi encontrado.",
-            "impacto": "CI ajuda a detectar regressões automaticamente a cada mudança.",
-            "acao": "Na próxima etapa, verificar também o status real da execução mais recente." if workflows else "Adicionar workflow de CI para testes, sintaxe ou build.",
+            "observado": observado_ci,
+            "impacto": "CI só é realmente útil quando, além de existir, suas execuções conseguem validar o projeto com sucesso.",
+            "acao": acao_ci,
         },
         "testes": {
             "passou": checks["testes"],
@@ -274,8 +359,21 @@ def montar_snapshot(client, owner, repo):
     branch = metadata.get("default_branch") or "main"
     arvore = client.buscar_arvore(owner, repo, branch)
     linguagens = client.buscar_linguagens(owner, repo)
+    caminhos = caminhos_da_arvore(arvore)
 
-    return {"metadata": metadata, "arvore": arvore, "linguagens": linguagens}
+    workflow_runs = None
+    if detectar_ci(caminhos):
+        try:
+            workflow_runs = client.buscar_workflow_runs(owner, repo, branch=branch, limite=1)
+        except GitHubApiError as erro:
+            workflow_runs = {"erro": str(erro)}
+
+    return {
+        "metadata": metadata,
+        "arvore": arvore,
+        "linguagens": linguagens,
+        "workflow_runs": workflow_runs,
+    }
 
 
 def analisar_snapshot(snapshot):
@@ -296,13 +394,16 @@ def analisar_snapshot(snapshot):
         "dependencias": bool(dependencias_encontradas),
     }
 
+    ci_execucao = resumir_status_ci(snapshot.get("workflow_runs"), tem_workflow=checks["ci"])
+
     return {
         "repositorio": metadata.get("full_name"),
         "url": metadata.get("html_url"),
         "branch_padrao": metadata.get("default_branch"),
         "score": calcular_score(checks),
         "checks": checks,
-        "detalhes_checks": gerar_detalhes_checks(metadata, caminhos, checks),
+        "ci_execucao": ci_execucao,
+        "detalhes_checks": gerar_detalhes_checks(metadata, caminhos, checks, ci_execucao),
         "evidencias": {
             "arquivos_encontrados": len(caminhos),
             "topics": metadata.get("topics", []),
@@ -314,6 +415,7 @@ def analisar_snapshot(snapshot):
             "tem_gitignore": checks["gitignore"],
             "tem_ci": checks["ci"],
             "tem_testes": checks["testes"],
+            "ci_execucao": ci_execucao,
         },
         "recomendacoes": gerar_recomendacoes(checks),
     }
