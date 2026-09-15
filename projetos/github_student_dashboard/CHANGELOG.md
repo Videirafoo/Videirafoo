@@ -4,6 +4,21 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 
 ## [Unreleased]
 
+### Qualidade verificável
+
+- medição real de cobertura adicionada à CI com `coverage.py` e branch coverage;
+- baseline inicial observado: **95 testes / 73,3% de cobertura**;
+- testes direcionados adicionados para CLI, cliente GitHub e provider de IA;
+- execução de referência posterior: **118 testes passando / 81,9% de cobertura**;
+- cobertura de `cli.py` elevada para **100,0%**, `github_client.py` para **97,5%** e `ai_explainer.py` para **95,7%** na execução de referência;
+- gate de regressão de cobertura configurado em **80%**;
+- auditoria informativa de dependências de produção adicionada com `pip-audit`;
+- execução de referência do `pip-audit` não reportou vulnerabilidade conhecida nas dependências resolvidas naquele run;
+- artefato `dashboard-quality-evidence` publica `coverage.txt`, `coverage.json` e `pip-audit.txt` em cada execução;
+- `ResourceWarning` identificado pela primeira medição foi corrigido nos testes de recursos estáticos;
+- `actions/checkout`, `actions/setup-python` e `actions/upload-artifact` atualizadas para a geração v7;
+- evidências e limites documentados publicamente em `QUALITY.md`.
+
 ### Melhorias
 
 - laboratório ampliado para os **10 mini sistemas**, todos com experiência prática e links para código/testes reais;
