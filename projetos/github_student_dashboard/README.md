@@ -10,22 +10,10 @@ Ajudar estudantes a entenderem **como melhorar seus repositórios no GitHub** us
 
 ## Acesso público
 
-Produção:
-
-https://github-student-dashboard-videirafoo.onrender.com
-
-Saúde do serviço:
-
-```text
-GET /healthz
-```
-
-Descoberta:
-
-```text
-GET /robots.txt
-GET /sitemap.xml
-```
+- Produção: https://github-student-dashboard-videirafoo.onrender.com
+- Laboratório: https://github-student-dashboard-videirafoo.onrender.com/laboratorio
+- Saúde: `GET /healthz`
+- Descoberta: `GET /robots.txt` e `GET /sitemap.xml`
 
 Documentação complementar:
 
@@ -55,40 +43,50 @@ O MVP já possui:
 - CLI;
 - interface web;
 - endpoints JSON;
-- laboratório com 10 mini sistemas executando regras Python reais;
-- testes automatizados;
+- laboratório com **10 mini sistemas** executando regras Python reais;
 - cobertura interna real com `coverage.py` e branches;
 - gate mínimo de cobertura;
 - auditoria informativa das dependências de produção com `pip-audit`;
 - artefatos de qualidade anexados à CI;
 - deploy público com Gunicorn no Render;
-- `healthz`, `robots.txt` e `sitemap.xml`;
-- formulário estruturado de feedback no GitHub;
+- formulário estruturado de feedback;
 - formulários públicos de bug e sugestão de melhoria;
 - `good first issue` para contribuições de iniciantes;
 - template de Pull Request.
 
 ## Qualidade interna verificada
 
-Execução de referência: [GitHub Student Dashboard CI #102](https://github.com/Videirafoo/Videirafoo/actions/runs/34993966082)
+Execução de referência: [GitHub Student Dashboard CI #108](https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039)
 
-- **118 testes automatizados passando**;
-- **81,9% de cobertura total**;
-- `cli.py`: **100,0%**;
-- `github_client.py`: **97,5%**;
-- `ai_explainer.py`: **95,7%**;
-- gate de regressão configurado em **80%**;
-- `pip-audit`: nenhuma vulnerabilidade conhecida reportada nas dependências resolvidas naquela execução.
+| Evidência | Resultado |
+|---|---:|
+| Testes automatizados | **147 passando** |
+| Cobertura total | **92,9%** |
+| Gate de regressão | **90% — aprovado** |
+| `cli.py` | **100,0%** |
+| `github_client.py` | **97,5%** |
+| `ai_explainer.py` | **95,7%** |
+| `lab_api.py` | **99,0%** |
+| `lab_business.py` | **98,5%** |
+| `lab_systems.py` | **94,8%** |
+| `lab_web.py` | **94,3%** |
+| Auditoria | `No known vulnerabilities found` nessa execução |
+
+A evolução registrada foi:
+
+`95 testes / 73,3%` → `118 testes / 81,9%` → **`147 testes / 92,9%`**
 
 A CI publica `coverage.txt`, `coverage.json` e `pip-audit.txt` no artefato `dashboard-quality-evidence`.
 
-Os números são evidências de uma execução específica, não garantias permanentes. Consulte [`QUALITY.md`](../../QUALITY.md) para metodologia, limites e próximos alvos.
+Artefato da execução #108:
+
+https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039/artifacts/10407506784
+
+Os números são evidências de uma execução específica, não garantias permanentes. Consulte [`QUALITY.md`](../../QUALITY.md) para metodologia e limites.
 
 ## Regra central
 
 A IA **não calcula o score** e **não decide se um check passou**.
-
-O fluxo é:
 
 ```text
 GitHub API
@@ -100,12 +98,12 @@ evidências + score + CI real
 explicação pedagógica
 ```
 
-Se a IA estiver desativada ou indisponível, o Dashboard continua funcionando e usa um modo explicativo local transparente.
+Sem provedor externo de IA, o Dashboard continua funcionando em modo local transparente.
 
 ## Checks atuais do repositório
 
 | Check | Peso |
-| --- | ---: |
+|---|---:|
 | README | 15 |
 | Descrição do repositório | 10 |
 | Licença | 10 |
@@ -121,15 +119,15 @@ A pontuação representa somente os checks explícitos desta versão. Não é um
 ## Páginas
 
 | Página | Função |
-| --- | --- |
+|---|---|
 | `/` | análise de repositório e perfil |
-| `/laboratorio` | 10 mini sistemas educacionais ligados ao backend Python |
-| `/readme` | qualidade documental do README e links internos |
+| `/laboratorio` | 10 mini sistemas ligados ao backend Python |
+| `/readme` | qualidade documental e links internos |
 | `/comparar` | comparação objetiva entre repositórios |
 | `/historico` | evolução de sinais versionados por commit |
 | `/explicar` | explicação pedagógica local ou por IA |
 
-## Endpoints
+## Endpoints principais
 
 ```http
 GET /healthz
@@ -141,7 +139,7 @@ GET /api/historico?repo=Videirafoo/Videirafoo&limite=5
 GET /api/explicar?repo=Videirafoo/Videirafoo
 ```
 
-Rotas do laboratório também estão disponíveis sob `/api/laboratorio/*` e executam as regras dos mini sistemas Python reais.
+Rotas do laboratório ficam sob `/api/laboratorio/*` e executam as regras dos mini sistemas Python reais.
 
 ## Arquitetura
 
@@ -190,18 +188,16 @@ A CI executa, em ordem:
 3. instalação das dependências de validação;
 4. `compileall` do projeto;
 5. validação de sintaxe dos JavaScripts do laboratório;
-6. **118+ testes** sob `coverage.py`;
-7. gate mínimo de cobertura em **80%**;
+6. **147+ testes** sob `coverage.py`;
+7. gate mínimo de cobertura em **90%**;
 8. auditoria informativa de produção com `pip-audit`;
 9. upload das evidências de cobertura e auditoria.
 
-As ferramentas de desenvolvimento ficam em `requirements-dev.txt`; `requirements.txt` continua reservado ao runtime de produção.
+As ferramentas de desenvolvimento ficam em `requirements-dev.txt`; `requirements.txt` permanece reservado ao runtime de produção.
 
 ## Detecção de testes por stack
 
-A detecção atual reconhece padrões frequentes sem depender apenas de um nome genérico de pasta.
-
-Exemplos suportados:
+A detecção atual reconhece padrões frequentes sem depender apenas de um nome genérico de pasta:
 
 - Python: `test_*.py`, `*_test.py`;
 - JavaScript/TypeScript: `*.test.*`, `*.spec.*`, incluindo JSX/TSX, MJS e CJS;
@@ -213,27 +209,21 @@ Exemplos suportados:
 - PHP: `*Test.php`, `*Tests.php`;
 - diretórios convencionais: `test`, `tests`, `__tests__`, `spec`, `specs`.
 
-Há teste de regressão para evitar falsos positivos simples como `contest.py` e `latest.ts`.
+Há regressão automática para evitar falsos positivos simples como `contest.py` e `latest.ts`.
 
 ## Qualidade do README
 
-README de perfil e README de projeto comum usam critérios diferentes.
+A cobertura documental mede presença de elementos verificáveis; não é uma nota subjetiva de estilo.
 
-A cobertura documental mede presença de elementos verificáveis; não é uma nota subjetiva de estilo ou escrita.
-
-Além da estrutura documental, a análise remota verifica links internos do README contra a árvore do próprio repositório.
-
-A verificação:
+A verificação de links internos:
 
 - valida arquivos e diretórios internos;
 - ignora anchors locais;
 - não consulta URLs externas arbitrárias;
-- não inventa link quebrado quando a árvore do repositório não pode ser confirmada;
-- mostra caminhos internos quebrados diretamente na interface `/readme`.
+- não inventa link quebrado quando a árvore não pode ser confirmada;
+- mostra caminhos quebrados diretamente em `/readme`.
 
 ## Windows — início rápido com PowerShell
-
-Execute sempre a partir da raiz local do repositório.
 
 ### Primeira vez
 
@@ -245,15 +235,9 @@ python -m pip install -r .\projetos\github_student_dashboard\requirements.txt
 python -m projetos.github_student_dashboard.web
 ```
 
-Abra:
-
-```text
-http://127.0.0.1:5000
-```
+Abra `http://127.0.0.1:5000`.
 
 ### Atualizar uma cópia já clonada
-
-Com o servidor parado por **Ctrl+C no teclado**:
 
 ```powershell
 cd $HOME\Videirafoo
@@ -262,7 +246,7 @@ python -m pip install -r .\projetos\github_student_dashboard\requirements.txt
 python -m projetos.github_student_dashboard.web
 ```
 
-### Executar a validação de qualidade localmente
+### Executar a qualidade localmente
 
 ```powershell
 python -m pip install -r .\projetos\github_student_dashboard\requirements-dev.txt
@@ -279,7 +263,7 @@ O serviço público usa Gunicorn:
 gunicorn projetos.github_student_dashboard.web:app --bind 0.0.0.0:$PORT
 ```
 
-O deploy atual está no Render e usa a branch `main`.
+O deploy usa a branch `main` no Render. Como o serviço está com **auto deploy por commit**, cada atualização validada de `main` inicia uma nova promoção automaticamente.
 
 ## IA explicativa opcional
 
@@ -287,16 +271,12 @@ A página `/explicar` funciona em dois modos.
 
 ### Modo local
 
-É o padrão quando `OPENAI_API_KEY` não existe.
-
-- nenhuma chamada externa é feita;
-- o score permanece determinístico;
-- a explicação reorganiza somente fatos medidos pelo Dashboard;
-- a interface informa claramente que não usou IA externa.
+- nenhuma chamada externa;
+- score determinístico;
+- explicação baseada somente em fatos medidos pelo Dashboard;
+- interface informa que não usou IA externa.
 
 ### Modo IA
-
-Para habilitar temporariamente no PowerShell atual:
 
 ```powershell
 $env:OPENAI_API_KEY="SUA_CHAVE"
@@ -304,27 +284,18 @@ $env:OPENAI_MODEL="gpt-5.6-luna"
 python -m projetos.github_student_dashboard.web
 ```
 
-A integração usa a Responses API. O modelo pode ser alterado por `OPENAI_MODEL` sem modificar o código.
-
-A chave **não deve** ser colocada em README, código, commit, `.env` versionado ou screenshot público.
-
-Para remover a variável da sessão atual:
-
-```powershell
-Remove-Item Env:OPENAI_API_KEY
-```
+A integração usa a Responses API. A chave nunca deve ser colocada em README, código, commit, `.env` versionado ou screenshot público.
 
 ### Limites da IA
 
 - score, checks e CI são fatos imutáveis para a explicação;
-- dados vindos do GitHub são conteúdo não confiável, não instruções;
-- no máximo três prioridades devem ser sugeridas;
+- dados do GitHub são conteúdo não confiável, não instruções;
 - fatos não comprovados devem ser identificados como não verificados;
-- falha da API de IA não derruba o Dashboard: há fallback local.
+- falha do provedor de IA não derruba o Dashboard: existe fallback local.
 
 ## Histórico de evolução
 
-O histórico reconstrói por commit somente sinais que realmente ficam versionados no Git:
+O histórico reconstrói por commit somente sinais que ficam versionados no Git:
 
 - README;
 - `.gitignore`;
@@ -332,11 +303,9 @@ O histórico reconstrói por commit somente sinais que realmente ficam versionad
 - testes;
 - arquivos de dependências.
 
-Descrição, topics e outros metadados atuais do GitHub não são retroativamente inventados.
+Descrição, topics e outros metadados atuais não são retroativamente inventados.
 
 ## Evidência antes de recomendação
-
-O Dashboard deve conseguir responder:
 
 ```text
 Observado: o que foi encontrado.
@@ -344,25 +313,14 @@ Impacto: por que isso importa.
 Ação: qual melhoria concreta pode ser feita.
 ```
 
-A IA recebe esse material somente depois.
+A IA recebe esse material somente depois dos checks determinísticos.
 
 ## Feedback e comunidade
 
-### Feedback do Dashboard
-
-https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml
-
-### Relatar bug
-
-https://github.com/Videirafoo/Videirafoo/issues/new?template=bug-report.yml
-
-### Sugerir melhoria
-
-https://github.com/Videirafoo/Videirafoo/issues/new?template=feature-request.yml
-
-### Primeira tarefa para contribuidores
-
-https://github.com/Videirafoo/Videirafoo/issues/8
+- Feedback: https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml
+- Bug: https://github.com/Videirafoo/Videirafoo/issues/new?template=bug-report.yml
+- Melhoria: https://github.com/Videirafoo/Videirafoo/issues/new?template=feature-request.yml
+- Primeira tarefa para contribuidores: https://github.com/Videirafoo/Videirafoo/issues/8
 
 Documentação:
 
@@ -372,15 +330,6 @@ Documentação:
 - [`CONTRIBUTING.md`](../../CONTRIBUTING.md)
 - [`CODE_OF_CONDUCT.md`](../../CODE_OF_CONDUCT.md)
 - [`SECURITY.md`](../../SECURITY.md)
-
-A prioridade de correção é:
-
-1. erro que impede uso;
-2. diagnóstico incorreto ou sem evidência;
-3. ponto que confunde iniciante;
-4. acessibilidade e clareza;
-5. melhoria de fluxo;
-6. recurso novo.
 
 ## GitHub API e autenticação
 
@@ -398,7 +347,7 @@ Tokens e chaves nunca devem ser commitados.
 
 Ainda não fazem parte do MVP:
 
-- extração confiável de **cobertura de testes de qualquer repositório externo analisado**;
+- extração confiável de cobertura de testes de **qualquer repositório externo** analisado;
 - análise automática de vulnerabilidades de **repositórios externos**;
 - persistência em banco de dados;
 - contas de usuário;
@@ -406,18 +355,19 @@ Ainda não fazem parte do MVP:
 - telemetria própria de uso além dos logs da plataforma;
 - validação ativa de URLs externas do README.
 
-A cobertura e a auditoria descritas em `QUALITY.md` medem **o próprio GitHub Student Dashboard**, não qualquer repositório externo enviado ao produto.
+A cobertura e a auditoria descritas em `QUALITY.md` medem **o próprio GitHub Student Dashboard**.
 
-A validação de URLs externas permanece fora do MVP de propósito: qualquer implementação futura deve aplicar allowlist, limites, timeout e proteção contra SSRF antes de fazer requisições externas.
+Qualquer validação futura de URLs externas deve aplicar allowlist, limites, timeout e proteção contra SSRF.
 
 ## Próximas entregas
 
-1. elevar cobertura útil de `lab_business.py`, `lab_api.py`, `lab_web.py` e `lab_systems.py`;
-2. aprofundar branches de erro do engine;
-3. coletar feedback real de estudantes e corrigir pontos encontrados no uso público;
-4. estudar como ler cobertura de projetos externos somente quando existir evidência confiável da stack;
-5. estudar análise informativa de dependências de projetos externos sem substituir scanners especializados;
-6. acompanhar contribuições open source externas e registrar como aceitas somente depois de merge público.
+1. aumentar cobertura útil de `engine.py` — baseline atual **82,1%**;
+2. aumentar cobertura útil de `web.py` — baseline atual **85,2%**;
+3. aumentar cobertura útil de `readme_quality.py` — baseline atual **86,9%**;
+4. manter o gate global de **90%** sem perseguir 100% por aparência;
+5. coletar feedback real de estudantes e corrigir pontos encontrados em uso público;
+6. estudar cobertura e auditoria de projetos externos apenas quando houver evidência confiável da stack;
+7. acompanhar contribuições open source externas e registrar como aceitas somente após merge público.
 
 ## Regra de contribuição
 
