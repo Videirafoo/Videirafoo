@@ -15,6 +15,7 @@
       --accent: #58a6ff;
       --success: #3fb950;
       --danger: #f85149;
+      --warning: #d29922;
     }
 
     * { box-sizing: border-box; }
@@ -105,7 +106,13 @@
       gap: 12px;
     }
 
-    .check, .metric, .repo-card, .evidence-card {
+    #detalhesChecks {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      align-items: start;
+    }
+
+    .check, .metric, .repo-card, .evidence-card, .ci-card {
+      min-width: 0;
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 14px;
@@ -113,16 +120,34 @@
 
     .ok { border-color: color-mix(in srgb, var(--success) 60%, var(--border)); }
     .missing { border-color: color-mix(in srgb, var(--danger) 60%, var(--border)); }
+    .warning { border-color: color-mix(in srgb, var(--warning) 65%, var(--border)); }
 
     .label { color: var(--muted); font-size: .9rem; }
     .value { font-weight: 700; margin-top: 4px; }
     .metric strong { display: block; font-size: 1.7rem; margin-top: 4px; }
     .repo-card a { color: var(--accent); font-weight: 700; text-decoration: none; }
-    .repo-card p { color: var(--muted); margin-bottom: 0; }
+    .repo-card p { color: var(--muted); margin-bottom: 0; overflow-wrap: anywhere; }
     .evidence-card h3 { margin: 0 0 10px; font-size: 1rem; }
     .evidence-card p { margin: 7px 0; }
     .evidence-card strong { color: var(--text); }
-    .evidence-copy { color: var(--muted); }
+    .evidence-copy {
+      color: var(--muted);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .ci-card {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .ci-status {
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .ci-card a { color: var(--accent); }
 
     ul { padding-left: 20px; }
 
@@ -138,6 +163,8 @@
     @media (max-width: 640px) {
       form { grid-template-columns: 1fr; }
       button { width: 100%; }
+      main { width: min(100% - 20px, 1040px); padding-top: 28px; }
+      .panel { padding: 14px; }
     }
   </style>
 </head>
@@ -174,10 +201,16 @@
         <span>/100</span>
       </div>
       <p id="repoNome"></p>
+
       <h2>Checks</h2>
       <div id="checks" class="grid"></div>
+
+      <h2>Execução real da CI</h2>
+      <div id="ciStatus" class="ci-card"></div>
+
       <h2>Evidências por check</h2>
       <div id="detalhesChecks" class="grid"></div>
+
       <h2>Próximas melhorias</h2>
       <ul id="recomendacoes"></ul>
     </section>
@@ -233,6 +266,7 @@
     const score = document.querySelector('#score');
     const repoNome = document.querySelector('#repoNome');
     const checks = document.querySelector('#checks');
+    const ciStatus = document.querySelector('#ciStatus');
     const detalhesChecks = document.querySelector('#detalhesChecks');
     const recomendacoes = document.querySelector('#recomendacoes');
 
@@ -269,6 +303,78 @@
       licencas_repositorios: 'Há repositórios sem licença declarada.'
     };
 
+    const estadosCI = {
+      success: 'PASSANDO',
+      failure: 'FALHANDO',
+      cancelled: 'CANCELADA',
+      timed_out: 'EXPIRADA',
+      action_required: 'AÇÃO NECESSÁRIA',
+      queued: 'NA FILA',
+      in_progress: 'EM EXECUÇÃO',
+      waiting: 'AGUARDANDO',
+      requested: 'SOLICITADA',
+      pending: 'PENDENTE',
+      sem_execucao: 'SEM EXECUÇÃO',
+      sem_workflow: 'SEM WORKFLOW',
+      indisponivel: 'INDISPONÍVEL'
+    };
+
+    function criarLinhaEvidencia(rotulo, valor) {
+      const p = document.createElement('p');
+      const strong = document.createElement('strong');
+      strong.textContent = `${rotulo}: `;
+      const span = document.createElement('span');
+      span.className = 'evidence-copy';
+      span.textContent = valor;
+      p.append(strong, span);
+      return p;
+    }
+
+    function renderizarCI(ci) {
+      ciStatus.innerHTML = '';
+      const estado = ci?.estado || 'indisponivel';
+      const classe = estado === 'success'
+        ? 'ok'
+        : ['failure', 'cancelled', 'timed_out', 'action_required'].includes(estado)
+          ? 'missing'
+          : 'warning';
+      ciStatus.className = `ci-card ${classe}`;
+
+      const titulo = document.createElement('div');
+      titulo.className = 'ci-status';
+      titulo.textContent = estadosCI[estado] || estado.toUpperCase();
+      ciStatus.appendChild(titulo);
+
+      if (ci?.workflow) {
+        const workflow = document.createElement('div');
+        workflow.textContent = `Workflow: ${ci.workflow}`;
+        ciStatus.appendChild(workflow);
+      }
+
+      if (ci?.executado_em) {
+        const data = document.createElement('div');
+        data.className = 'label';
+        data.textContent = `Atualizado em: ${ci.executado_em}`;
+        ciStatus.appendChild(data);
+      }
+
+      if (ci?.erro) {
+        const erro = document.createElement('div');
+        erro.className = 'error';
+        erro.textContent = ci.erro;
+        ciStatus.appendChild(erro);
+      }
+
+      if (ci?.url) {
+        const link = document.createElement('a');
+        link.href = ci.url;
+        link.target = '_blank';
+        link.rel = 'noreferrer';
+        link.textContent = 'Abrir execução no GitHub Actions';
+        ciStatus.appendChild(link);
+      }
+    }
+
     repoForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       const repo = repoInput.value.trim();
@@ -293,19 +399,31 @@
         Object.entries(data.checks).forEach(([nome, passou]) => {
           const item = document.createElement('div');
           item.className = `check ${passou ? 'ok' : 'missing'}`;
-          item.innerHTML = `<div class="label">${nomes[nome] || nome}</div><div class="value">${passou ? 'OK' : 'Falta'}</div>`;
+
+          const label = document.createElement('div');
+          label.className = 'label';
+          label.textContent = nomes[nome] || nome;
+
+          const value = document.createElement('div');
+          value.className = 'value';
+          value.textContent = passou ? 'OK' : 'Falta';
+
+          item.append(label, value);
           checks.appendChild(item);
         });
+
+        renderizarCI(data.ci_execucao);
 
         Object.entries(data.detalhes_checks || {}).forEach(([nome, detalhe]) => {
           const item = document.createElement('article');
           item.className = `evidence-card ${detalhe.passou ? 'ok' : 'missing'}`;
-          item.innerHTML = `
-            <h3>${nomes[nome] || nome}</h3>
-            <p><strong>Observado:</strong> <span class="evidence-copy">${detalhe.observado}</span></p>
-            <p><strong>Impacto:</strong> <span class="evidence-copy">${detalhe.impacto}</span></p>
-            <p><strong>Ação:</strong> <span class="evidence-copy">${detalhe.acao}</span></p>
-          `;
+
+          const titulo = document.createElement('h3');
+          titulo.textContent = nomes[nome] || nome;
+          item.appendChild(titulo);
+          item.appendChild(criarLinhaEvidencia('Observado', detalhe.observado));
+          item.appendChild(criarLinhaEvidencia('Impacto', detalhe.impacto));
+          item.appendChild(criarLinhaEvidencia('Ação', detalhe.acao));
           detalhesChecks.appendChild(item);
         });
 
@@ -349,24 +467,44 @@
         perfilTitulo.textContent = `Perfil: ${data.usuario}`;
         perfilResumo.textContent = `${data.repositorios_analisados} repositórios próprios analisados. Sem nota arbitrária: apenas evidências públicas.`;
 
-        perfilMetricas.innerHTML = `
-          <div class="metric"><div class="label">Seguidores</div><strong>${data.seguidores}</strong></div>
-          <div class="metric"><div class="label">Stars recebidos</div><strong>${data.engajamento.stars_recebidos}</strong></div>
-          <div class="metric"><div class="label">Forks recebidos</div><strong>${data.engajamento.forks_recebidos}</strong></div>
-          <div class="metric"><div class="label">Repositório de perfil</div><strong>${data.repositorio_perfil_existe ? 'OK' : 'Falta'}</strong></div>
-        `;
+        perfilMetricas.innerHTML = '';
+        [
+          ['Seguidores', data.seguidores],
+          ['Stars recebidos', data.engajamento.stars_recebidos],
+          ['Forks recebidos', data.engajamento.forks_recebidos],
+          ['Repositório de perfil', data.repositorio_perfil_existe ? 'OK' : 'Falta']
+        ].forEach(([rotulo, valor]) => {
+          const item = document.createElement('div');
+          item.className = 'metric';
+          const label = document.createElement('div');
+          label.className = 'label';
+          label.textContent = rotulo;
+          const strong = document.createElement('strong');
+          strong.textContent = valor;
+          item.append(label, strong);
+          perfilMetricas.appendChild(item);
+        });
 
         cobertura.innerHTML = '';
         Object.entries(data.cobertura).forEach(([nome, valor]) => {
           const item = document.createElement('div');
           item.className = 'metric';
-          item.innerHTML = `<div class="label">${nome}</div><strong>${valor.percentual}%</strong><div>${valor.quantidade}/${data.repositorios_analisados} repositórios</div>`;
+          const label = document.createElement('div');
+          label.className = 'label';
+          label.textContent = nome;
+          const strong = document.createElement('strong');
+          strong.textContent = `${valor.percentual}%`;
+          const detalhe = document.createElement('div');
+          detalhe.textContent = `${valor.quantidade}/${data.repositorios_analisados} repositórios`;
+          item.append(label, strong, detalhe);
           cobertura.appendChild(item);
         });
 
         linguagens.innerHTML = '';
         if (data.linguagens_principais.length === 0) {
-          linguagens.innerHTML = '<li>Nenhuma linguagem principal informada pela API.</li>';
+          const li = document.createElement('li');
+          li.textContent = 'Nenhuma linguagem principal informada pela API.';
+          linguagens.appendChild(li);
         } else {
           data.linguagens_principais.forEach((item) => {
             const li = document.createElement('li');
@@ -379,13 +517,28 @@
         data.repositorios_destaque.forEach((repo) => {
           const item = document.createElement('div');
           item.className = 'repo-card';
-          item.innerHTML = `<a href="${repo.url}" target="_blank" rel="noreferrer">${repo.nome}</a><div>★ ${repo.stars} · Forks ${repo.forks}</div><p>${repo.descricao || 'Sem descrição.'}</p>`;
+
+          const link = document.createElement('a');
+          link.href = repo.url;
+          link.target = '_blank';
+          link.rel = 'noreferrer';
+          link.textContent = repo.nome;
+
+          const numeros = document.createElement('div');
+          numeros.textContent = `★ ${repo.stars} · Forks ${repo.forks}`;
+
+          const descricao = document.createElement('p');
+          descricao.textContent = repo.descricao || 'Sem descrição.';
+
+          item.append(link, numeros, descricao);
           reposDestaque.appendChild(item);
         });
 
         lacunas.innerHTML = '';
         if (data.lacunas_objetivas.length === 0) {
-          lacunas.innerHTML = '<li>Nenhuma lacuna objetiva encontrada nos indicadores atuais.</li>';
+          const li = document.createElement('li');
+          li.textContent = 'Nenhuma lacuna objetiva encontrada nos indicadores atuais.';
+          lacunas.appendChild(li);
         } else {
           data.lacunas_objetivas.forEach((nome) => {
             const li = document.createElement('li');
