@@ -51,6 +51,7 @@ Aplicação pública que analisa repositórios e perfis do GitHub usando checks 
 - explicação local ou IA opcional;
 - interface web, API JSON, testes e CI;
 - laboratório educacional com **10 mini sistemas ligados ao backend Flask e às funções Python originais**;
+- **Trilha Educacional com 6 níveis e 18 missões ligadas a evidências reais**, com progresso local no navegador;
 - **147 testes automatizados passando** na execução de referência;
 - **92,9% de cobertura real**, medida com branches e protegida por gate mínimo de **90%**;
 - auditoria informativa de dependências com `pip-audit`, sem vulnerabilidade conhecida reportada na execução de referência.
@@ -58,6 +59,7 @@ Aplicação pública que analisa repositórios e perfis do GitHub usando checks 
 ### Abrir
 
 - **Aplicação:** https://github-student-dashboard-videirafoo.onrender.com
+- **Trilha Educacional:** https://github-student-dashboard-videirafoo.onrender.com/trilha
 - **Laboratório interativo:** https://github-student-dashboard-videirafoo.onrender.com/laboratorio
 - **Evidências de qualidade:** [`QUALITY.md`](./QUALITY.md)
 - **Showcase:** [`SHOWCASE.md`](./SHOWCASE.md)
@@ -133,15 +135,17 @@ A coleção de mini sistemas não é apenas uma lista em Markdown. Há diretóri
 
 # Conteúdo didático
 
-Para quem está começando, o repositório também possui uma trilha organizada:
+Para quem está começando, o repositório possui uma trilha que combina documentação e prática executável:
 
-- [`GUIA_DE_ESTUDOS.md`](./GUIA_DE_ESTUDOS.md)
-- [`PADRAO_DE_ENSINO.md`](./PADRAO_DE_ENSINO.md)
+- **[Trilha Educacional interativa](https://github-student-dashboard-videirafoo.onrender.com/trilha)** — 6 níveis, 18 missões e progresso baseado em evidências;
+- [`GUIA_DE_ESTUDOS.md`](./GUIA_DE_ESTUDOS.md) — mapa conceitual e evidências de domínio;
+- [`PADRAO_DE_ENSINO.md`](./PADRAO_DE_ENSINO.md) — regra canônica para criar conteúdo educacional;
 - [`conteudos/python-para-iniciantes`](./conteudos/python-para-iniciantes)
 - [`IDEIAS_DE_PROJETOS.md`](./IDEIAS_DE_PROJETOS.md) — **ideias, não projetos entregues**
 - [`ROADMAP_CONTEUDO.md`](./ROADMAP_CONTEUDO.md) — planejamento e estado das próximas entregas
+- [`REFERENCIAS_OPEN_SOURCE.md`](./REFERENCIAS_OPEN_SOURCE.md) — referências estudadas e padrões generalizados absorvidos
 
-> Documentação serve para explicar software. Ela não substitui o software.
+> Documentação serve para explicar software. Ela não substitui o software. Progresso educacional precisa de evidência prática.
 
 ---
 
@@ -227,7 +231,7 @@ A regra permanece: **PR aberto é evidência de contribuição enviada; contribu
 
 Construir uma trajetória que outra pessoa consiga verificar e reproduzir:
 
-`fundamento` → `exercício` → `sistema` → `teste` → `CI` → `deploy` → `feedback` → `melhoria`
+`fundamento` → `exercício` → `missão prática` → `sistema` → `teste` → `CI` → `deploy` → `feedback` → `melhoria`
 
 <div align="center">
 
