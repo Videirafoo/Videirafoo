@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 
+from projetos.github_student_dashboard.ai_explainer import explicar_repositorio_remoto
 from projetos.github_student_dashboard.comparison import comparar_repositorios_remotos
 from projetos.github_student_dashboard.engine import (
     analisar_perfil_remoto,
@@ -24,6 +25,7 @@ def create_app(
     analisador_readme=analisar_readme_remoto,
     comparador=comparar_repositorios_remotos,
     analisador_historico=analisar_historico_remoto,
+    explicador=explicar_repositorio_remoto,
 ):
     app = Flask(__name__)
     app.json.ensure_ascii = False
@@ -43,6 +45,10 @@ def create_app(
     @app.get("/historico")
     def pagina_historico():
         return render_template("historico.html")
+
+    @app.get("/explicar")
+    def pagina_explicar():
+        return render_template("explicar.html")
 
     @app.get("/favicon.ico")
     def favicon():
@@ -128,6 +134,22 @@ def create_app(
 
         try:
             relatorio = analisador_historico(repositorio, limite=limite)
+        except ValueError as erro:
+            return jsonify({"erro": str(erro)}), 400
+        except GitHubApiError as erro:
+            return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
+
+        return jsonify(relatorio), 200
+
+    @app.get("/api/explicar")
+    def explicar():
+        repositorio = (request.args.get("repo") or "").strip()
+
+        if not repositorio:
+            return jsonify({"erro": "Informe um repositório no formato usuario/repositorio."}), 400
+
+        try:
+            relatorio = explicador(repositorio)
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
         except GitHubApiError as erro:
