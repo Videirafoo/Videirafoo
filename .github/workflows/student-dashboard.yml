@@ -33,10 +33,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -62,6 +62,8 @@ jobs:
           coverage json --rcfile=projetos/github_student_dashboard/.coveragerc -o coverage.json
           {
             echo "### Cobertura real de testes"
+            echo
+            echo "Gate mínimo: 70%."
             echo
             echo '```text'
             cat coverage.txt
@@ -91,7 +93,7 @@ jobs:
 
       - name: Upload quality evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dashboard-quality-evidence
           path: |
