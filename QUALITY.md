@@ -4,20 +4,22 @@ Este documento registra **evidências reproduzíveis** da qualidade do GitHub St
 
 ## Estado verificado
 
-Execução de referência: [GitHub Student Dashboard CI #132](https://github.com/Videirafoo/Videirafoo/actions/runs/35013263915)
+Execução de referência: [GitHub Student Dashboard CI #135](https://github.com/Videirafoo/Videirafoo/actions/runs/35014194113)
 
 | Evidência | Resultado observado |
 |---|---:|
-| Testes automatizados | **188 passando** |
-| Cobertura total medida | **94,8%** |
+| Testes automatizados | **214 passando** |
+| Cobertura total medida | **97,9%** |
 | Gate mínimo de cobertura | **90% — aprovado nessa execução** |
-| `engine.py` | **97,0%** |
-| `competency_matrix.py` | **89,5%** |
-| `web.py` | **87,3%** |
-| `readme_quality.py` | **86,9%** |
-| `github_client.py` | **97,8%** |
+| `competency_matrix.py` | **100,0%** |
+| `readme_quality.py` | **100,0%** |
+| `web.py` | **99,1%** |
 | `lab_api.py` | **99,0%** |
 | `lab_business.py` | **98,5%** |
+| `github_client.py` | **97,8%** |
+| `engine.py` | **97,0%** |
+| `history.py` | **95,9%** |
+| `ai_explainer.py` | **95,7%** |
 | `lab_systems.py` | **94,8%** |
 | `lab_web.py` | **94,3%** |
 | Auditoria de dependências | **nenhuma vulnerabilidade conhecida reportada pelo `pip-audit` nessa execução** |
@@ -50,37 +52,44 @@ A medição não usa um número escrito manualmente no README. Se a cobertura to
 | Trilha Educacional | 156 | 92,9% | rota, API, sitemap, progresso e navegação |
 | Matriz Viva de Competências | 177 | 92,6% | evidências públicas, CI, runtime e PR externo |
 | Runtime seguro da Matriz | 181 | 92,6% | host canônico e proxy reverso sem autochamada HTTP |
-| Bordas do engine | **188** | **94,8%** | URLs inválidas, estados de CI, perfil vazio e branches de erro |
+| Bordas do engine | 188 | 94,8% | URLs inválidas, estados de CI, perfil vazio e branches de erro |
+| Bordas do README | 196 | 95,6% | parsing, encoding, links internos e falhas da API |
+| Handlers web | 206 | 96,8% | respostas de erro e fluxos alternativos HTTP |
+| Estados raros da Matriz | **214** | **97,9%** | cache, falhas parciais, PR/CI e evidências indisponíveis |
 
-A execução #132 confirmou **188 testes passando**, **94,8% de cobertura total** e o **gate de 90% ativo**.
+A execução #135 confirmou **214 testes passando**, **97,9% de cobertura total** e o **gate de 90% ativo**.
 
 ### Módulos fortalecidos
 
+- `competency_matrix.py`: **100,0%**;
+- `readme_quality.py`: **100,0%**;
 - `cli.py`: **100,0%**;
 - `comparison.py`: **100,0%**;
+- `web.py`: **99,1%**;
 - `lab_api.py`: **99,0%**;
 - `lab_business.py`: **98,5%**;
 - `github_client.py`: **97,8%**;
 - `engine.py`: **97,0%**;
-- `ai_explainer.py`: **95,7%**;
 - `history.py`: **95,9%**;
+- `ai_explainer.py`: **95,7%**;
 - `lab_systems.py`: **94,8%**;
-- `lab_web.py`: **94,3%**;
-- `competency_matrix.py`: **89,5%**;
-- `web.py`: **87,3%**;
-- `readme_quality.py`: **86,9%**.
+- `lab_web.py`: **94,3%**.
 
 A melhoria veio de testes de comportamento e casos-limite; não de exclusões artificiais na configuração de cobertura.
 
 ## Próximos alvos de cobertura útil
 
-O objetivo não é buscar 100% por aparência. Os próximos testes devem proteger branches que realmente importam:
+O objetivo não é transformar 100% em meta estética. Com a cobertura global já em **97,9%**, a prioridade passa a ser proteger comportamento importante e evitar testes sem valor.
 
-1. `readme_quality.py` — **86,9%**, principalmente parsing e links internos de borda;
-2. `web.py` — **87,3%**, especialmente handlers de falha e respostas alternativas;
-3. `competency_matrix.py` — **89,5%**, principalmente estados de evidência menos frequentes;
-4. manter `engine.py` protegido após o salto para **97,0%**;
-5. manter o gate global em **90%** sem perseguir 100% apenas para melhorar a aparência do perfil.
+Próximos alvos úteis:
+
+1. `lab_web.py` — **94,3%**, apenas branches de erro e validações que representem cenários reais;
+2. `lab_systems.py` — **94,8%**, focando regras de negócio ainda sem caso de borda;
+3. `ai_explainer.py` — **95,7%**, principalmente fallback e respostas de provider;
+4. `history.py` — **95,9%**, somente se houver cenário real ainda não protegido;
+5. manter `engine.py`, `web.py`, `readme_quality.py` e `competency_matrix.py` protegidos sem perseguir linhas irrelevantes.
+
+O gate global permanece em **90%** de propósito: ele existe para impedir regressão importante, não para transformar cobertura em métrica de vaidade.
 
 ## Auditoria de dependências
 
@@ -92,7 +101,7 @@ pip-audit -r projetos/github_student_dashboard/requirements.txt
 
 A auditoria é **informativa**. Uma ocorrência futura aparece no resumo e no artefato da CI para revisão, sem ser tratada automaticamente como prova de exploração ou como motivo suficiente para derrubar produção sem análise.
 
-Na execução #132, o log registrou:
+Na execução #135, o log registrou:
 
 ```text
 No known vulnerabilities found
@@ -106,7 +115,7 @@ Cada execução de qualidade publica o artefato `dashboard-quality-evidence` con
 - `coverage.json`;
 - `pip-audit.txt`.
 
-Artefato da execução #132: [dashboard-quality-evidence](https://github.com/Videirafoo/Videirafoo/actions/runs/35013263915/artifacts/10414615853)
+Artefato da execução #135: [dashboard-quality-evidence](https://github.com/Videirafoo/Videirafoo/actions/runs/35014194113/artifacts/10415166150)
 
 ## Princípio
 
