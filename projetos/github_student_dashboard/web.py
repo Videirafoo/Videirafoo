@@ -1,10 +1,24 @@
 from flask import Flask, jsonify, render_template, request
 
-from projetos.github_student_dashboard.engine import analisar_repositorio_remoto
+from projetos.github_student_dashboard.engine import (
+    analisar_perfil_remoto,
+    analisar_repositorio_remoto,
+)
 from projetos.github_student_dashboard.github_client import GitHubApiError
 
 
-def create_app(analisador=analisar_repositorio_remoto):
+def _status_para_erro_github(erro):
+    if erro.status == 404:
+        return 404
+    if erro.status in {401, 403, 429}:
+        return 429
+    return 502
+
+
+def create_app(
+    analisador=analisar_repositorio_remoto,
+    analisador_perfil=analisar_perfil_remoto,
+):
     app = Flask(__name__)
     app.json.ensure_ascii = False
 
@@ -28,13 +42,23 @@ def create_app(analisador=analisar_repositorio_remoto):
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
         except GitHubApiError as erro:
-            if erro.status == 404:
-                status = 404
-            elif erro.status in {401, 403, 429}:
-                status = 429
-            else:
-                status = 502
-            return jsonify({"erro": str(erro)}), status
+            return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
+
+        return jsonify(relatorio), 200
+
+    @app.get("/api/perfil")
+    def analisar_perfil():
+        usuario = (request.args.get("usuario") or "").strip()
+
+        if not usuario:
+            return jsonify({"erro": "Informe um usuário do GitHub."}), 400
+
+        try:
+            relatorio = analisador_perfil(usuario)
+        except ValueError as erro:
+            return jsonify({"erro": str(erro)}), 400
+        except GitHubApiError as erro:
+            return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
 
         return jsonify(relatorio), 200
 
