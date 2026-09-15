@@ -69,7 +69,10 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] catálogo, carrinho, estoque, desconto e fechamento de venda
 - [x] persistência em JSON no Caixa de Mercado
 - [x] testes automatizados do Caixa de Mercado
-- [ ] Mini Sistema 07 — Controle Financeiro Pessoal
+- [x] Mini Sistema 07 — Controle Financeiro Pessoal
+- [x] receitas, despesas, categorias, saldo, filtros e relatórios
+- [x] persistência em JSON no Controle Financeiro
+- [x] testes automatizados do Controle Financeiro
 - [ ] Mini Sistema 08 — Gerenciador de Hábitos
 - [ ] Mini Sistema 09 — API de Tarefas
 - [ ] Mini Sistema 10 — Projeto integrado
