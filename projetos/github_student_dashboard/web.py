@@ -17,6 +17,7 @@ PUBLIC_PAGES = ["/", "/laboratorio", "/readme", "/comparar", "/historico", "/exp
 INTERACTIONS_STYLESHEET = '<link rel="stylesheet" href="/static/interactions.css">'
 LAB_REAL_SCRIPT = (
     '<script src="/static/laboratorio_systems_real.js" defer></script>'
+    '<script src="/static/laboratorio_business_real.js" defer></script>'
     '<script src="/static/laboratorio_api_real.js" defer></script>'
 )
 
