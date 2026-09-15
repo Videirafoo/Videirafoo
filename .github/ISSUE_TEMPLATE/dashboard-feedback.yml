@@ -1,0 +1,72 @@
+name: Feedback — GitHub Student Dashboard
+description: Conte como foi usar o Dashboard e o que poderia ajudar mais estudantes.
+title: "[Feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por testar o GitHub Student Dashboard. O objetivo é melhorar o projeto com evidências de uso real, sem complicar a experiência de quem está começando.
+
+  - type: dropdown
+    id: experiencia
+    attributes:
+      label: Como foi sua experiência geral?
+      options:
+        - Muito fácil de usar
+        - Fácil de usar
+        - Razoável
+        - Difícil de usar
+        - Não consegui concluir a análise
+    validations:
+      required: true
+
+  - type: dropdown
+    id: nivel
+    attributes:
+      label: Qual é seu nível atual?
+      options:
+        - Estou começando a programar
+        - Já estudo programação
+        - Estudante de Engenharia de Software / área relacionada
+        - Desenvolvedor(a)
+        - Outro
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: recursos
+    attributes:
+      label: O que você testou?
+      options:
+        - label: Análise de repositório
+        - label: Análise de perfil
+        - label: Qualidade do README
+        - label: Comparação entre repositórios
+        - label: Histórico de evolução
+        - label: Explicação pedagógica
+
+  - type: textarea
+    id: util
+    attributes:
+      label: O que foi mais útil?
+      placeholder: Conte qual informação ou recurso ajudou você a entender melhor seu GitHub.
+    validations:
+      required: true
+
+  - type: textarea
+    id: dificuldade
+    attributes:
+      label: O que ficou confuso ou difícil?
+      placeholder: Explique onde você teve dúvida, travou ou esperava outra coisa.
+
+  - type: textarea
+    id: melhoria
+    attributes:
+      label: Qual melhoria você gostaria de ver primeiro?
+      placeholder: Sugira uma melhoria concreta.
+
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto adicional
+      description: Não publique tokens, chaves de API, senhas ou outros segredos.
