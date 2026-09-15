@@ -27,7 +27,7 @@ class ClienteFalso:
         caminhos = [
             "README.md",
             ".gitignore",
-            "requirements.txt",
+            "projetos/app/requirements.txt",
             "app.py",
             "test_app.py",
             ".github/workflows/ci.yml",
@@ -71,7 +71,7 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
                 "tree": [
                     {"path": "README.md", "type": "blob"},
                     {"path": ".gitignore", "type": "blob"},
-                    {"path": "requirements.txt", "type": "blob"},
+                    {"path": "projetos/dashboard/requirements.txt", "type": "blob"},
                     {"path": "test_app.py", "type": "blob"},
                     {"path": ".github/workflows/ci.yml", "type": "blob"},
                 ],
@@ -84,6 +84,10 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
         self.assertEqual(relatorio["score"], 100)
         self.assertTrue(all(relatorio["checks"].values()))
         self.assertEqual(relatorio["recomendacoes"], [])
+        self.assertEqual(
+            relatorio["evidencias"]["arquivos_dependencias"],
+            ["projetos/dashboard/requirements.txt"],
+        )
 
     def test_snapshot_incompleto_gera_recomendacoes(self):
         snapshot = {
