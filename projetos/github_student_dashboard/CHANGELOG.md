@@ -6,6 +6,13 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 
 ### Melhorias
 
+- laboratório ampliado para os **10 mini sistemas**, todos com experiência prática e links para código/testes reais;
+- Mini Sistema 09 deixou de ser apenas uma simulação de contrato: `GET`, `POST`, `PATCH` e `DELETE` agora passam pelo backend Flask real;
+- regras do playground da API reutilizam as funções Python versionadas em `conteudos/mini_sistemas/api_tarefas/app.py`;
+- estado didático da API permanece no navegador, evitando misturar dados de visitantes no servidor público;
+- limites e validações foram adicionados ao endpoint do laboratório para reduzir abuso e estados inválidos;
+- testes automatizados cobrem criação `201`, listagem `200`, atualização `200`, exclusão `204`, erros `400/404` e integração da página com o backend real;
+- CI agora valida a sintaxe dos dois arquivos JavaScript do laboratório;
 - detecção de arquivos de teste ampliada para padrões comuns de Python, JavaScript, TypeScript, JSX, Go, Dart/Flutter, Ruby, Java, Kotlin, C#, PHP e diretórios convencionais de teste;
 - teste automatizado para evitar falsos positivos simples como `contest.py` e `latest.ts`;
 - verificação determinística de links internos do README usando a árvore do próprio repositório;
