@@ -77,7 +77,11 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] hábitos, metas semanais, registros diários, sequência e progresso
 - [x] persistência em JSON no Gerenciador de Hábitos
 - [x] testes automatizados do Gerenciador de Hábitos
-- [ ] Mini Sistema 09 — API de Tarefas
+- [x] Mini Sistema 09 — API de Tarefas
+- [x] endpoints REST com GET, POST, PATCH e DELETE
+- [x] validação, códigos HTTP e persistência em JSON
+- [x] testes HTTP com cliente de teste do Flask
+- [x] CI instala dependências e executa toda a coleção
 - [ ] Mini Sistema 10 — Projeto integrado
 
 Conteúdo atual: `conteudos/mini_sistemas/`.
