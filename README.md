@@ -50,12 +50,16 @@ Aplicação pública que analisa repositórios e perfis do GitHub usando checks 
 - histórico por commit;
 - explicação local ou IA opcional;
 - interface web, API JSON, testes e CI;
-- laboratório educacional com **10 mini sistemas ligados ao backend Flask e às funções Python originais**.
+- laboratório educacional com **10 mini sistemas ligados ao backend Flask e às funções Python originais**;
+- **118 testes automatizados passando** na execução de referência;
+- **81,9% de cobertura real**, medida com branches e protegida por gate mínimo de **80%**;
+- auditoria informativa de dependências com `pip-audit`, sem vulnerabilidade conhecida reportada na execução de referência.
 
 ### Abrir
 
 - **Aplicação:** https://github-student-dashboard-videirafoo.onrender.com
 - **Laboratório interativo:** https://github-student-dashboard-videirafoo.onrender.com/laboratorio
+- **Evidências de qualidade:** [`QUALITY.md`](./QUALITY.md)
 - **Showcase:** [`SHOWCASE.md`](./SHOWCASE.md)
 - **Código:** [`projetos/github_student_dashboard`](./projetos/github_student_dashboard)
 - **Documentação:** [`README do Dashboard`](./projetos/github_student_dashboard/README.md)
