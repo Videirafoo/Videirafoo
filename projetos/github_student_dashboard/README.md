@@ -84,7 +84,7 @@ A matriz cruza:
 - arquivos reais do backend Flask;
 - workflow e configuração do gate de cobertura;
 - execução mais recente da `GitHub Student Dashboard CI`;
-- healthcheck público em produção;
+- execução da própria API no host público canônico, sem autochamada HTTP recursiva;
 - documentação técnica versionada;
 - estado real do Pull Request externo `fork-commit-merge/fork-commit-merge#8150`;
 - implementação e testes da camada explicativa de IA.
@@ -111,11 +111,11 @@ A API usa cache de até **600 segundos** para reduzir chamadas repetidas à GitH
 
 ## Qualidade interna verificada
 
-Execução de referência: [GitHub Student Dashboard CI #125](https://github.com/Videirafoo/Videirafoo/actions/runs/35004424114)
+Execução de referência: [GitHub Student Dashboard CI #127](https://github.com/Videirafoo/Videirafoo/actions/runs/35005178735)
 
 | Evidência | Resultado |
 |---|---:|
-| Testes automatizados | **177 passando** |
+| Testes automatizados | **180 passando** |
 | Cobertura total | **92,6%** |
 | Gate de regressão | **90% — aprovado** |
 | `cli.py` | **100,0%** |
@@ -128,19 +128,20 @@ Execução de referência: [GitHub Student Dashboard CI #125](https://github.com
 | `lab_systems.py` | **94,8%** |
 | `lab_web.py` | **94,3%** |
 | `competency_matrix.py` | **89,5%** |
+| `web.py` | **87,2%** |
 | Auditoria | `No known vulnerabilities found` nessa execução |
 
 Evolução comprovada:
 
-`95 / 73,3%` → `118 / 81,9%` → `135 / 89,0%` → `147 / 92,9%` → `156 / 92,9%` → **`177 testes / 92,6%`**
+`95 / 73,3%` → `118 / 81,9%` → `135 / 89,0%` → `147 / 92,9%` → `156 / 92,9%` → `177 / 92,6%` → **`180 testes / 92,6%`**
 
 A cobertura caiu levemente de 92,9% para 92,6% porque a Matriz adicionou comportamento novo; o gate de **90%** continuou aprovado. O objetivo é proteger comportamento útil, não inflar percentuais.
 
 A CI publica `coverage.txt`, `coverage.json` e `pip-audit.txt` no artefato `dashboard-quality-evidence`.
 
-Artefato da execução #125:
+Artefato da execução #127:
 
-https://github.com/Videirafoo/Videirafoo/actions/runs/35004424114/artifacts/10411171361
+https://github.com/Videirafoo/Videirafoo/actions/runs/35005178735/artifacts/10411236426
 
 Os números são evidências de uma execução específica, não garantias permanentes. Consulte [`QUALITY.md`](../../QUALITY.md) para metodologia e limites.
 
@@ -149,7 +150,7 @@ Os números são evidências de uma execução específica, não garantias perma
 A IA **não calcula o score**, **não decide se um check passou** e **não transforma evidência em certificação de competência**.
 
 ```text
-GitHub API + healthcheck + artefatos públicos
+GitHub API + artefatos públicos + runtime atual
    ↓
 checks determinísticos
    ↓
@@ -245,7 +246,7 @@ github_student_dashboard/
 - `competency_matrix.py`: agregação de evidências públicas da Matriz Viva;
 - `ai_explainer.py`: explicação pedagógica a partir do relatório pronto;
 - `lab_*.py`: adaptação segura dos mini sistemas para o laboratório público;
-- `web.py`: rotas web, JSON, saúde e arquivos de descoberta.
+- `web.py`: rotas web, JSON, saúde, evidência de runtime e arquivos de descoberta.
 
 ## CI e qualidade
 
@@ -256,7 +257,7 @@ A CI executa, em ordem:
 3. instalação das dependências de validação;
 4. `compileall` do projeto;
 5. validação de sintaxe dos JavaScripts do laboratório, Trilha e Matriz;
-6. **177 testes** sob `coverage.py` na execução de referência atual;
+6. **180 testes** sob `coverage.py` na execução de referência atual;
 7. gate mínimo de cobertura em **90%**;
 8. auditoria informativa de produção com `pip-audit`;
 9. upload das evidências de cobertura e auditoria.
@@ -331,7 +332,13 @@ O serviço público usa Gunicorn:
 gunicorn projetos.github_student_dashboard.web:app --bind 0.0.0.0:$PORT
 ```
 
-O deploy canônico usa a branch `main` no Render. Uma promoção só deve ser considerada concluída quando o serviço reportar `live` e o healthcheck responder corretamente.
+O deploy canônico usa a branch `main` no Render. Uma promoção só deve ser considerada concluída quando o serviço reportar `live` e a aplicação estiver respondendo corretamente.
+
+### Evitando healthcheck recursivo
+
+A Matriz não chama o próprio `/healthz` por HTTP durante `/api/competencias`. Com Gunicorn sync e um único worker, isso poderia bloquear o worker aguardando uma requisição que ele mesmo precisaria atender.
+
+Quando a Matriz é consultada pelo host público canônico, o atendimento da própria requisição é usado como evidência do runtime naquele instante. Em execução local, produção não é inferida.
 
 ## IA explicativa opcional
 
@@ -433,8 +440,8 @@ Qualquer validação futura de URLs externas deve aplicar allowlist, limites, ti
 ## Próximas entregas
 
 1. aumentar cobertura útil de `engine.py` — baseline atual **82,1%**;
-2. aumentar cobertura útil de `web.py` — baseline atual **86,4%**;
-3. aumentar cobertura útil de `readme_quality.py` — baseline atual **86,9%**;
+2. aumentar cobertura útil de `readme_quality.py` — baseline atual **86,9%**;
+3. aumentar cobertura útil de `web.py` — baseline atual **87,2%**;
 4. revisar somente branches úteis da `competency_matrix.py` — baseline atual **89,5%**;
 5. manter o gate global de **90%** sem perseguir 100% por aparência;
 6. coletar feedback real de estudantes e corrigir pontos encontrados em uso público;
