@@ -14,7 +14,6 @@
       --muted: #8b949e;
       --accent: #58a6ff;
       --success: #3fb950;
-      --warning: #d29922;
       --danger: #f85149;
     }
 
@@ -29,14 +28,12 @@
     }
 
     main {
-      width: min(960px, calc(100% - 32px));
+      width: min(1040px, calc(100% - 32px));
       margin: 0 auto;
       padding: 48px 0 80px;
     }
 
-    .hero {
-      margin-bottom: 32px;
-    }
+    .hero { margin-bottom: 28px; }
 
     h1 {
       margin: 0 0 10px;
@@ -46,7 +43,7 @@
 
     .subtitle {
       margin: 0;
-      max-width: 720px;
+      max-width: 760px;
       color: var(--muted);
       font-size: 1.05rem;
     }
@@ -58,6 +55,9 @@
       padding: 20px;
       margin-top: 20px;
     }
+
+    .mode-title { margin: 0 0 6px; }
+    .mode-copy { margin: 0 0 16px; color: var(--muted); }
 
     form {
       display: grid;
@@ -88,10 +88,7 @@
       font-weight: 700;
     }
 
-    button:disabled {
-      opacity: .65;
-      cursor: wait;
-    }
+    button:disabled { opacity: .65; cursor: wait; }
 
     .score {
       display: flex;
@@ -100,9 +97,7 @@
       margin: 0 0 18px;
     }
 
-    .score strong {
-      font-size: 3rem;
-    }
+    .score strong { font-size: 3rem; }
 
     .grid {
       display: grid;
@@ -110,7 +105,7 @@
       gap: 12px;
     }
 
-    .check {
+    .check, .metric, .repo-card {
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 14px;
@@ -119,25 +114,15 @@
     .ok { border-color: color-mix(in srgb, var(--success) 60%, var(--border)); }
     .missing { border-color: color-mix(in srgb, var(--danger) 60%, var(--border)); }
 
-    .label {
-      color: var(--muted);
-      font-size: .9rem;
-    }
+    .label { color: var(--muted); font-size: .9rem; }
+    .value { font-weight: 700; margin-top: 4px; }
+    .metric strong { display: block; font-size: 1.7rem; margin-top: 4px; }
+    .repo-card a { color: var(--accent); font-weight: 700; text-decoration: none; }
+    .repo-card p { color: var(--muted); margin-bottom: 0; }
 
-    .value {
-      font-weight: 700;
-      margin-top: 4px;
-    }
+    ul { padding-left: 20px; }
 
-    ul {
-      padding-left: 20px;
-    }
-
-    .error {
-      color: var(--danger);
-      font-weight: 600;
-    }
-
+    .error { color: var(--danger); font-weight: 600; }
     .hidden { display: none; }
 
     footer {
@@ -157,12 +142,14 @@
     <section class="hero">
       <h1>GitHub Student Dashboard</h1>
       <p class="subtitle">
-        Analise um repositório público com checks objetivos e veja quais melhorias podem deixá-lo mais claro, confiável e fácil de descobrir.
+        Analise repositórios e perfis públicos com evidências objetivas. O sistema verifica primeiro; explicações inteligentes entram depois.
       </p>
     </section>
 
     <section class="panel">
-      <form id="form">
+      <h2 class="mode-title">Analisar repositório</h2>
+      <p class="mode-copy">Verifique README, descrição, licença, .gitignore, topics, CI, testes e dependências.</p>
+      <form id="repoForm">
         <input
           id="repo"
           name="repo"
@@ -172,41 +159,88 @@
           aria-label="Repositório no formato usuário/repositório"
           required
         >
-        <button id="submit" type="submit">Analisar</button>
+        <button id="repoSubmit" type="submit">Analisar repositório</button>
       </form>
-      <p id="error" class="error hidden" role="alert"></p>
+      <p id="repoError" class="error hidden" role="alert"></p>
     </section>
 
-    <section id="resultado" class="panel hidden" aria-live="polite">
+    <section id="repoResultado" class="panel hidden" aria-live="polite">
       <div class="score">
         <strong id="score">0</strong>
         <span>/100</span>
       </div>
-
       <p id="repoNome"></p>
-
       <h2>Checks</h2>
       <div id="checks" class="grid"></div>
-
       <h2>Próximas melhorias</h2>
       <ul id="recomendacoes"></ul>
     </section>
 
+    <section class="panel">
+      <h2 class="mode-title">Analisar perfil completo</h2>
+      <p class="mode-copy">Veja cobertura de descrição, topics e licença, além de stars, forks, linguagens e repositórios de destaque.</p>
+      <form id="perfilForm">
+        <input
+          id="usuario"
+          name="usuario"
+          type="text"
+          autocomplete="off"
+          placeholder="Ex.: Videirafoo"
+          aria-label="Usuário do GitHub"
+          required
+        >
+        <button id="perfilSubmit" type="submit">Analisar perfil</button>
+      </form>
+      <p id="perfilError" class="error hidden" role="alert"></p>
+    </section>
+
+    <section id="perfilResultado" class="panel hidden" aria-live="polite">
+      <h2 id="perfilTitulo">Perfil</h2>
+      <p id="perfilResumo" class="mode-copy"></p>
+
+      <div id="perfilMetricas" class="grid"></div>
+
+      <h2>Cobertura dos repositórios</h2>
+      <div id="cobertura" class="grid"></div>
+
+      <h2>Linguagens principais</h2>
+      <ul id="linguagens"></ul>
+
+      <h2>Repositórios de destaque</h2>
+      <div id="reposDestaque" class="grid"></div>
+
+      <h2>Lacunas objetivas</h2>
+      <ul id="lacunas"></ul>
+    </section>
+
     <footer>
-      Projeto educacional open source do GitHub Videirafoo. Checks objetivos primeiro; explicações inteligentes depois.
+      Projeto educacional open source do GitHub Videirafoo. Evidência antes de recomendação.
     </footer>
   </main>
 
   <script>
-    const form = document.querySelector('#form');
+    const repoForm = document.querySelector('#repoForm');
     const repoInput = document.querySelector('#repo');
-    const submit = document.querySelector('#submit');
-    const error = document.querySelector('#error');
-    const resultado = document.querySelector('#resultado');
+    const repoSubmit = document.querySelector('#repoSubmit');
+    const repoError = document.querySelector('#repoError');
+    const repoResultado = document.querySelector('#repoResultado');
     const score = document.querySelector('#score');
     const repoNome = document.querySelector('#repoNome');
     const checks = document.querySelector('#checks');
     const recomendacoes = document.querySelector('#recomendacoes');
+
+    const perfilForm = document.querySelector('#perfilForm');
+    const usuarioInput = document.querySelector('#usuario');
+    const perfilSubmit = document.querySelector('#perfilSubmit');
+    const perfilError = document.querySelector('#perfilError');
+    const perfilResultado = document.querySelector('#perfilResultado');
+    const perfilTitulo = document.querySelector('#perfilTitulo');
+    const perfilResumo = document.querySelector('#perfilResumo');
+    const perfilMetricas = document.querySelector('#perfilMetricas');
+    const cobertura = document.querySelector('#cobertura');
+    const linguagens = document.querySelector('#linguagens');
+    const reposDestaque = document.querySelector('#reposDestaque');
+    const lacunas = document.querySelector('#lacunas');
 
     const nomes = {
       readme: 'README',
@@ -219,24 +253,29 @@
       dependencias: 'Dependências'
     };
 
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
+    const nomesLacunas = {
+      nome_publico: 'Nome público não preenchido no perfil.',
+      bio: 'Bio pública não preenchida.',
+      repositorio_perfil: 'Repositório especial de perfil não encontrado.',
+      descricoes_repositorios: 'Há repositórios sem descrição.',
+      topics_repositorios: 'Há repositórios sem topics.',
+      licencas_repositorios: 'Há repositórios sem licença declarada.'
+    };
 
+    repoForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
       const repo = repoInput.value.trim();
       if (!repo) return;
 
-      submit.disabled = true;
-      submit.textContent = 'Analisando...';
-      error.classList.add('hidden');
-      resultado.classList.add('hidden');
+      repoSubmit.disabled = true;
+      repoSubmit.textContent = 'Analisando...';
+      repoError.classList.add('hidden');
+      repoResultado.classList.add('hidden');
 
       try {
         const response = await fetch(`/api/analisar?repo=${encodeURIComponent(repo)}`);
         const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.erro || 'Não foi possível analisar o repositório.');
-        }
+        if (!response.ok) throw new Error(data.erro || 'Não foi possível analisar o repositório.');
 
         score.textContent = data.score;
         repoNome.textContent = data.repositorio;
@@ -246,10 +285,7 @@
         Object.entries(data.checks).forEach(([nome, passou]) => {
           const item = document.createElement('div');
           item.className = `check ${passou ? 'ok' : 'missing'}`;
-          item.innerHTML = `
-            <div class="label">${nomes[nome] || nome}</div>
-            <div class="value">${passou ? 'OK' : 'Falta'}</div>
-          `;
+          item.innerHTML = `<div class="label">${nomes[nome] || nome}</div><div class="value">${passou ? 'OK' : 'Falta'}</div>`;
           checks.appendChild(item);
         });
 
@@ -265,13 +301,86 @@
           });
         }
 
-        resultado.classList.remove('hidden');
+        repoResultado.classList.remove('hidden');
       } catch (erroAtual) {
-        error.textContent = erroAtual.message;
-        error.classList.remove('hidden');
+        repoError.textContent = erroAtual.message;
+        repoError.classList.remove('hidden');
       } finally {
-        submit.disabled = false;
-        submit.textContent = 'Analisar';
+        repoSubmit.disabled = false;
+        repoSubmit.textContent = 'Analisar repositório';
+      }
+    });
+
+    perfilForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const usuario = usuarioInput.value.trim();
+      if (!usuario) return;
+
+      perfilSubmit.disabled = true;
+      perfilSubmit.textContent = 'Analisando...';
+      perfilError.classList.add('hidden');
+      perfilResultado.classList.add('hidden');
+
+      try {
+        const response = await fetch(`/api/perfil?usuario=${encodeURIComponent(usuario)}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.erro || 'Não foi possível analisar o perfil.');
+
+        perfilTitulo.textContent = `Perfil: ${data.usuario}`;
+        perfilResumo.textContent = `${data.repositorios_analisados} repositórios próprios analisados. Sem nota arbitrária: apenas evidências públicas.`;
+
+        perfilMetricas.innerHTML = `
+          <div class="metric"><div class="label">Seguidores</div><strong>${data.seguidores}</strong></div>
+          <div class="metric"><div class="label">Stars recebidos</div><strong>${data.engajamento.stars_recebidos}</strong></div>
+          <div class="metric"><div class="label">Forks recebidos</div><strong>${data.engajamento.forks_recebidos}</strong></div>
+          <div class="metric"><div class="label">Repositório de perfil</div><strong>${data.repositorio_perfil_existe ? 'OK' : 'Falta'}</strong></div>
+        `;
+
+        cobertura.innerHTML = '';
+        Object.entries(data.cobertura).forEach(([nome, valor]) => {
+          const item = document.createElement('div');
+          item.className = 'metric';
+          item.innerHTML = `<div class="label">${nome}</div><strong>${valor.percentual}%</strong><div>${valor.quantidade}/${data.repositorios_analisados} repositórios</div>`;
+          cobertura.appendChild(item);
+        });
+
+        linguagens.innerHTML = '';
+        if (data.linguagens_principais.length === 0) {
+          linguagens.innerHTML = '<li>Nenhuma linguagem principal informada pela API.</li>';
+        } else {
+          data.linguagens_principais.forEach((item) => {
+            const li = document.createElement('li');
+            li.textContent = `${item.linguagem}: ${item.repositorios} repositório(s)`;
+            linguagens.appendChild(li);
+          });
+        }
+
+        reposDestaque.innerHTML = '';
+        data.repositorios_destaque.forEach((repo) => {
+          const item = document.createElement('div');
+          item.className = 'repo-card';
+          item.innerHTML = `<a href="${repo.url}" target="_blank" rel="noreferrer">${repo.nome}</a><div>★ ${repo.stars} · Forks ${repo.forks}</div><p>${repo.descricao || 'Sem descrição.'}</p>`;
+          reposDestaque.appendChild(item);
+        });
+
+        lacunas.innerHTML = '';
+        if (data.lacunas_objetivas.length === 0) {
+          lacunas.innerHTML = '<li>Nenhuma lacuna objetiva encontrada nos indicadores atuais.</li>';
+        } else {
+          data.lacunas_objetivas.forEach((nome) => {
+            const li = document.createElement('li');
+            li.textContent = nomesLacunas[nome] || nome;
+            lacunas.appendChild(li);
+          });
+        }
+
+        perfilResultado.classList.remove('hidden');
+      } catch (erroAtual) {
+        perfilError.textContent = erroAtual.message;
+        perfilError.classList.remove('hidden');
+      } finally {
+        perfilSubmit.disabled = false;
+        perfilSubmit.textContent = 'Analisar perfil';
       }
     });
   </script>
