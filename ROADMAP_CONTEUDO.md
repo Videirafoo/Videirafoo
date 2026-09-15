@@ -92,7 +92,7 @@ A coleção agora ensina progressivamente:
 
 ### GitHub Student Dashboard
 
-Status: **próxima fase ativa**.
+Status: **em desenvolvimento**.
 
 Construir uma ferramenta realmente útil para estudantes que analise repositórios e identifique:
 
@@ -124,7 +124,7 @@ Construir uma ferramenta realmente útil para estudantes que analise repositóri
 
 ### Primeiro núcleo reaproveitável
 
-O Mini Sistema 10 já implementa localmente:
+O Mini Sistema 10 implementou localmente:
 
 - detecção de README;
 - `.gitignore`;
@@ -138,17 +138,33 @@ O Mini Sistema 10 já implementa localmente:
 - recomendações;
 - exportação JSON.
 
-Esse núcleo servirá como referência para a versão remota via GitHub API.
+### MVP remoto já entregue
 
-### Objetivos técnicos
+- [x] consumir GitHub API pública;
+- [x] aceitar `usuario/repositorio` e URL do GitHub;
+- [x] analisar repositório remoto;
+- [x] ler metadados, árvore de arquivos e linguagens;
+- [x] separar engine de checks da interface;
+- [x] calcular score reproduzível;
+- [x] gerar recomendações objetivas;
+- [x] disponibilizar CLI;
+- [x] disponibilizar endpoint `GET /api/analisar`;
+- [x] criar interface web responsiva;
+- [x] testes da engine;
+- [x] testes da interface web;
+- [x] CI própria do dashboard;
+- [x] documentação do MVP.
 
-- [ ] consumir GitHub API;
-- [ ] analisar `usuario/repositorio` remotamente;
-- [ ] separar engine de checks da interface;
-- [ ] ter interface web simples;
-- [ ] mostrar evidências para cada recomendação;
-- [ ] testes e CI;
-- [ ] documentação completa;
+### Próximas entregas
+
+- [ ] análise do perfil completo do estudante;
+- [ ] evidências detalhadas por check;
+- [ ] melhorar detecção de testes por stack;
+- [ ] verificar status real da última CI;
+- [ ] analisar qualidade mínima do README;
+- [ ] comparação entre repositórios;
+- [ ] histórico de análises;
+- [ ] camada de IA apenas para explicação e priorização;
 - [ ] deploy público;
 - [ ] receber feedback de usuários.
 
