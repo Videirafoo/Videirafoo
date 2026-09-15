@@ -2,8 +2,18 @@ from projetos.github_student_dashboard.engine import analisar_repositorio_remoto
 from projetos.github_student_dashboard.readme_quality import analisar_readme_remoto
 
 
+def _obter_ci_real(relatorio):
+    """Lê o status real da CI no formato atual e mantém compatibilidade com versões anteriores."""
+    ci = relatorio.get("ci_execucao")
+    if ci:
+        return ci
+
+    evidencias = relatorio.get("evidencias", {})
+    return evidencias.get("ci_execucao") or evidencias.get("ci_status") or {}
+
+
 def _resumir_repo(relatorio, readme):
-    ci = relatorio.get("evidencias", {}).get("ci_status") or {}
+    ci = _obter_ci_real(relatorio)
     return {
         "repositorio": relatorio.get("repositorio"),
         "url": relatorio.get("url"),
