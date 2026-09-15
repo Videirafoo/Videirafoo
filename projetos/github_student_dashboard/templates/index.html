@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GitHub Student Dashboard: analise repositórios e perfis públicos com checks objetivos, evidências e orientação educacional.">
   <title>GitHub Student Dashboard</title>
   <style>
     :root {
-      color-scheme: light dark;
+      color-scheme: dark;
       --bg: #0d1117;
       --panel: #161b22;
+      --panel-soft: #11161d;
       --border: #30363d;
       --text: #f0f6fc;
       --muted: #8b949e;
@@ -28,18 +30,61 @@
       line-height: 1.5;
     }
 
+    a { color: var(--accent); }
+
     main {
       width: min(1040px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 48px 0 80px;
+      padding: 36px 0 80px;
     }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 42px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .quick-nav a,
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      text-decoration: none;
+      background: var(--panel-soft);
+      font-size: .92rem;
+      font-weight: 650;
+    }
+
+    .quick-nav a:hover,
+    .button-link:hover { border-color: var(--accent); }
 
     .hero { margin-bottom: 28px; }
 
     h1 {
-      margin: 0 0 10px;
-      font-size: clamp(2rem, 6vw, 4rem);
-      line-height: 1.05;
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 6vw, 4.4rem);
+      line-height: 1.02;
+      letter-spacing: -.035em;
     }
 
     .subtitle {
@@ -49,12 +94,23 @@
       font-size: 1.05rem;
     }
 
+    .principle {
+      margin-top: 16px;
+      color: var(--text);
+      font-weight: 650;
+    }
+
     .panel {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 20px;
       margin-top: 20px;
+    }
+
+    .panel-highlight {
+      background: linear-gradient(145deg, #161b22, #111a27);
+      border-color: #2f81f7;
     }
 
     .mode-title { margin: 0 0 6px; }
@@ -80,13 +136,18 @@
       color: var(--text);
     }
 
+    input:focus {
+      outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+      outline-offset: 2px;
+    }
+
     button {
       padding: 0 20px;
       cursor: pointer;
       border-color: var(--accent);
       background: var(--accent);
       color: #07111f;
-      font-weight: 700;
+      font-weight: 750;
     }
 
     button:disabled { opacity: .65; cursor: wait; }
@@ -149,6 +210,19 @@
 
     .ci-card a { color: var(--accent); }
 
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .button-link.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #07111f;
+    }
+
     ul { padding-left: 20px; }
 
     .error { color: var(--danger); font-weight: 600; }
@@ -160,36 +234,48 @@
       font-size: .9rem;
     }
 
+    footer a { text-decoration: none; }
+
+    @media (max-width: 760px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .quick-nav { justify-content: flex-start; }
+    }
+
     @media (max-width: 640px) {
       form { grid-template-columns: 1fr; }
       button { width: 100%; }
-      main { width: min(100% - 20px, 1040px); padding-top: 28px; }
+      main { width: min(100% - 20px, 1040px); padding-top: 24px; }
       .panel { padding: 14px; }
+      .quick-nav a { font-size: .85rem; }
     }
   </style>
 </head>
 <body>
   <main>
+    <header class="topbar">
+      <a class="brand" href="/">Videirafoo · Student Dashboard</a>
+      <nav class="quick-nav" aria-label="Navegação principal">
+        <a href="/readme">Qualidade do README</a>
+        <a href="/comparar">Comparar</a>
+        <a href="/historico">Histórico</a>
+        <a href="/explicar">Explicação</a>
+        <a href="https://github.com/Videirafoo/Videirafoo" target="_blank" rel="noreferrer">Código</a>
+      </nav>
+    </header>
+
     <section class="hero">
       <h1>GitHub Student Dashboard</h1>
       <p class="subtitle">
-        Analise repositórios e perfis públicos com evidências objetivas. O sistema verifica primeiro; explicações inteligentes entram depois.
+        Analise repositórios e perfis públicos com evidências objetivas, entenda o que já está bem estruturado e descubra quais melhorias realmente fazem diferença.
       </p>
+      <p class="principle">Evidência primeiro. Explicação depois.</p>
     </section>
 
     <section class="panel">
       <h2 class="mode-title">Analisar repositório</h2>
       <p class="mode-copy">Verifique README, descrição, licença, .gitignore, topics, CI, testes e dependências.</p>
       <form id="repoForm">
-        <input
-          id="repo"
-          name="repo"
-          type="text"
-          autocomplete="off"
-          placeholder="Ex.: Videirafoo/Videirafoo"
-          aria-label="Repositório no formato usuário/repositório"
-          required
-        >
+        <input id="repo" name="repo" type="text" autocomplete="off" placeholder="Ex.: Videirafoo/Videirafoo" aria-label="Repositório no formato usuário/repositório" required>
         <button id="repoSubmit" type="submit">Analisar repositório</button>
       </form>
       <p id="repoError" class="error hidden" role="alert"></p>
@@ -219,15 +305,7 @@
       <h2 class="mode-title">Analisar perfil completo</h2>
       <p class="mode-copy">Veja cobertura de descrição, topics e licença, além de stars, forks, linguagens e repositórios de destaque.</p>
       <form id="perfilForm">
-        <input
-          id="usuario"
-          name="usuario"
-          type="text"
-          autocomplete="off"
-          placeholder="Ex.: Videirafoo"
-          aria-label="Usuário do GitHub"
-          required
-        >
+        <input id="usuario" name="usuario" type="text" autocomplete="off" placeholder="Ex.: Videirafoo" aria-label="Usuário do GitHub" required>
         <button id="perfilSubmit" type="submit">Analisar perfil</button>
       </form>
       <p id="perfilError" class="error hidden" role="alert"></p>
@@ -252,8 +330,20 @@
       <ul id="lacunas"></ul>
     </section>
 
+    <section class="panel panel-highlight" id="feedback">
+      <h2 class="mode-title">Ajude a melhorar para quem está começando</h2>
+      <p class="mode-copy">
+        Testou o Dashboard? Conte o que funcionou, o que ficou confuso e qual melhoria deveria vir primeiro. O feedback é registrado como issue pública estruturada no GitHub.
+      </p>
+      <div class="cta-actions">
+        <a class="button-link primary" href="https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml" target="_blank" rel="noreferrer">Enviar feedback</a>
+        <a class="button-link" href="https://github.com/Videirafoo/Videirafoo/issues/5" target="_blank" rel="noreferrer">Ver feedback aberto</a>
+        <a class="button-link" href="https://github.com/Videirafoo/Videirafoo/blob/main/COMMUNITY.md" target="_blank" rel="noreferrer">Participar da comunidade</a>
+      </div>
+    </section>
+
     <footer>
-      Projeto educacional open source do GitHub Videirafoo. Evidência antes de recomendação.
+      Projeto educacional open source do GitHub <a href="https://github.com/Videirafoo">Videirafoo</a>. Evidência antes de recomendação.
     </footer>
   </main>
 
@@ -427,7 +517,7 @@
           detalhesChecks.appendChild(item);
         });
 
-        if (data.recomendacoes.length === 0) {
+        if ((data.recomendacoes || []).length === 0) {
           const item = document.createElement('li');
           item.textContent = 'Nenhuma ausência encontrada nos checks atuais.';
           recomendacoes.appendChild(item);
@@ -501,7 +591,7 @@
         });
 
         linguagens.innerHTML = '';
-        if (data.linguagens_principais.length === 0) {
+        if ((data.linguagens_principais || []).length === 0) {
           const li = document.createElement('li');
           li.textContent = 'Nenhuma linguagem principal informada pela API.';
           linguagens.appendChild(li);
@@ -514,7 +604,7 @@
         }
 
         reposDestaque.innerHTML = '';
-        data.repositorios_destaque.forEach((repo) => {
+        (data.repositorios_destaque || []).forEach((repo) => {
           const item = document.createElement('div');
           item.className = 'repo-card';
 
@@ -535,7 +625,7 @@
         });
 
         lacunas.innerHTML = '';
-        if (data.lacunas_objetivas.length === 0) {
+        if ((data.lacunas_objetivas || []).length === 0) {
           const li = document.createElement('li');
           li.textContent = 'Nenhuma lacuna objetiva encontrada nos indicadores atuais.';
           lacunas.appendChild(li);
