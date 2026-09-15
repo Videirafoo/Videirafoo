@@ -22,8 +22,10 @@ class ComparisonTest(unittest.TestCase):
                 "testes": True,
                 "dependencias": False,
             },
-            "evidencias": {
-                "ci_status": {"estado": "success", "workflow": "CI", "url": "https://example.com/a"}
+            "ci_execucao": {
+                "estado": "success",
+                "workflow": "CI",
+                "url": "https://example.com/a",
             },
         }
         relatorio_b = {
@@ -41,7 +43,11 @@ class ComparisonTest(unittest.TestCase):
                 "dependencias": True,
             },
             "evidencias": {
-                "ci_status": {"estado": "failure", "workflow": "CI", "url": "https://example.com/b"}
+                "ci_execucao": {
+                    "estado": "failure",
+                    "workflow": "CI",
+                    "url": "https://example.com/b",
+                }
             },
         }
         readme_a = {
@@ -63,6 +69,27 @@ class ComparisonTest(unittest.TestCase):
         self.assertIn("topics", resultado["diferencas_objetivas"]["checks_exclusivos_a"])
         self.assertIn("dependencias", resultado["diferencas_objetivas"]["checks_exclusivos_b"])
         self.assertEqual(resultado["repositorio_a"]["ci_real"]["estado"], "success")
+        self.assertEqual(resultado["repositorio_b"]["ci_real"]["estado"], "failure")
+
+    def test_mantem_compatibilidade_com_ci_status_antigo(self):
+        relatorio = {
+            "repositorio": "org/a",
+            "url": "https://github.com/org/a",
+            "score": 100,
+            "checks": {"ci": True},
+            "evidencias": {
+                "ci_status": {"estado": "success", "workflow": "CI antigo"}
+            },
+        }
+        readme = {
+            "tipo_detectado": "projeto",
+            "cobertura_documental": {"percentual": 100.0},
+            "criterios": {},
+        }
+
+        resultado = comparar_relatorios(relatorio, readme, relatorio, readme)
+
+        self.assertEqual(resultado["repositorio_a"]["ci_real"]["estado"], "success")
 
     def test_rejeita_comparacao_do_mesmo_repositorio(self):
         with self.assertRaises(ValueError):
@@ -83,7 +110,7 @@ class ComparisonTest(unittest.TestCase):
                 "url": f"https://github.com/{ref}",
                 "score": 100,
                 "checks": {"readme": True},
-                "evidencias": {"ci_status": {"estado": "success"}},
+                "ci_execucao": {"estado": "success"},
             }
 
         def readme(ref):
