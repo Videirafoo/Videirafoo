@@ -16,6 +16,17 @@ class StudentDashboardWebTest(unittest.TestCase):
         self.assertIn(b"GitHub Student Dashboard", resposta.data)
         self.assertIn(b"Analisar perfil", resposta.data)
 
+    def test_pagina_readme_renderiza_interface(self):
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/readme")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertIn(b"Qualidade do README", resposta.data)
+        self.assertIn(b"Analisar README", resposta.data)
+
     def test_api_exige_repositorio(self):
         app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
