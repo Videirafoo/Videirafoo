@@ -62,10 +62,7 @@ def caminhos_da_arvore(arvore):
 
 def detectar_readme(caminhos):
     nomes = {caminho.lower() for caminho in caminhos if "/" not in caminho}
-    return any(
-        nome == "readme" or nome.startswith("readme.")
-        for nome in nomes
-    )
+    return any(nome == "readme" or nome.startswith("readme.") for nome in nomes)
 
 
 def detectar_gitignore(caminhos):
@@ -111,9 +108,17 @@ def detectar_testes(caminhos):
     return False
 
 
+def arquivos_de_dependencias(caminhos):
+    encontrados = []
+    for caminho in caminhos:
+        nome = caminho.rsplit("/", 1)[-1].lower()
+        if nome in ARQUIVOS_DEPENDENCIAS:
+            encontrados.append(caminho)
+    return sorted(encontrados)
+
+
 def detectar_dependencias(caminhos):
-    raiz = {caminho.lower() for caminho in caminhos if "/" not in caminho}
-    return any(nome in raiz for nome in ARQUIVOS_DEPENDENCIAS)
+    return bool(arquivos_de_dependencias(caminhos))
 
 
 def calcular_score(checks):
@@ -191,6 +196,7 @@ def analisar_snapshot(snapshot):
     arvore = snapshot["arvore"]
     linguagens = snapshot.get("linguagens", {})
     caminhos = caminhos_da_arvore(arvore)
+    dependencias_encontradas = arquivos_de_dependencias(caminhos)
 
     checks = {
         "readme": detectar_readme(caminhos),
@@ -200,7 +206,7 @@ def analisar_snapshot(snapshot):
         "topics": bool(metadata.get("topics")),
         "ci": detectar_ci(caminhos),
         "testes": detectar_testes(caminhos),
-        "dependencias": detectar_dependencias(caminhos),
+        "dependencias": bool(dependencias_encontradas),
     }
 
     return {
@@ -214,6 +220,12 @@ def analisar_snapshot(snapshot):
             "topics": metadata.get("topics", []),
             "linguagens_bytes": linguagens,
             "arvore_truncada": bool(arvore.get("truncated")),
+            "arquivos_dependencias": dependencias_encontradas,
+            "tem_descricao": checks["descricao"],
+            "tem_licenca": checks["licenca"],
+            "tem_gitignore": checks["gitignore"],
+            "tem_ci": checks["ci"],
+            "tem_testes": checks["testes"],
         },
         "recomendacoes": gerar_recomendacoes(checks),
     }
