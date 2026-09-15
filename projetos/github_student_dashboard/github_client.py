@@ -89,3 +89,9 @@ class GitHubClient:
             parametros.append(f"branch={quote(branch, safe='')}")
         query = "&".join(parametros)
         return self.get_json(f"/repos/{owner}/{repo}/actions/runs?{query}")
+
+    def buscar_commits(self, owner, repo, limite=5):
+        owner = quote(owner, safe="")
+        repo = quote(repo, safe="")
+        limite = max(1, min(int(limite), 10))
+        return self.get_json(f"/repos/{owner}/{repo}/commits?per_page={limite}")
