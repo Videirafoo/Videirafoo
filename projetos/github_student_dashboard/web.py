@@ -13,6 +13,7 @@ from projetos.github_student_dashboard.readme_quality import analisar_readme_rem
 
 PUBLIC_BASE_URL = "https://github-student-dashboard-videirafoo.onrender.com"
 PUBLIC_PAGES = ["/", "/readme", "/comparar", "/historico", "/explicar"]
+INTERACTIONS_STYLESHEET = '<link rel="stylesheet" href="/static/interactions.css">'
 
 
 def _status_para_erro_github(erro):
@@ -33,6 +34,27 @@ def create_app(
 ):
     app = Flask(__name__)
     app.json.ensure_ascii = False
+
+    @app.after_request
+    def aplicar_microinteracoes(response):
+        """Carrega o CSS compartilhado apenas em respostas HTML.
+
+        Mantém as páginas independentes e permite evoluir a camada visual sem
+        duplicar regras de interação em cada template.
+        """
+        content_type = response.headers.get("Content-Type", "")
+        if "text/html" not in content_type:
+            return response
+
+        html = response.get_data(as_text=True)
+        if INTERACTIONS_STYLESHEET not in html and "</head>" in html:
+            html = html.replace(
+                "</head>",
+                f"  {INTERACTIONS_STYLESHEET}\n</head>",
+                1,
+            )
+            response.set_data(html)
+        return response
 
     @app.get("/")
     def inicio():
