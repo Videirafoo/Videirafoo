@@ -61,7 +61,7 @@ Aplicação pública que analisa repositórios e perfis do GitHub usando checks 
 
 ---
 
-## Laboratório de Projetos — brincar e depois abrir o código
+## Laboratório de Projetos — os 10 mini sistemas podem ser usados
 
 O laboratório existe para evitar um perfil cheio de nomes de projetos sem experiência prática.
 
@@ -69,14 +69,22 @@ O laboratório existe para evitar um perfil cheio de nomes de projetos sem exper
 
 `usar no navegador` → `entender o comportamento` → `abrir o Python` → `abrir os testes` → `alterar sua cópia`
 
-No laboratório já é possível usar:
+Hoje os **10 mini sistemas** possuem experiência prática no navegador:
 
-| Playground | O que pratica | Código original |
-|---|---|---|
-| Lista de tarefas | CRUD, estado, conclusão e persistência | [`lista_tarefas`](./conteudos/mini_sistemas/lista_tarefas) |
-| Cadastro de aluno | entrada, validação, média e regras | [`cadastro_alunos`](./conteudos/mini_sistemas/cadastro_alunos) |
-| Controle de estoque | produtos, quantidade, preço e total | [`controle_estoque`](./conteudos/mini_sistemas/controle_estoque) |
-| Busca binária visual | ordenação, início/meio/fim e busca | [Lista 03](https://github.com/Videirafoo/Lista-03-segundo-periodo) |
+| # | Playground | O que pratica | Código original |
+|---:|---|---|---|
+| 01 | Agenda de contatos | cadastro, busca, remoção e persistência | [`agenda_contatos`](./conteudos/mini_sistemas/agenda_contatos) |
+| 02 | Lista de tarefas | CRUD, estado, conclusão e persistência | [`lista_tarefas`](./conteudos/mini_sistemas/lista_tarefas) |
+| 03 | Cadastro de aluno | entrada, validação, média e regras | [`cadastro_alunos`](./conteudos/mini_sistemas/cadastro_alunos) |
+| 04 | Controle de estoque | produtos, quantidade, preço e total | [`controle_estoque`](./conteudos/mini_sistemas/controle_estoque) |
+| 05 | Sistema de biblioteca | livros, usuários, empréstimos e devolução | [`sistema_biblioteca`](./conteudos/mini_sistemas/sistema_biblioteca) |
+| 06 | Caixa de mercado | catálogo, carrinho, desconto e fechamento | [`caixa_mercado`](./conteudos/mini_sistemas/caixa_mercado) |
+| 07 | Controle financeiro | receitas, despesas, categorias e saldo | [`controle_financeiro`](./conteudos/mini_sistemas/controle_financeiro) |
+| 08 | Gerenciador de hábitos | meta semanal, registros e progresso | [`gerenciador_habitos`](./conteudos/mini_sistemas/gerenciador_habitos) |
+| 09 | API de tarefas | GET, POST, PATCH, DELETE e status HTTP | [`api_tarefas`](./conteudos/mini_sistemas/api_tarefas) |
+| 10 | Projeto integrado | checks determinísticos, score e recomendações | [`projeto_integrado`](./conteudos/mini_sistemas/projeto_integrado) |
+
+O laboratório também inclui **busca binária visual** como bônus de algoritmos.
 
 **Abrir laboratório:** https://github-student-dashboard-videirafoo.onrender.com/laboratorio
 
