@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trilha educacional prática do Videirafoo com níveis, competências, missões e progresso local baseado em evidências reais.">
+  <title>Trilha Educacional — Videirafoo</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0d1117;--panel:#161b22;--soft:#11161d;--border:#30363d;--text:#f0f6fc;--muted:#8b949e;--accent:#58a6ff;--ok:#3fb950;--warn:#d29922}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.55}a{color:var(--accent)}
+    main{width:min(1160px,calc(100% - 28px));margin:auto;padding:28px 0 70px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.top nav{display:flex;gap:8px;flex-wrap:wrap}.btn,.top a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 12px;border:1px solid var(--border);border-radius:9px;background:var(--soft);color:var(--text);text-decoration:none;font-weight:700}.eyebrow{margin-top:30px;color:var(--ok);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
+    h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.02;margin:8px 0 14px;letter-spacing:-.04em}.lead{max-width:880px;color:var(--muted);font-size:1.05rem}.rule{margin-top:18px;padding:14px 16px;border-left:4px solid var(--accent);background:var(--soft);border-radius:8px;color:var(--muted)}
+    .progress-card{margin:24px 0 30px;padding:18px;background:var(--panel);border:1px solid var(--border);border-radius:16px}.progress-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.progress-track{height:14px;background:var(--bg);border:1px solid var(--border);border-radius:999px;overflow:hidden;margin-top:12px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .2s ease}.muted{color:var(--muted)}
+    .levels{display:grid;gap:18px}.level{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:20px}.level-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}.badge{display:inline-flex;padding:5px 9px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);font-size:.8rem;font-weight:800}.level h2{margin:4px 0 8px}.competencias{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.chip{padding:5px 8px;background:var(--soft);border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:.86rem}
+    .missions{display:grid;gap:10px;margin-top:16px}.mission{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:13px;border:1px solid var(--border);border-radius:12px;background:var(--soft)}.mission input{margin-top:5px;width:18px;height:18px;accent-color:var(--ok)}.mission strong{display:block}.mission p{margin:4px 0 0;color:var(--muted);font-size:.92rem}.mission a{text-decoration:none;font-weight:700;white-space:nowrap}
+    .source{margin-top:30px;padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--soft)}.source ul{margin-bottom:0}.reset{background:transparent;color:var(--text);border:1px solid var(--border);border-radius:9px;min-height:38px;padding:0 12px;font-weight:700;cursor:pointer}
+    @media(max-width:720px){main{width:min(100% - 18px,1160px);padding-top:18px}.mission{grid-template-columns:auto 1fr}.mission a{grid-column:2;white-space:normal}.top nav{width:100%}.top nav a{flex:1}.reset{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <a href="/">← Student Dashboard</a>
+    <nav aria-label="Navegação da trilha">
+      <a href="/laboratorio">Laboratório</a>
+      <a href="https://github.com/Videirafoo/Videirafoo/blob/main/GUIA_DE_ESTUDOS.md" target="_blank" rel="noreferrer">Guia de estudos</a>
+      <a href="https://github.com/Videirafoo/Videirafoo" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <div class="eyebrow">Aprender por evidência</div>
+  <h1>Trilha Educacional</h1>
+  <p class="lead">Uma progressão prática de fundamentos até IA aplicada. Cada nível possui competências e missões que apontam para código, testes, laboratório ou contribuições reais. Marcar uma missão significa que você executou e consegue explicar a evidência — não apenas que leu o texto.</p>
+  <div class="rule"><strong>Regra:</strong> aprender → executar → explicar → modificar → testar → provar.</div>
+
+  <section class="progress-card" aria-labelledby="progresso-titulo">
+    <div class="progress-head">
+      <div>
+        <strong id="progresso-titulo">Seu progresso neste navegador</strong>
+        <div id="progresso-texto" class="muted">0 de {{ total_missoes }} missões concluídas</div>
+      </div>
+      <button id="resetar-progresso" class="reset" type="button">Resetar progresso</button>
+    </div>
+    <div class="progress-track" aria-hidden="true"><div id="progresso-barra" class="progress-fill"></div></div>
+  </section>
+
+  <section class="levels" aria-label="Níveis da trilha">
+    {% for nivel in niveis %}
+    <article class="level" id="{{ nivel.slug }}">
+      <div class="level-top">
+        <div>
+          <span class="badge">Nível {{ nivel.nivel }}</span>
+          <h2>{{ nivel.titulo }}</h2>
+          <p class="muted">{{ nivel.objetivo }}</p>
+        </div>
+        <a class="btn" href="#{{ nivel.slug }}">#{{ nivel.slug }}</a>
+      </div>
+      <div class="competencias" aria-label="Competências do nível {{ nivel.nivel }}">
+        {% for competencia in nivel.competencias %}<span class="chip">{{ competencia }}</span>{% endfor %}
+      </div>
+      <div class="missions">
+        {% for missao in nivel.missoes %}
+        <label class="mission">
+          <input class="mission-check" type="checkbox" value="{{ missao.id }}">
+          <span><strong>{{ missao.titulo }}</strong><p>{{ missao.evidencia }}</p></span>
+          <a href="{{ missao.url }}" {% if missao.url.startswith('http') %}target="_blank" rel="noreferrer"{% endif %}>Abrir evidência →</a>
+        </label>
+        {% endfor %}
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+
+  <section class="source">
+    <strong>Princípios estudados e adaptados</strong>
+    <p class="muted">A trilha não copia conteúdo de terceiros. Ela combina padrões generalizados observados em referências públicas já estudadas no projeto:</p>
+    <ul>
+      <li><a href="https://github.com/BEPb/Python-100-days" target="_blank" rel="noreferrer">BEPb/Python-100-days</a> — progressão contínua com exemplos práticos.</li>
+      <li><a href="https://github.com/BEPb/Programmer_Competency_Matrix" target="_blank" rel="noreferrer">BEPb/Programmer_Competency_Matrix</a> — competências divididas por níveis observáveis.</li>
+      <li><a href="https://github.com/BEPb/first-contributions" target="_blank" rel="noreferrer">BEPb/first-contributions</a> — reduzir a barreira da primeira contribuição.</li>
+      <li><a href="https://github.com/msitarzewski/agency-agents" target="_blank" rel="noreferrer">msitarzewski/agency-agents</a> — especialização por papel e entregável verificável.</li>
+      <li><a href="https://github.com/alibaba/open-code-review" target="_blank" rel="noreferrer">alibaba/open-code-review</a> — evidência determinística antes de interpretação.</li>
+    </ul>
+  </section>
+</main>
+<script src="/static/trilha.js" defer></script>
+</body>
+</html>
