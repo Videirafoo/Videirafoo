@@ -52,6 +52,20 @@ def _status_para_erro_github(erro):
     return 502
 
 
+def _evidencia_runtime_publico():
+    """Usa a própria requisição como prova de runtime sem chamar o serviço contra si mesmo.
+
+    Um Gunicorn sync com um único worker pode bloquear se `/api/competencias`
+    fizer HTTP para o próprio `/healthz`. Quando a chamada já chegou ao host
+    público canônico, o atendimento da própria API é evidência suficiente de
+    que o runtime está respondendo naquele instante.
+    """
+    host_atual = request.host_url.rstrip("/")
+    if host_atual == PUBLIC_BASE_URL:
+        return True, "A Matriz está sendo executada e respondida pelo host público de produção."
+    return False, "Execução fora do host público canônico; produção não é inferida a partir do ambiente local."
+
+
 def create_app(
     analisador=analisar_repositorio_remoto,
     analisador_perfil=analisar_perfil_remoto,
@@ -59,7 +73,7 @@ def create_app(
     comparador=comparar_repositorios_remotos,
     analisador_historico=analisar_historico_remoto,
     explicador=explicar_repositorio_remoto,
-    gerador_competencias=gerar_matriz_competencias,
+    gerador_competencias=None,
 ):
     app = Flask(__name__)
     app.json.ensure_ascii = False
@@ -173,7 +187,11 @@ def create_app(
 
     @app.get("/api/competencias")
     def api_competencias():
-        return jsonify(gerador_competencias()), 200
+        if gerador_competencias is not None:
+            relatorio = gerador_competencias()
+        else:
+            relatorio = gerar_matriz_competencias(health_checker=_evidencia_runtime_publico)
+        return jsonify(relatorio), 200
 
     @app.get("/api/analisar")
     def analisar():
