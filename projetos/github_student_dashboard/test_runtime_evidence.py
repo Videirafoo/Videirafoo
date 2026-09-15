@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 from projetos.github_student_dashboard.web import (
     PUBLIC_BASE_URL,
+    PUBLIC_HOST,
     _evidencia_runtime_publico,
     create_app,
 )
@@ -12,6 +13,17 @@ class RuntimeEvidenceTests(unittest.TestCase):
     def test_host_publico_e_evidencia_de_runtime(self):
         app = create_app(gerador_competencias=lambda: {})
         with app.test_request_context("/api/competencias", base_url=PUBLIC_BASE_URL):
+            ok, detalhe = _evidencia_runtime_publico()
+
+        self.assertTrue(ok)
+        self.assertIn("host público", detalhe)
+
+    def test_host_publico_continua_valido_quando_proxy_entrega_http_interno(self):
+        app = create_app(gerador_competencias=lambda: {})
+        with app.test_request_context(
+            "/api/competencias",
+            base_url=f"http://{PUBLIC_HOST}",
+        ):
             ok, detalhe = _evidencia_runtime_publico()
 
         self.assertTrue(ok)
