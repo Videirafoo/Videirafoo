@@ -15,7 +15,10 @@ from projetos.github_student_dashboard.readme_quality import analisar_readme_rem
 PUBLIC_BASE_URL = "https://github-student-dashboard-videirafoo.onrender.com"
 PUBLIC_PAGES = ["/", "/laboratorio", "/readme", "/comparar", "/historico", "/explicar"]
 INTERACTIONS_STYLESHEET = '<link rel="stylesheet" href="/static/interactions.css">'
-LAB_REAL_SCRIPT = '<script src="/static/laboratorio_api_real.js" defer></script>'
+LAB_REAL_SCRIPT = (
+    '<script src="/static/laboratorio_systems_real.js" defer></script>'
+    '<script src="/static/laboratorio_api_real.js" defer></script>'
+)
 
 
 def _status_para_erro_github(erro):
