@@ -15,18 +15,22 @@
 
 ## Sobre mim
 
-Sou estudante de **Engenharia de Software** e desenvolvedor focado em transformar aprendizado em projetos funcionais. Trabalho e estudo desenvolvimento web, mobile, APIs, bancos de dados, automação e aplicações com inteligência artificial.
+Sou estudante de **Engenharia de Software** e desenvolvedor focado em transformar aprendizado em software que possa ser executado, testado, analisado e melhorado.
 
 - **Formação:** Engenharia de Software — Universidade de Vassouras
 - **Foco:** aplicações reais, arquitetura, qualidade de código e automação
 - **Interesses:** SaaS, sistemas multi-tenant, agentes de IA, backend e mobile
 - **Método:** aprender → construir → testar → documentar → melhorar
 
+> **Regra deste perfil:** ideia, roadmap e projeto executável não são a mesma coisa. Tudo abaixo é identificado pelo estado real.
+
 ---
 
-## Projeto em destaque — GitHub Student Dashboard
+# Use agora — projetos realmente executáveis
 
-O **GitHub Student Dashboard** nasceu dentro desta trajetória para ajudar estudantes e pessoas iniciantes a entenderem, com evidências objetivas, como melhorar seus próprios repositórios.
+## GitHub Student Dashboard
+
+Aplicação pública que analisa repositórios e perfis do GitHub usando checks determinísticos, evidências verificáveis e explicação pedagógica.
 
 [![GitHub Student Dashboard CI](https://github.com/Videirafoo/Videirafoo/actions/workflows/student-dashboard.yml/badge.svg)](https://github.com/Videirafoo/Videirafoo/actions/workflows/student-dashboard.yml)
 
@@ -34,47 +38,117 @@ O **GitHub Student Dashboard** nasceu dentro desta trajetória para ajudar estud
   <img src="./docs/github-student-dashboard-status.svg" alt="Status público do GitHub Student Dashboard" width="960" />
 </p>
 
-### O que já está funcionando
+### O que funciona hoje
 
 - análise de repositório por `usuario/repositorio` ou URL;
-- análise de perfil público completo;
-- score determinístico e evidências por check;
-- verificação de README, descrição, licença, `.gitignore`, topics, CI, testes e dependências;
-- status real da execução mais recente da CI;
-- análise objetiva da qualidade do README;
-- comparação entre dois repositórios;
-- histórico versionado de evolução por commit;
-- explicação pedagógica local;
-- IA explicativa opcional sem alterar o diagnóstico;
-- interface web pública;
-- API JSON;
-- testes automatizados e GitHub Actions;
-- deploy em produção com Flask + Gunicorn no Render;
-- healthcheck, `robots.txt`, sitemap e canal público de feedback.
+- análise de perfil público;
+- README, descrição, licença, `.gitignore`, topics, CI, testes e dependências;
+- status real da última execução do GitHub Actions;
+- qualidade estrutural de README;
+- links internos quebrados do README;
+- comparação entre repositórios;
+- histórico por commit;
+- explicação local ou IA opcional;
+- interface web, API JSON, testes e CI.
 
-### Acesse e acompanhe
+### Abrir
 
-- **Demo pública:** https://github-student-dashboard-videirafoo.onrender.com
-- **Showcase completo:** [`SHOWCASE.md`](./SHOWCASE.md)
-- **Arquitetura visual:** [`docs/github-student-dashboard-flow.svg`](./docs/github-student-dashboard-flow.svg)
+- **Aplicação:** https://github-student-dashboard-videirafoo.onrender.com
+- **Laboratório interativo:** https://github-student-dashboard-videirafoo.onrender.com/laboratorio
+- **Showcase:** [`SHOWCASE.md`](./SHOWCASE.md)
 - **Código:** [`projetos/github_student_dashboard`](./projetos/github_student_dashboard)
 - **Documentação:** [`README do Dashboard`](./projetos/github_student_dashboard/README.md)
-- **Feedback:** [abrir formulário estruturado](https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml)
-- **Feedback aberto:** [Issue #5](https://github.com/Videirafoo/Videirafoo/issues/5)
-- **Comunidade:** [`COMMUNITY.md`](./COMMUNITY.md)
-- **Segurança:** [`SECURITY.md`](./SECURITY.md)
 
-> Princípio do projeto: **automatizar deterministicamente o que pode ser provado; usar IA para explicar e orientar somente depois das evidências.**
+---
+
+## Laboratório de Projetos — brincar e depois abrir o código
+
+O laboratório existe para evitar um perfil cheio de nomes de projetos sem experiência prática.
+
+**Fluxo recomendado:**
+
+`usar no navegador` → `entender o comportamento` → `abrir o Python` → `abrir os testes` → `alterar sua cópia`
+
+No laboratório já é possível usar:
+
+| Playground | O que pratica | Código original |
+|---|---|---|
+| Lista de tarefas | CRUD, estado, conclusão e persistência | [`lista_tarefas`](./conteudos/mini_sistemas/lista_tarefas) |
+| Cadastro de aluno | entrada, validação, média e regras | [`cadastro_alunos`](./conteudos/mini_sistemas/cadastro_alunos) |
+| Controle de estoque | produtos, quantidade, preço e total | [`controle_estoque`](./conteudos/mini_sistemas/controle_estoque) |
+| Busca binária visual | ordenação, início/meio/fim e busca | [Lista 03](https://github.com/Videirafoo/Lista-03-segundo-periodo) |
+
+**Abrir laboratório:** https://github-student-dashboard-videirafoo.onrender.com/laboratorio
+
+---
+
+# Código completo para estudar
+
+A coleção de mini sistemas não é apenas uma lista em Markdown. Há diretórios reais versionados com implementação, README e testes.
+
+| Sistema | Código |
+|---|---|
+| Agenda de contatos | [`conteudos/mini_sistemas/agenda_contatos`](./conteudos/mini_sistemas/agenda_contatos) |
+| Lista de tarefas | [`conteudos/mini_sistemas/lista_tarefas`](./conteudos/mini_sistemas/lista_tarefas) |
+| Cadastro de alunos | [`conteudos/mini_sistemas/cadastro_alunos`](./conteudos/mini_sistemas/cadastro_alunos) |
+| Controle de estoque | [`conteudos/mini_sistemas/controle_estoque`](./conteudos/mini_sistemas/controle_estoque) |
+| Sistema de biblioteca | [`conteudos/mini_sistemas/sistema_biblioteca`](./conteudos/mini_sistemas/sistema_biblioteca) |
+| Caixa de mercado | [`conteudos/mini_sistemas/caixa_mercado`](./conteudos/mini_sistemas/caixa_mercado) |
+| Controle financeiro | [`conteudos/mini_sistemas/controle_financeiro`](./conteudos/mini_sistemas/controle_financeiro) |
+| Gerenciador de hábitos | [`conteudos/mini_sistemas/gerenciador_habitos`](./conteudos/mini_sistemas/gerenciador_habitos) |
+| API de tarefas | [`conteudos/mini_sistemas/api_tarefas`](./conteudos/mini_sistemas/api_tarefas) |
+| Projeto integrado | [`conteudos/mini_sistemas/projeto_integrado`](./conteudos/mini_sistemas/projeto_integrado) |
+
+**Coleção completa:** [`conteudos/mini_sistemas`](./conteudos/mini_sistemas)
+
+---
+
+## Projetos acadêmicos com código
+
+| Repositório | Conteúdo |
+|---|---|
+| [Lista-01-segundo-periodo](https://github.com/Videirafoo/Lista-01-segundo-periodo) | fundamentos de algoritmos e lógica em Python |
+| [Lista-02-segundo-periodo](https://github.com/Videirafoo/Lista-02-segundo-periodo) | listas, funções e manipulação de dados |
+| [Lista-03-segundo-periodo](https://github.com/Videirafoo/Lista-03-segundo-periodo) | busca sequencial e busca binária |
+| [lista-04-segundo-periodo](https://github.com/Videirafoo/lista-04-segundo-periodo) | recursividade em Python |
+| [lista-05-revisao-segundo-periodo](https://github.com/Videirafoo/lista-05-revisao-segundo-periodo) | revisão de algoritmos e lógica |
+| [jogo_primeiro_periodo](https://github.com/Videirafoo/jogo_primeiro_periodo) | jogo de adivinhação com funções, validação e CI |
+
+---
+
+# Conteúdo didático
+
+Para quem está começando, o repositório também possui uma trilha organizada:
+
+- [`GUIA_DE_ESTUDOS.md`](./GUIA_DE_ESTUDOS.md)
+- [`PADRAO_DE_ENSINO.md`](./PADRAO_DE_ENSINO.md)
+- [`conteudos/python-para-iniciantes`](./conteudos/python-para-iniciantes)
+- [`IDEIAS_DE_PROJETOS.md`](./IDEIAS_DE_PROJETOS.md) — **ideias, não projetos entregues**
+- [`ROADMAP_CONTEUDO.md`](./ROADMAP_CONTEUDO.md) — planejamento e estado das próximas entregas
+
+> Documentação serve para explicar software. Ela não substitui o software.
+
+---
+
+# Planejado — ainda não apresentado como projeto pronto
+
+As coleções abaixo são **direção futura**. Elas não são tratadas como repositórios entregues enquanto não houver código executável, exemplos e validação:
+
+- `algoritmos-e-estruturas`
+- `projetos-web-iniciante`
+- `desafios-mobile-flutter`
+
+`python-para-iniciantes` e os mini sistemas já existem **como conteúdo dentro deste repositório**, e não como repositórios independentes.
 
 ---
 
 ## Projetos em desenvolvimento
 
 ### MarcaIA
-Plataforma SaaS multi-tenant para atendimento, agenda, CRM, automações e integrações com IA. O projeto explora arquitetura web moderna, PostgreSQL, Supabase, APIs, mensageria, automação e operação em produção.
+SaaS multi-tenant para atendimento, agenda, CRM, automações e IA. **Em desenvolvimento; não é apresentado aqui como demo pública concluída.**
 
 ### FitCore Pro
-Aplicação premium para treino e gestão fitness, com foco mobile, sessões de treino, histórico, evolução, mapas corporais, sincronização e experiência rápida no dia a dia.
+Aplicação mobile para treino e gestão fitness. **Em desenvolvimento; não é apresentado aqui como produto público concluído.**
 
 ---
 
@@ -90,121 +164,16 @@ Aplicação premium para treino e gestão fitness, com foco mobile, sessões de 
 
 ---
 
-## Para quem está aprendendo
-
-Este perfil também funciona como um laboratório aberto para quem está começando em programação e Engenharia de Software.
-
-Aqui você encontra exemplos de:
-
-- lógica de programação e algoritmos;
-- listas, matrizes, funções e estruturas de dados;
-- busca sequencial, busca binária, ordenação, recursividade e complexidade;
-- organização de pequenos projetos em Python;
-- Git, GitHub e GitHub Actions;
-- evolução de exercícios acadêmicos para pequenos sistemas;
-- primeiros passos em web, mobile, banco de dados, APIs e IA.
-
-> A ideia é simples: **entender o conceito, praticar, errar, corrigir, testar e melhorar.**
-
-📘 [Guia de estudos para iniciantes](./GUIA_DE_ESTUDOS.md)  
-🧩 [Ideias de pequenos sistemas e desafios](./IDEIAS_DE_PROJETOS.md)  
-🎓 [Padrão de ensino dos conteúdos](./PADRAO_DE_ENSINO.md)  
-🗺️ [Roadmap de conteúdo e open source](./ROADMAP_CONTEUDO.md)  
-📅 [Calendário de conteúdo](./CALENDARIO_DE_CONTEUDO.md)
-
----
-
-## Atualmente estudando
-
-- Estruturas de dados e algoritmos
-- Python aplicado a problemas reais
-- Java para backend e arquitetura
-- Next.js e TypeScript para aplicações web
-- Flutter e Dart para mobile
-- PostgreSQL e Supabase
-- Arquitetura de software e APIs
-- GitHub Actions, Docker e Linux
-- Agentes, RAG, automação e integração de IA
-
----
-
-## Mini sistemas para praticar
-
-| Projeto | O que pratica |
-|---|---|
-| Lista de tarefas | listas, funções, menus e persistência |
-| Cadastro de alunos | entrada de dados, busca, média e validação |
-| Agenda de contatos | dicionários, busca, ordenação e JSON |
-| Controle de estoque | CRUD, busca, quantidades e relatórios |
-| Sistema de biblioteca | cadastro, empréstimos e regras de negócio |
-| Caixa de mercado | operações, menus, totais e fluxo |
-| Jogo de adivinhação | funções, laços, condicionais e tratamento de entrada |
-| Controle financeiro pessoal | categorias, receitas, despesas e relatórios |
-| API de tarefas | HTTP, rotas, JSON, CRUD e backend |
-| App de hábitos | Flutter, estado, persistência e UX mobile |
-
-Os mini sistemas, módulos de estudo e o projeto integrado ficam organizados dentro de [`conteudos/`](./conteudos) para que quem está começando consiga acompanhar a evolução em ordem.
-
----
-
-## Trilhas de evolução
-
-### 1. Fundamentos
-`Lógica` → `Variáveis` → `Condicionais` → `Laços` → `Funções`
-
-### 2. Estruturas de dados
-`Listas` → `Matrizes` → `Dicionários` → `Busca` → `Ordenação` → `Recursividade`
-
-### 3. Pequenos sistemas
-`CLI` → `Arquivos/JSON` → `CRUD` → `Validação` → `Testes`
-
-### 4. Backend
-`APIs` → `Banco de dados` → `Autenticação` → `Arquitetura` → `Observabilidade`
-
-### 5. Web e Mobile
-`HTML/CSS/JS` → `React/Next.js` → `Flutter` → `Integração com APIs`
-
-### 6. Engenharia de IA
-`Prompts` → `RAG` → `Agentes` → `Ferramentas` → `Avaliação` → `Governança`
-
----
-
-## Projetos acadêmicos e práticos
-
-| Repositório | Conteúdo |
-|---|---|
-| [Lista-01-segundo-periodo](https://github.com/Videirafoo/Lista-01-segundo-periodo) | 10 exercícios de fundamentos de algoritmos e lógica em Python |
-| [Lista-02-segundo-periodo](https://github.com/Videirafoo/Lista-02-segundo-periodo) | 20 exercícios de listas, funções e manipulação de dados em Python |
-| [Lista-03-segundo-periodo](https://github.com/Videirafoo/Lista-03-segundo-periodo) | 30 exercícios de busca sequencial, busca binária e comparação de estratégias |
-| [lista-04-segundo-periodo](https://github.com/Videirafoo/lista-04-segundo-periodo) | 6 exercícios de recursividade em Python |
-| [lista-05-revisao-segundo-periodo](https://github.com/Videirafoo/lista-05-revisao-segundo-periodo) | revisão de algoritmos e lógica antes das avaliações |
-| [jogo_primeiro_periodo](https://github.com/Videirafoo/jogo_primeiro_periodo) | jogo de adivinhação didático com funções, validação e CI |
-
----
-
 ## Open source e comunidade
 
-A evolução do perfil também inclui aprender a participar de projetos de outras pessoas de forma correta e verificável.
-
-- **Primeira contribuição externa em preparação:** [Issue #6 — Flask good first issue](https://github.com/Videirafoo/Videirafoo/issues/6)
-- **Guia de início em open source:** [`OPEN_SOURCE_START.md`](./OPEN_SOURCE_START.md)
-- **Plano da contribuição externa 001:** [`CONTRIBUICAO_EXTERNA_001.md`](./CONTRIBUICAO_EXTERNA_001.md)
-- **Como contribuir neste repositório:** [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- **Guia:** [`OPEN_SOURCE_START.md`](./OPEN_SOURCE_START.md)
+- **Contribuição externa em andamento:** [Issue #6](https://github.com/Videirafoo/Videirafoo/issues/6)
+- **Como contribuir aqui:** [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 - **Comunidade:** [`COMMUNITY.md`](./COMMUNITY.md)
 - **Código de conduta:** [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
-- **Política de segurança:** [`SECURITY.md`](./SECURITY.md)
+- **Segurança:** [`SECURITY.md`](./SECURITY.md)
 
-A regra permanece: **nenhuma contribuição é apresentada como conquista antes de existir um Pull Request público verificável.**
-
----
-
-## Próximas coleções de aprendizado
-
-- **mini-sistemas-python** — agenda, biblioteca, estoque, caixa e cadastro
-- **algoritmos-e-estruturas** — busca, ordenação, recursividade, listas e matrizes
-- **python-para-iniciantes** — explicações, exercícios e resoluções progressivas
-- **projetos-web-iniciante** — HTML, CSS, JavaScript e páginas práticas
-- **desafios-mobile-flutter** — interfaces, estado, persistência e pequenos apps
+A regra permanece: **nenhuma contribuição externa é apresentada como conquista antes de existir um Pull Request público verificável.**
 
 ---
 
@@ -220,7 +189,7 @@ A regra permanece: **nenhuma contribuição é apresentada como conquista antes 
 
 </div>
 
-> Estes cards são gerados pelo próprio repositório com GitHub Actions e publicados como SVG estático. Assim o perfil não depende de um serviço externo de cards para carregar essas métricas.
+> Os cards são gerados pelo próprio repositório com GitHub Actions e publicados como SVG estático.
 
 ---
 
@@ -238,16 +207,11 @@ A regra permanece: **nenhuma contribuição é apresentada como conquista antes 
 
 ---
 
-## Objetivos
+## Objetivo do perfil
 
-- evoluir de exercícios acadêmicos para sistemas completos;
-- fortalecer backend, banco de dados, arquitetura e testes;
-- construir aplicações web e mobile reais;
-- publicar projetos organizados, documentados e fáceis de estudar;
-- compartilhar conhecimento útil para outras pessoas que estão começando;
-- contribuir em projetos open source externos;
-- construir comunidade em torno de conteúdo útil e verificável;
-- avançar em sistemas seguros, escaláveis e integrados com IA.
+Construir uma trajetória que outra pessoa consiga verificar e reproduzir:
+
+`fundamento` → `exercício` → `sistema` → `teste` → `CI` → `deploy` → `feedback` → `melhoria`
 
 <div align="center">
 
