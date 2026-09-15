@@ -4,6 +4,22 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 
 ## [Unreleased]
 
+### Base educacional executável
+
+- criada a rota pública `/trilha` com **6 níveis e 18 missões práticas**;
+- níveis conectam fundamentos, estruturas e algoritmos, mini sistemas, aplicações reais, Engenharia de Software e IA aplicada;
+- cada missão aponta para uma evidência inspecionável: código, teste, laboratório, endpoint, documentação de qualidade ou contribuição open source;
+- progresso salvo localmente no navegador, sem criar conta ou banco para o estudante;
+- adicionada API JSON `GET /api/trilha` para expor a mesma estrutura de aprendizagem;
+- `/trilha` incluída no sitemap público;
+- Dashboard e Laboratório agora exibem atalho direto para a Trilha Educacional;
+- JavaScript de progresso da trilha validado pela CI;
+- testes protegem quantidade de níveis/missões, IDs únicos, URLs de evidência, renderização da página, API, sitemap e atalhos de navegação;
+- `GUIA_DE_ESTUDOS.md` agora diferencia mapa conceitual de execução prática e define evidências de domínio;
+- `PADRAO_DE_ENSINO.md` passa a exigir evidência de conclusão, entregável verificável e ciclo `conceito → missão → modificação → teste → evidência`;
+- `REFERENCIAS_OPEN_SOURCE.md` registra os padrões educacionais absorvidos de `BEPb/Python-100-days`, `BEPb/Programmer_Competency_Matrix`, `BEPb/first-contributions` e `msitarzewski/agency-agents`, sem copiar conteúdo ou personas;
+- README do perfil destaca a Trilha como recurso executável, não como projeto apenas documentado.
+
 ### Qualidade verificável
 
 - medição real de cobertura adicionada à CI com `coverage.py` e branch coverage;
