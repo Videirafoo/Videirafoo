@@ -63,7 +63,7 @@ jobs:
           {
             echo "### Cobertura real de testes"
             echo
-            echo "Gate mínimo: 80%."
+            echo "Gate mínimo: 90%."
             echo
             echo '```text'
             cat coverage.txt
