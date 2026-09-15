@@ -93,7 +93,7 @@ AI Engineering    █████████████░░░░░  Agente
 
 [![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Videirafoo&theme=github-compact&hide_border=true)](https://github.com/Videirafoo)
 
-<img src="https://raw.githubusercontent.com/Videirafoo/Videirafoo/output/github-contribution-grid-snake-dark.svg" alt="Contribution Snake" />
+<img src="https://raw.githubusercontent.com/Videirafoo/Videirafoo/gh-pages/github-contribution-grid-snake-dark.svg" alt="Contribution Snake" />
 
 </div>
 
