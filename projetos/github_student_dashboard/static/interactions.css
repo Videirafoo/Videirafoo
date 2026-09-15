@@ -1,0 +1,77 @@
+/* Microinterações próprias do GitHub Student Dashboard.
+   Inspiradas em padrões gerais de feedback visual de interfaces.
+   Não depende de Hover.css e respeita touch, teclado e reduced motion. */
+
+:where(a, button, input, .panel, .check, .metric, .repo-card, .evidence-card, .ci-card, .criterion) {
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+:where(a, button, input):focus-visible {
+  outline: 3px solid color-mix(in srgb, #58a6ff 72%, transparent);
+  outline-offset: 3px;
+}
+
+button:active,
+.button-link:active,
+.quick-nav a:active {
+  transform: scale(.98);
+}
+
+.button-link,
+.quick-nav a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  button:not(:disabled):hover,
+  .button-link:hover,
+  .quick-nav a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .22);
+  }
+
+  .panel:hover {
+    border-color: color-mix(in srgb, #58a6ff 28%, #30363d);
+  }
+
+  :where(.check, .metric, .repo-card, .evidence-card, .ci-card, .criterion):hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, #58a6ff 45%, #30363d);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .16);
+  }
+
+  a:not(.button-link):not(.brand):hover {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  :where(.check, .metric, .repo-card, .evidence-card, .ci-card, .criterion):active {
+    transform: scale(.995);
+  }
+
+  button:active,
+  .button-link:active,
+  .quick-nav a:active {
+    opacity: .86;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
