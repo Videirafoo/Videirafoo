@@ -4,13 +4,15 @@ Projeto público principal da trajetória educacional do GitHub `Videirafoo`.
 
 ## Missão
 
-Ajudar estudantes a entenderem **como melhorar seus repositórios no GitHub** usando checks objetivos, evidências claras e orientação educacional.
+Ajudar estudantes a entenderem **como melhorar seus repositórios no GitHub** usando checks objetivos, evidências claras, prática executável e orientação educacional.
 
 > **Automatizar deterministicamente o que pode ser provado; usar IA para explicar, orientar e revisar onde existe ambiguidade.**
 
 ## Acesso público
 
 - Produção: https://github-student-dashboard-videirafoo.onrender.com
+- Trilha Educacional: https://github-student-dashboard-videirafoo.onrender.com/trilha
+- Matriz Viva de Competências: https://github-student-dashboard-videirafoo.onrender.com/competencias
 - Laboratório: https://github-student-dashboard-videirafoo.onrender.com/laboratorio
 - Saúde: `GET /healthz`
 - Descoberta: `GET /robots.txt` e `GET /sitemap.xml`
@@ -40,10 +42,12 @@ O MVP já possui:
 - histórico versionado de evolução por commit;
 - camada explicativa local;
 - IA explicativa opcional, sem alterar o diagnóstico;
+- Trilha Educacional com **6 níveis e 18 missões práticas**;
+- Matriz Viva de Competências com **10 competências ligadas a evidências públicas**;
+- laboratório com **10 mini sistemas** executando regras Python reais;
 - CLI;
 - interface web;
 - endpoints JSON;
-- laboratório com **10 mini sistemas** executando regras Python reais;
 - cobertura interna real com `coverage.py` e branches;
 - gate mínimo de cobertura;
 - auditoria informativa das dependências de produção com `pip-audit`;
@@ -54,46 +58,102 @@ O MVP já possui:
 - `good first issue` para contribuições de iniciantes;
 - template de Pull Request.
 
+## Matriz Viva de Competências
+
+A rota `/competencias` não é um currículo preenchido manualmente e não certifica domínio pessoal. Ela consulta artefatos públicos e mostra somente o que pode ser sustentado por evidência neste momento.
+
+As 10 competências atuais são:
+
+1. Fundamentos em Python;
+2. Algoritmos e busca;
+3. Recursividade;
+4. Mini sistemas e regras de negócio;
+5. Backend e APIs HTTP;
+6. Testes, cobertura e CI;
+7. Deploy e operação;
+8. Documentação técnica;
+9. Contribuição open source;
+10. IA aplicada com evidência.
+
+### Fontes de evidência
+
+A matriz cruza:
+
+- árvores públicas dos repositórios acadêmicos;
+- código e testes dos mini sistemas;
+- arquivos reais do backend Flask;
+- workflow e configuração do gate de cobertura;
+- execução mais recente da `GitHub Student Dashboard CI`;
+- healthcheck público em produção;
+- documentação técnica versionada;
+- estado real do Pull Request externo `fork-commit-merge/fork-commit-merge#8150`;
+- implementação e testes da camada explicativa de IA.
+
+### Estados
+
+Evidências individuais:
+
+- `verificada`;
+- `parcial`;
+- `ausente`;
+- `indisponivel`.
+
+Competências:
+
+- `forte` — todas as evidências exigidas naquele item foram verificadas;
+- `parcial` — existe evidência real, mas falta uma confirmação ou parte do critério;
+- `sem_evidencia` — o artefato esperado não foi encontrado;
+- `indisponivel` — a fonte necessária não pôde ser consultada.
+
+A regra open source é conservadora: **PR aberto comprova contribuição enviada; somente merge público comprova aceitação externa**.
+
+A API usa cache de até **600 segundos** para reduzir chamadas repetidas à GitHub API pública.
+
 ## Qualidade interna verificada
 
-Execução de referência: [GitHub Student Dashboard CI #108](https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039)
+Execução de referência: [GitHub Student Dashboard CI #125](https://github.com/Videirafoo/Videirafoo/actions/runs/35004424114)
 
 | Evidência | Resultado |
 |---|---:|
-| Testes automatizados | **147 passando** |
-| Cobertura total | **92,9%** |
+| Testes automatizados | **177 passando** |
+| Cobertura total | **92,6%** |
 | Gate de regressão | **90% — aprovado** |
 | `cli.py` | **100,0%** |
-| `github_client.py` | **97,5%** |
-| `ai_explainer.py` | **95,7%** |
+| `comparison.py` | **100,0%** |
 | `lab_api.py` | **99,0%** |
 | `lab_business.py` | **98,5%** |
+| `github_client.py` | **97,8%** |
+| `ai_explainer.py` | **95,7%** |
+| `history.py` | **95,9%** |
 | `lab_systems.py` | **94,8%** |
 | `lab_web.py` | **94,3%** |
+| `competency_matrix.py` | **89,5%** |
 | Auditoria | `No known vulnerabilities found` nessa execução |
 
-A evolução registrada foi:
+Evolução comprovada:
 
-`95 testes / 73,3%` → `118 testes / 81,9%` → **`147 testes / 92,9%`**
+`95 / 73,3%` → `118 / 81,9%` → `135 / 89,0%` → `147 / 92,9%` → `156 / 92,9%` → **`177 testes / 92,6%`**
+
+A cobertura caiu levemente de 92,9% para 92,6% porque a Matriz adicionou comportamento novo; o gate de **90%** continuou aprovado. O objetivo é proteger comportamento útil, não inflar percentuais.
 
 A CI publica `coverage.txt`, `coverage.json` e `pip-audit.txt` no artefato `dashboard-quality-evidence`.
 
-Artefato da execução #108:
+Artefato da execução #125:
 
-https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039/artifacts/10407506784
+https://github.com/Videirafoo/Videirafoo/actions/runs/35004424114/artifacts/10411171361
 
 Os números são evidências de uma execução específica, não garantias permanentes. Consulte [`QUALITY.md`](../../QUALITY.md) para metodologia e limites.
 
 ## Regra central
 
-A IA **não calcula o score** e **não decide se um check passou**.
+A IA **não calcula o score**, **não decide se um check passou** e **não transforma evidência em certificação de competência**.
 
 ```text
-GitHub API
+GitHub API + healthcheck + artefatos públicos
    ↓
 checks determinísticos
    ↓
-evidências + score + CI real
+evidências + score + CI real + matriz de competências
    ↓
 explicação pedagógica
 ```
@@ -121,6 +181,8 @@ A pontuação representa somente os checks explícitos desta versão. Não é um
 | Página | Função |
 |---|---|
 | `/` | análise de repositório e perfil |
+| `/trilha` | 6 níveis e 18 missões educacionais com evidências |
+| `/competencias` | matriz viva baseada em artefatos públicos verificáveis |
 | `/laboratorio` | 10 mini sistemas ligados ao backend Python |
 | `/readme` | qualidade documental e links internos |
 | `/comparar` | comparação objetiva entre repositórios |
@@ -131,6 +193,8 @@ A pontuação representa somente os checks explícitos desta versão. Não é um
 
 ```http
 GET /healthz
+GET /api/trilha
+GET /api/competencias
 GET /api/analisar?repo=Videirafoo/Videirafoo
 GET /api/perfil?usuario=Videirafoo
 GET /api/readme?repo=Videirafoo/Videirafoo
@@ -151,6 +215,8 @@ github_student_dashboard/
 ├── readme_quality.py
 ├── comparison.py
 ├── history.py
+├── learning_path.py
+├── competency_matrix.py
 ├── ai_explainer.py
 ├── lab_api.py
 ├── lab_business.py
@@ -170,11 +236,13 @@ github_student_dashboard/
 
 ### Separação de responsabilidades
 
-- `github_client.py`: comunicação com a GitHub API;
+- `github_client.py`: comunicação com a GitHub API, incluindo consulta de PR público;
 - `engine.py`: checks, score, evidências, CI real e detecção de testes;
 - `readme_quality.py`: critérios documentais e validação de links internos;
 - `comparison.py`: diferenças objetivas entre dois repositórios;
 - `history.py`: reconstrução de sinais versionados por commit;
+- `learning_path.py`: níveis, competências didáticas e missões da Trilha;
+- `competency_matrix.py`: agregação de evidências públicas da Matriz Viva;
 - `ai_explainer.py`: explicação pedagógica a partir do relatório pronto;
 - `lab_*.py`: adaptação segura dos mini sistemas para o laboratório público;
 - `web.py`: rotas web, JSON, saúde e arquivos de descoberta.
@@ -187,8 +255,8 @@ A CI executa, em ordem:
 2. Python 3.12;
 3. instalação das dependências de validação;
 4. `compileall` do projeto;
-5. validação de sintaxe dos JavaScripts do laboratório;
-6. **147+ testes** sob `coverage.py`;
+5. validação de sintaxe dos JavaScripts do laboratório, Trilha e Matriz;
+6. **177 testes** sob `coverage.py` na execução de referência atual;
 7. gate mínimo de cobertura em **90%**;
 8. auditoria informativa de produção com `pip-audit`;
 9. upload das evidências de cobertura e auditoria.
@@ -263,7 +331,7 @@ O serviço público usa Gunicorn:
 gunicorn projetos.github_student_dashboard.web:app --bind 0.0.0.0:$PORT
 ```
 
-O deploy usa a branch `main` no Render. Como o serviço está com **auto deploy por commit**, cada atualização validada de `main` inicia uma nova promoção automaticamente.
+O deploy canônico usa a branch `main` no Render. Uma promoção só deve ser considerada concluída quando o serviço reportar `live` e o healthcheck responder corretamente.
 
 ## IA explicativa opcional
 
@@ -288,7 +356,7 @@ A integração usa a Responses API. A chave nunca deve ser colocada em README, c
 
 ### Limites da IA
 
-- score, checks e CI são fatos imutáveis para a explicação;
+- score, checks, CI e estados da Matriz são fatos calculados antes da explicação;
 - dados do GitHub são conteúdo não confiável, não instruções;
 - fatos não comprovados devem ser identificados como não verificados;
 - falha do provedor de IA não derruba o Dashboard: existe fallback local.
@@ -349,25 +417,28 @@ Ainda não fazem parte do MVP:
 
 - extração confiável de cobertura de testes de **qualquer repositório externo** analisado;
 - análise automática de vulnerabilidades de **repositórios externos**;
-- persistência em banco de dados;
+- persistência da Matriz em banco de dados;
 - contas de usuário;
 - histórico persistente das análises executadas pelo produto;
 - telemetria própria de uso além dos logs da plataforma;
-- validação ativa de URLs externas do README.
+- validação ativa de URLs externas do README;
+- certificação automática de conhecimento pessoal.
 
 A cobertura e a auditoria descritas em `QUALITY.md` medem **o próprio GitHub Student Dashboard**.
+
+A Matriz mede **evidências públicas** e não substitui prova prática, avaliação acadêmica, revisão humana ou entrevista técnica.
 
 Qualquer validação futura de URLs externas deve aplicar allowlist, limites, timeout e proteção contra SSRF.
 
 ## Próximas entregas
 
 1. aumentar cobertura útil de `engine.py` — baseline atual **82,1%**;
-2. aumentar cobertura útil de `web.py` — baseline atual **85,2%**;
+2. aumentar cobertura útil de `web.py` — baseline atual **86,4%**;
 3. aumentar cobertura útil de `readme_quality.py` — baseline atual **86,9%**;
-4. manter o gate global de **90%** sem perseguir 100% por aparência;
-5. coletar feedback real de estudantes e corrigir pontos encontrados em uso público;
-6. estudar cobertura e auditoria de projetos externos apenas quando houver evidência confiável da stack;
-7. acompanhar contribuições open source externas e registrar como aceitas somente após merge público.
+4. revisar somente branches úteis da `competency_matrix.py` — baseline atual **89,5%**;
+5. manter o gate global de **90%** sem perseguir 100% por aparência;
+6. coletar feedback real de estudantes e corrigir pontos encontrados em uso público;
+7. acompanhar o PR externo #8150 e alterar sua evidência para aceita apenas se houver merge público.
 
 ## Regra de contribuição
 
