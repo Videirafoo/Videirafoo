@@ -14,11 +14,30 @@ Este documento reúne, **dentro do próprio GitHub**, o que já está funcionand
 - Laboratório: https://github-student-dashboard-videirafoo.onrender.com/laboratorio
 - Healthcheck: https://github-student-dashboard-videirafoo.onrender.com/healthz
 - CI: [GitHub Student Dashboard CI](https://github.com/Videirafoo/Videirafoo/actions/workflows/student-dashboard.yml)
+- Qualidade verificável: [`QUALITY.md`](./QUALITY.md)
 - Changelog: [`projetos/github_student_dashboard/CHANGELOG.md`](./projetos/github_student_dashboard/CHANGELOG.md)
 - Feedback: https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml
 - Comunidade: [`COMMUNITY.md`](./COMMUNITY.md)
 - Primeira tarefa aberta para contribuidores: [Issue #8](https://github.com/Videirafoo/Videirafoo/issues/8)
-- Primeiro PR externo verificável: [fork-commit-merge#8150](https://github.com/fork-commit-merge/fork-commit-merge/pull/8150) — **em revisão**
+- Primeiro PR externo verificável: [fork-commit-merge#8150](https://github.com/fork-commit-merge/fork-commit-merge/pull/8150) — **aberto e mergeável, aguardando mantenedor**
+
+## Qualidade medida, não declarada
+
+Execução de referência: [CI #102](https://github.com/Videirafoo/Videirafoo/actions/runs/34993966082)
+
+| Evidência | Resultado |
+|---|---:|
+| Testes | **118 passando** |
+| Cobertura total | **81,9%** |
+| Gate de regressão | **80%** |
+| `cli.py` | **100,0%** |
+| `github_client.py` | **97,5%** |
+| `ai_explainer.py` | **95,7%** |
+| Auditoria de dependências | **nenhuma vulnerabilidade conhecida reportada pelo `pip-audit` nessa execução** |
+
+A cobertura começou em **73,3% com 95 testes**. Os testes foram ampliados com base nas lacunas reais encontradas e chegaram a **81,9% com 118 testes**. A CI também publica `coverage.txt`, `coverage.json` e `pip-audit.txt` como artefatos verificáveis.
+
+> O resultado do `pip-audit` é uma evidência daquela execução, não uma afirmação de segurança absoluta.
 
 ## O que o produto já faz
 
@@ -33,6 +52,7 @@ Este documento reúne, **dentro do próprio GitHub**, o que já está funcionand
 | Testes | detecção por padrões comuns de Python, JS/TS, Go, Dart/Flutter, Ruby, Java/Kotlin, C#, PHP e diretórios convencionais |
 | Explicação | modo local transparente + IA externa opcional |
 | Laboratório | **10 mini sistemas utilizáveis, com regras centrais executadas pelo Python real** |
+| Qualidade interna | cobertura real, gate de regressão e auditoria informativa de dependências |
 | Produção | Flask + Gunicorn no Render |
 | Descoberta | `robots.txt`, `sitemap.xml` e healthcheck |
 | Comunidade | feedback estruturado, formulários de bug/melhoria, segurança, contribuição, código de conduta e `good first issue` |
@@ -151,7 +171,8 @@ A IA **não calcula o score**, **não decide se um check passou** e **não subst
 6. Em **Explicação**, confira o modo local e as prioridades detectadas.
 7. Abra **Laboratório** e use alguns dos 10 mini sistemas.
 8. Em cada card, provoque uma validação e depois abra o código Python e o teste correspondente.
-9. Se algo ficar confuso, envie feedback pelo formulário público.
+9. Abra [`QUALITY.md`](./QUALITY.md) e confira como a qualidade interna é medida.
+10. Se algo ficar confuso, envie feedback pelo formulário público.
 
 ## Endpoints públicos principais
 
@@ -185,7 +206,7 @@ A primeira contribuição externa verificável da trajetória já foi enviada:
 
 - Issue alvo: [fork-commit-merge#8017](https://github.com/fork-commit-merge/fork-commit-merge/issues/8017)
 - Pull Request: [fork-commit-merge#8150](https://github.com/fork-commit-merge/fork-commit-merge/pull/8150)
-- Estado: **aberto, mergeável e aguardando revisão/aprovação dos workflows pelo mantenedor**.
+- Estado verificado nesta etapa: **aberto, mergeável e sem nova revisão/comentário do mantenedor**.
 
 O perfil diferencia contribuição enviada de contribuição aceita: o PR só será registrado como **merged** depois que o repositório upstream fizer o merge público.
 
@@ -207,14 +228,14 @@ O repositório também possui:
 
 O Dashboard não foi criado para produzir uma nota decorativa. Ele faz parte de uma trajetória educacional maior:
 
-**fundamentos → conteúdo para iniciantes → mini sistemas → produto público → feedback → open source externo → comunidade → reconhecimento**.
+**fundamentos → conteúdo para iniciantes → mini sistemas → produto público → qualidade mensurável → feedback → open source externo → comunidade → reconhecimento**.
 
 O objetivo é transformar boas práticas de GitHub em algo que uma pessoa iniciante consiga **usar, ver, entender, testar e aplicar**.
 
 ## Próximo estágio
 
-- acompanhar a revisão e o merge do PR externo #8150;
-- cobertura real de testes quando disponível;
-- análise informativa de vulnerabilidades/dependências;
+- aumentar cobertura útil nos módulos `lab_business.py`, `lab_api.py`, `lab_web.py` e `lab_systems.py`;
+- coletar e priorizar feedback real de estudantes;
+- acompanhar a revisão e o merge do PR externo #8150 sem interferir enquanto não houver solicitação do mantenedor;
 - histórico persistente das análises quando houver motivo de produto para armazená-las;
-- incorporar melhorias vindas de feedback real.
+- incorporar melhorias vindas de uso real.
