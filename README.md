@@ -150,19 +150,15 @@ Aqui você encontra exemplos de:
 
 <div align="center">
 
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=Videirafoo&theme=github_dark" alt="Estatísticas do GitHub" />
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Videirafoo&theme=github_dark" alt="Repositórios por linguagem" />
-
-<br>
-
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Videirafoo&theme=github_dark" alt="Linguagens por commits" />
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=Videirafoo&theme=github_dark&utcOffset=-3" alt="Horário mais produtivo" />
+<img src="https://raw.githubusercontent.com/Videirafoo/Videirafoo/gh-pages/profile-metrics.svg" alt="Métricas públicas do GitHub de Videirafoo" width="760" />
 
 <br><br>
 
-<img src="https://streak-stats.demolab.com?user=Videirafoo&theme=github-dark-blue&hide_border=true" alt="Sequência de contribuições" />
+<img src="https://raw.githubusercontent.com/Videirafoo/Videirafoo/gh-pages/profile-languages.svg" alt="Linguagens por repositório de Videirafoo" width="760" />
 
 </div>
+
+> Estes cards são gerados pelo próprio repositório com GitHub Actions e publicados como SVG estático. Assim o perfil não depende de um serviço externo de cards para carregar essas métricas.
 
 ---
 
@@ -170,11 +166,11 @@ Aqui você encontra exemplos de:
 
 <div align="center">
 
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Videirafoo&theme=github_dark" alt="Resumo da atividade no GitHub" />
-
-<br><br>
-
-<img src="https://raw.githubusercontent.com/Videirafoo/Videirafoo/gh-pages/github-contribution-grid-snake-dark.svg" alt="Contribution Snake" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Videirafoo/Videirafoo/gh-pages/github-contribution-grid-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Videirafoo/Videirafoo/gh-pages/github-contribution-grid-snake.svg">
+  <img alt="Animação das contribuições no GitHub" src="https://raw.githubusercontent.com/Videirafoo/Videirafoo/gh-pages/github-contribution-grid-snake.svg">
+</picture>
 
 </div>
 
