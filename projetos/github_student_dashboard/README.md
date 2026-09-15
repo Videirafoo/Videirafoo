@@ -8,6 +8,25 @@ Ajudar estudantes a entenderem **como melhorar seus repositórios no GitHub** us
 
 > **Automatizar deterministicamente o que pode ser provado; usar IA para explicar, orientar e revisar onde existe ambiguidade.**
 
+## Acesso público
+
+Produção:
+
+https://github-student-dashboard-videirafoo.onrender.com
+
+Saúde do serviço:
+
+```text
+GET /healthz
+```
+
+Descoberta:
+
+```text
+GET /robots.txt
+GET /sitemap.xml
+```
+
 ## Estado atual
 
 O MVP já possui:
@@ -28,7 +47,10 @@ O MVP já possui:
 - interface web;
 - endpoints JSON;
 - testes automatizados;
-- CI própria.
+- CI própria;
+- deploy público com Gunicorn no Render;
+- `healthz`, `robots.txt` e `sitemap.xml`;
+- formulário estruturado de feedback no GitHub.
 
 ## Regra central
 
@@ -77,6 +99,7 @@ A pontuação representa somente os checks explícitos desta versão. Não é um
 ## Endpoints
 
 ```http
+GET /healthz
 GET /api/analisar?repo=Videirafoo/Videirafoo
 GET /api/perfil?usuario=Videirafoo
 GET /api/readme?repo=Videirafoo/Videirafoo
@@ -117,7 +140,7 @@ github_student_dashboard/
 - `comparison.py`: diferenças objetivas entre dois repositórios;
 - `history.py`: reconstrução de sinais versionados por commit;
 - `ai_explainer.py`: explicação pedagógica a partir do relatório pronto;
-- `web.py`: rotas web e JSON.
+- `web.py`: rotas web, JSON, saúde e arquivos de descoberta.
 
 ## Windows — início rápido com PowerShell
 
@@ -149,6 +172,16 @@ git pull
 python -m pip install -r .\projetos\github_student_dashboard\requirements.txt
 python -m projetos.github_student_dashboard.web
 ```
+
+## Produção
+
+O serviço público usa Gunicorn:
+
+```bash
+gunicorn projetos.github_student_dashboard.web:app --bind 0.0.0.0:$PORT
+```
+
+O deploy atual está no Render e usa a branch `main`.
 
 ## IA explicativa opcional
 
@@ -185,10 +218,8 @@ Remove-Item Env:OPENAI_API_KEY
 
 ### Limites da IA
 
-O prompt da camada explicativa determina que:
-
 - score, checks e CI são fatos imutáveis para a explicação;
-- dados vindos do GitHub são tratados como conteúdo não confiável, não como instruções;
+- dados vindos do GitHub são conteúdo não confiável, não instruções;
 - no máximo três prioridades devem ser sugeridas;
 - fatos não comprovados devem ser identificados como não verificados;
 - falha da API de IA não derruba o Dashboard: há fallback local.
@@ -223,6 +254,26 @@ Ação: qual melhoria concreta pode ser feita.
 
 A IA recebe esse material somente depois.
 
+## Feedback real de estudantes
+
+Formulário estruturado:
+
+https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml
+
+Documentação:
+
+- [`FEEDBACK.md`](../../FEEDBACK.md)
+- [`COMMUNITY.md`](../../COMMUNITY.md)
+
+A prioridade de correção é:
+
+1. erro que impede uso;
+2. diagnóstico incorreto ou sem evidência;
+3. ponto que confunde iniciante;
+4. acessibilidade e clareza;
+5. melhoria de fluxo;
+6. recurso novo.
+
 ## GitHub API e autenticação
 
 Repositórios públicos podem ser consultados sem token, respeitando os limites públicos da API.
@@ -244,19 +295,17 @@ Ainda não fazem parte do MVP:
 - análise de vulnerabilidades/dependências;
 - persistência em banco de dados;
 - contas de usuário;
-- histórico persistente de análises executadas pelo produto;
-- deploy público de produção;
-- telemetria e feedback de usuários.
+- histórico persistente das análises executadas pelo produto;
+- telemetria própria de uso além dos logs da plataforma.
 
 ## Próximas entregas
 
-1. consolidar navegação entre as páginas;
-2. preparar execução de produção;
-3. deploy público;
-4. smoke tests públicos;
-5. coletar feedback de estudantes;
-6. melhorar checks com base em casos reais;
-7. iniciar contribuições open source externas relacionadas ao projeto.
+1. coletar feedback real de estudantes;
+2. corrigir pontos encontrados no uso público;
+3. melhorar checks com base em casos reais;
+4. consolidar acessibilidade e navegação;
+5. iniciar contribuições open source externas progressivas;
+6. documentar PRs externos aceitos somente quando existirem publicamente.
 
 ## Regra de contribuição
 
