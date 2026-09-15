@@ -110,3 +110,80 @@ Vamos usar apenas ideias arquiteturais generalizadas para melhorar:
 ### Regra canônica
 
 > **Automatize deterministicamente o que pode ser provado; use IA para raciocinar, explicar e orientar onde existe ambiguidade.**
+
+---
+
+## DenverCoder1
+
+Fontes estudadas: perfil `DenverCoder1/DenverCoder1` e projetos públicos como `readme-typing-svg`, `github-readme-streak-stats` e `custom-icon-badges`.
+
+### Por que é relevante
+
+O perfil mostra um padrão importante para crescimento open source: não depender apenas de um README visual, mas construir **ferramentas reutilizáveis por outras pessoas**, destacar contribuições externas e transformar projetos em produtos pequenos e fáceis de descobrir.
+
+O projeto `readme-typing-svg`, por exemplo, resolve um problema simples de personalização de perfis, possui licença MIT, topics claros e milhares de stars/forks. O aprendizado principal não é copiar a ferramenta, e sim entender o padrão: **uma utilidade pequena, clara, compartilhável e fácil de experimentar pode alcançar muita gente**.
+
+### Padrões absorvidos
+
+#### 1. Mostrar projetos que outras pessoas realmente usam
+
+O perfil deve destacar primeiro projetos com valor público, não apenas exercícios acadêmicos.
+
+Aplicação futura no `Videirafoo`:
+
+- GitHub Student Dashboard;
+- ferramentas educacionais pequenas;
+- utilitários para estudantes;
+- geradores/checkers simples;
+- projetos com demo e instruções rápidas.
+
+#### 2. Separar “meus projetos” de “projetos para os quais contribuí”
+
+Quando houver contribuições externas reais, o perfil deverá ganhar uma seção específica para elas. Isso mostra colaboração, revisão de código e participação em comunidades diferentes.
+
+#### 3. Transformar ensino em produto open source
+
+Conteúdo educacional pode virar ferramenta.
+
+Exemplos de direção para o `Videirafoo`:
+
+- verificador de README para iniciantes;
+- gerador de checklist de projeto acadêmico;
+- analisador de organização de repositório;
+- gerador de estrutura inicial de projeto Python;
+- painel de progresso de estudos;
+- badges educacionais baseados em evidências reais.
+
+#### 4. Facilitar descoberta
+
+Projetos públicos importantes devem ter:
+
+- descrição curta e específica;
+- topics relevantes;
+- licença adequada;
+- README com resultado visível rapidamente;
+- exemplo de uso;
+- link de demonstração quando possível;
+- contribuição fácil para iniciantes.
+
+#### 5. Perfil como índice, não como depósito
+
+O README do perfil deve funcionar como uma página de entrada para o melhor conteúdo.
+
+Não precisamos copiar a quantidade de imagens ou badges do DenverCoder1. A referência é a estrutura:
+
+- identidade clara;
+- projetos principais;
+- contribuições externas;
+- prova de atividade;
+- links para conteúdo útil.
+
+#### 6. Construir utilidades ao redor do próprio GitHub
+
+Projetos que melhoram a experiência de outros desenvolvedores no GitHub têm potencial natural de descoberta dentro da própria comunidade.
+
+Essa ideia reforça o GitHub Student Dashboard como projeto principal da trajetória `Videirafoo`.
+
+### Regra aplicada
+
+> **Não copiar o perfil de quem já tem visibilidade; copiar o princípio de criar algo tão útil que outras pessoas tenham motivo para voltar, compartilhar e contribuir.**
