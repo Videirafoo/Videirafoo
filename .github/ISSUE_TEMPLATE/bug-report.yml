@@ -1,0 +1,80 @@
+name: Relatar bug
+description: Informe um comportamento incorreto e ajude a reproduzir o problema.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por ajudar a melhorar o projeto. Não inclua senhas, tokens, chaves de API ou dados privados.
+
+  - type: input
+    id: area
+    attributes:
+      label: Área afetada
+      description: Exemplo: análise de repositório, README, comparação, histórico ou IA explicativa.
+      placeholder: Qual parte apresentou problema?
+    validations:
+      required: true
+
+  - type: textarea
+    id: problema
+    attributes:
+      label: O que aconteceu?
+      description: Descreva o comportamento observado.
+    validations:
+      required: true
+
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      description: Liste os passos mínimos para outra pessoa conseguir reproduzir.
+      placeholder: |
+        1. Abra ...
+        2. Informe ...
+        3. Clique em ...
+        4. Veja ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Comportamento esperado
+      description: O que deveria ter acontecido?
+    validations:
+      required: true
+
+  - type: input
+    id: referencia
+    attributes:
+      label: Repositório público usado no teste
+      description: Informe apenas se isso ajudar a reproduzir. Não use repositório privado.
+      placeholder: owner/repo
+
+  - type: dropdown
+    id: ambiente
+    attributes:
+      label: Onde ocorreu?
+      options:
+        - Site público no Render
+        - Execução local no Windows
+        - Execução local no Linux/macOS
+        - API JSON
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidencias
+    attributes:
+      label: Evidências adicionais
+      description: Logs sem segredos, mensagens de erro ou screenshots sem dados privados podem ajudar.
+
+  - type: checkboxes
+    id: seguranca
+    attributes:
+      label: Segurança
+      options:
+        - label: Confirmei que não incluí senhas, tokens, chaves de API ou dados sensíveis.
+          required: true
