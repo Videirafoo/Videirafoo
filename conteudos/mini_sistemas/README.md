@@ -27,7 +27,7 @@ Cada projeto terá:
 2. [Lista de Tarefas](./lista_tarefas/README.md) — prioridades, filtros, conclusão, busca e JSON
 3. [Cadastro de Alunos](./cadastro_alunos/README.md) — matrícula, notas, média, situação acadêmica, relatório e JSON
 4. [Controle de Estoque](./controle_estoque/README.md) — produtos, entradas, saídas, estoque mínimo e JSON
-5. Sistema de Biblioteca
+5. [Sistema de Biblioteca](./sistema_biblioteca/README.md) — livros, usuários, empréstimos, devoluções e JSON
 6. Caixa de Mercado
 7. Controle Financeiro Pessoal
 8. Gerenciador de Hábitos
