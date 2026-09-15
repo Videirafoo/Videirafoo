@@ -5,11 +5,13 @@ on:
     branches: ["main"]
     paths:
       - "conteudos/**/*.py"
+      - "conteudos/**/requirements.txt"
       - ".github/workflows/conteudos-python.yml"
   pull_request:
     branches: ["main"]
     paths:
       - "conteudos/**/*.py"
+      - "conteudos/**/requirements.txt"
       - ".github/workflows/conteudos-python.yml"
 
 permissions:
@@ -27,6 +29,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Install API dependencies
+        run: python -m pip install -r conteudos/mini_sistemas/api_tarefas/requirements.txt
 
       - name: Validate Python syntax
         run: python -m compileall -q conteudos
