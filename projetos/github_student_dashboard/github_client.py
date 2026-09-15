@@ -53,6 +53,17 @@ class GitHubClient:
         except json.JSONDecodeError as erro:
             raise GitHubApiError("A GitHub API retornou JSON inválido.") from erro
 
+    def buscar_usuario(self, usuario):
+        usuario = quote(usuario, safe="")
+        return self.get_json(f"/users/{usuario}")
+
+    def buscar_repositorios_usuario(self, usuario, limite=100):
+        usuario = quote(usuario, safe="")
+        limite = max(1, min(int(limite), 100))
+        return self.get_json(
+            f"/users/{usuario}/repos?type=owner&sort=updated&direction=desc&per_page={limite}"
+        )
+
     def buscar_repositorio(self, owner, repo):
         owner = quote(owner, safe="")
         repo = quote(repo, safe="")
