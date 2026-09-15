@@ -15,14 +15,15 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 - a coleção `conteudos/mini_sistemas` é verificada para confirmar presença dos 10 sistemas e seus testes;
 - o Dashboard verifica arquivos reais do backend, workflows, configuração de cobertura, documentação e componentes da camada de IA;
 - a execução mais recente da `GitHub Student Dashboard CI` é consultada para diferenciar CI verde de execução ainda em andamento ou indisponível;
-- o healthcheck público do Render é consultado para evidência de operação;
+- a evidência de runtime evita chamar o próprio `/healthz` por HTTP durante `/api/competencias`, prevenindo bloqueio em Gunicorn sync com um único worker;
+- quando a Matriz é consultada pelo host público canônico, o atendimento da própria API é usado como evidência de que o runtime está respondendo naquele instante; ambiente local não é promovido artificialmente a produção;
 - o PR externo `fork-commit-merge/fork-commit-merge#8150` é consultado diretamente: **PR aberto comprova contribuição enviada, mas somente merge público transforma essa evidência em aceita**;
 - respostas externas indisponíveis não são convertidas em sucesso: a matriz preserva o estado `indisponivel` ou `parcial`;
 - cache de **600 segundos** reduz chamadas repetidas à API pública do GitHub;
 - interface usa DOM seguro com `textContent` para renderizar evidências retornadas pela API;
 - `/competencias` foi incluída no sitemap, Dashboard e navegação do Laboratório;
 - JavaScript da matriz passou a ser validado pela CI;
-- testes cobrem estados do PR externo, CI em andamento/ausente/indisponível, healthcheck, falha parcial da GitHub API, rotas web, API, sitemap e navegação.
+- testes cobrem estados do PR externo, CI em andamento/ausente/indisponível, runtime público/local, falha parcial da GitHub API, rotas web, API, sitemap e navegação.
 
 ### Base educacional executável
 
@@ -47,10 +48,12 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 - evolução intermediária comprovada: **118 testes / 81,9% de cobertura**;
 - laboratório chegou a **147 testes / 92,9%**;
 - Trilha Educacional levou a suíte a **156 testes / 92,9%**;
-- execução de referência atual: [GitHub Student Dashboard CI #125](https://github.com/Videirafoo/Videirafoo/actions/runs/35004424114);
-- execução #125 confirmou **177 testes passando / 92,6% de cobertura total**;
-- gate de regressão permanece em **90%** e foi aprovado na execução #125;
+- primeira versão da Matriz chegou a **177 testes / 92,6%**;
+- execução de referência atual: [GitHub Student Dashboard CI #127](https://github.com/Videirafoo/Videirafoo/actions/runs/35005178735);
+- execução #127 confirmou **180 testes passando / 92,6% de cobertura total**;
+- gate de regressão permanece em **90%** e foi aprovado na execução #127;
 - `competency_matrix.py`: **89,5%**;
+- `web.py`: **87,2%**;
 - `github_client.py`: **97,8%**;
 - `ai_explainer.py`: **95,7%**;
 - `lab_api.py`: **99,0%**;
@@ -58,9 +61,9 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 - `lab_systems.py`: **94,8%**;
 - `lab_web.py`: **94,3%**;
 - auditoria informativa de dependências de produção mantida com `pip-audit`;
-- execução #125 registrou `No known vulnerabilities found` para as dependências resolvidas naquele run;
+- execução #127 registrou `No known vulnerabilities found` para as dependências resolvidas naquele run;
 - artefato `dashboard-quality-evidence` publica `coverage.txt`, `coverage.json` e `pip-audit.txt` em cada execução;
-- artefato da execução #125: https://github.com/Videirafoo/Videirafoo/actions/runs/35004424114/artifacts/10411171361;
+- artefato da execução #127: https://github.com/Videirafoo/Videirafoo/actions/runs/35005178735/artifacts/10411236426;
 - `ResourceWarning` identificado pela primeira medição foi corrigido nos testes de recursos estáticos;
 - `actions/checkout`, `actions/setup-python` e `actions/upload-artifact` permanecem na geração v7;
 - evidências, limites e metodologia ficam documentados publicamente em `QUALITY.md`.
@@ -70,8 +73,8 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 A cobertura orienta a prioridade de teste. Os próximos alvos úteis são:
 
 - `engine.py` — **82,1%**, principalmente branches de erro e casos-limite;
-- `web.py` — **86,4%**, especialmente respostas de erro e fluxos alternativos;
 - `readme_quality.py` — **86,9%**, com foco em parsing e links internos de borda;
+- `web.py` — **87,2%**, especialmente respostas de erro e fluxos alternativos;
 - `competency_matrix.py` — **89,5%**, com foco apenas em branches residuais que tenham valor real;
 - manter o gate global em **90%** sem perseguir 100% apenas por aparência.
 
