@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, Response, jsonify, render_template, request
 
 from projetos.github_student_dashboard.ai_explainer import explicar_repositorio_remoto
@@ -8,12 +10,19 @@ from projetos.github_student_dashboard.engine import (
 )
 from projetos.github_student_dashboard.github_client import GitHubApiError
 from projetos.github_student_dashboard.history import analisar_historico_remoto
+from projetos.github_student_dashboard.lab_api import (
+    atualizar_tarefa_lab,
+    criar_tarefa_lab,
+    excluir_tarefa_lab,
+    listar_tarefas_lab,
+)
 from projetos.github_student_dashboard.readme_quality import analisar_readme_remoto
 
 
 PUBLIC_BASE_URL = "https://github-student-dashboard-videirafoo.onrender.com"
 PUBLIC_PAGES = ["/", "/laboratorio", "/readme", "/comparar", "/historico", "/explicar"]
 INTERACTIONS_STYLESHEET = '<link rel="stylesheet" href="/static/interactions.css">'
+LAB_REAL_SCRIPT = '<script src="/static/laboratorio_api_real.js" defer></script>'
 
 
 def _status_para_erro_github(erro):
@@ -37,7 +46,7 @@ def create_app(
 
     @app.after_request
     def aplicar_microinteracoes(response):
-        """Carrega o CSS compartilhado apenas em respostas HTML."""
+        """Carrega os recursos compartilhados apenas em respostas HTML."""
         content_type = response.headers.get("Content-Type", "")
         if "text/html" not in content_type:
             return response
@@ -49,7 +58,13 @@ def create_app(
                 f"  {INTERACTIONS_STYLESHEET}\n</head>",
                 1,
             )
-            response.set_data(html)
+        if request.path == "/laboratorio" and LAB_REAL_SCRIPT not in html and "</body>" in html:
+            html = html.replace(
+                "</body>",
+                f"  {LAB_REAL_SCRIPT}\n</body>",
+                1,
+            )
+        response.set_data(html)
         return response
 
     @app.get("/")
@@ -189,6 +204,47 @@ def create_app(
         except GitHubApiError as erro:
             return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
         return jsonify(relatorio), 200
+
+    @app.route("/api/laboratorio/tarefas", methods=["GET", "POST", "PATCH", "DELETE"])
+    def laboratorio_tarefas():
+        try:
+            if request.method == "GET":
+                estado_texto = request.args.get("estado") or "[]"
+                if len(estado_texto) > 20000:
+                    raise ValueError("O estado enviado é grande demais para o laboratório.")
+                try:
+                    estado = json.loads(estado_texto)
+                except json.JSONDecodeError as erro:
+                    raise ValueError("O estado enviado não é um JSON válido.") from erro
+                tarefas = listar_tarefas_lab(estado, request.args.get("status"))
+                return jsonify({"tarefas": tarefas, "resultado": tarefas}), 200
+
+            dados = request.get_json(silent=True)
+            if not isinstance(dados, dict):
+                return jsonify({"erro": "Envie um objeto JSON válido."}), 400
+
+            estado = dados.get("tarefas", [])
+            if request.method == "POST":
+                resultado = criar_tarefa_lab(
+                    estado,
+                    dados.get("titulo", ""),
+                    dados.get("prioridade", "media"),
+                )
+                return jsonify(resultado), 201
+
+            tarefa_id = dados.get("id")
+            if request.method == "PATCH":
+                resultado = atualizar_tarefa_lab(estado, tarefa_id, dados.get("dados", {}))
+                if resultado is None:
+                    return jsonify({"erro": "Tarefa não encontrada."}), 404
+                return jsonify(resultado), 200
+
+            resultado = excluir_tarefa_lab(estado, tarefa_id)
+            if resultado is None:
+                return jsonify({"erro": "Tarefa não encontrada."}), 404
+            return "", 204
+        except ValueError as erro:
+            return jsonify({"erro": str(erro)}), 400
 
     return app
 
