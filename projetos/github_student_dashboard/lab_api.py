@@ -1,4 +1,6 @@
 from copy import deepcopy
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from conteudos.mini_sistemas.api_tarefas.app import (
     atualizar_tarefa,
@@ -6,10 +8,12 @@ from conteudos.mini_sistemas.api_tarefas.app import (
     excluir_tarefa,
     filtrar_tarefas,
 )
+from conteudos.mini_sistemas.projeto_integrado.app import analisar_repositorio
 
 
 MAX_TAREFAS = 50
 MAX_TITULO = 120
+CHECKS_PROJETO = {"readme", "gitignore", "licenca", "ci", "testes", "dependencias"}
 
 
 def _normalizar_tarefas(valor):
@@ -109,3 +113,45 @@ def excluir_tarefa_lab(estado, tarefa_id):
         return None
 
     return {"tarefas": tarefas, "resultado": deepcopy(removida)}
+
+
+def analisar_projeto_lab(checks):
+    if not isinstance(checks, dict):
+        raise ValueError("Envie os checks do projeto como objeto JSON.")
+
+    desconhecidos = set(checks) - CHECKS_PROJETO
+    if desconhecidos:
+        raise ValueError("Há checks não reconhecidos no laboratório.")
+
+    normalizados = {}
+    for nome in CHECKS_PROJETO:
+        valor = checks.get(nome, False)
+        if not isinstance(valor, bool):
+            raise ValueError("Cada check precisa ser true ou false.")
+        normalizados[nome] = valor
+
+    with TemporaryDirectory(prefix="videirafoo-lab-") as temporario:
+        raiz = Path(temporario)
+        Path(raiz, "app.py").write_text("print('laboratorio')\n", encoding="utf-8")
+
+        if normalizados["readme"]:
+            Path(raiz, "README.md").write_text("# Projeto de laboratório\n", encoding="utf-8")
+        if normalizados["gitignore"]:
+            Path(raiz, ".gitignore").write_text("__pycache__/\n", encoding="utf-8")
+        if normalizados["licenca"]:
+            Path(raiz, "LICENSE").write_text("MIT\n", encoding="utf-8")
+        if normalizados["ci"]:
+            workflows = Path(raiz, ".github", "workflows")
+            workflows.mkdir(parents=True)
+            Path(workflows, "ci.yml").write_text("name: CI\n", encoding="utf-8")
+        if normalizados["testes"]:
+            Path(raiz, "test_app.py").write_text("def test_exemplo():\n    assert True\n", encoding="utf-8")
+        if normalizados["dependencias"]:
+            Path(raiz, "requirements.txt").write_text("flask>=3.1,<4\n", encoding="utf-8")
+
+        relatorio = analisar_repositorio(raiz)
+
+    relatorio["repositorio"] = "projeto-laboratorio"
+    relatorio["caminho"] = "temporário e isolado"
+    relatorio["entrada_checks"] = normalizados
+    return relatorio
