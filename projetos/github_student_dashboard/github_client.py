@@ -79,3 +79,13 @@ class GitHubClient:
         owner = quote(owner, safe="")
         repo = quote(repo, safe="")
         return self.get_json(f"/repos/{owner}/{repo}/languages")
+
+    def buscar_workflow_runs(self, owner, repo, branch=None, limite=1):
+        owner = quote(owner, safe="")
+        repo = quote(repo, safe="")
+        limite = max(1, min(int(limite), 20))
+        parametros = [f"per_page={limite}"]
+        if branch:
+            parametros.append(f"branch={quote(branch, safe='')}")
+        query = "&".join(parametros)
+        return self.get_json(f"/repos/{owner}/{repo}/actions/runs?{query}")
