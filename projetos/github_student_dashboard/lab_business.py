@@ -285,14 +285,16 @@ def normalizar_habitos_lab(estado):
     return habitos
 
 
-def _resumos_habitos(habitos):
-    return [resumo_habito(habito) for habito in habitos]
+def _resumos_habitos(habitos, data_referencia=None):
+    return [resumo_habito(habito, data_referencia) for habito in habitos]
 
 
 def habito_operacao_lab(estado, acao, dados):
     habitos = normalizar_habitos_lab(estado)
     if not isinstance(dados, dict):
         raise ValueError("Os dados da operação precisam ser um objeto JSON.")
+
+    data_referencia = dados.get("data") or None
 
     if acao == "criar":
         resultado = criar_habito(
@@ -309,9 +311,9 @@ def habito_operacao_lab(estado, acao, dados):
             return None
 
         if acao == "marcar_hoje":
-            resultado = registrar_conclusao(habito)
+            resultado = registrar_conclusao(habito, data_referencia)
         elif acao == "desmarcar_hoje":
-            resultado = remover_conclusao(habito)
+            resultado = remover_conclusao(habito, data_referencia)
         elif acao == "excluir":
             resultado = excluir_habito(habitos, habito_id)
         else:
@@ -320,5 +322,5 @@ def habito_operacao_lab(estado, acao, dados):
     return {
         "habitos": habitos,
         "resultado": deepcopy(resultado),
-        "resumos": _resumos_habitos(habitos),
+        "resumos": _resumos_habitos(habitos, data_referencia),
     }
