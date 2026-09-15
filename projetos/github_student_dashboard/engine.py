@@ -1,3 +1,4 @@
+from collections import Counter
 from urllib.parse import urlparse
 
 from projetos.github_student_dashboard.github_client import GitHubClient
@@ -50,6 +51,25 @@ def normalizar_referencia(referencia):
         raise ValueError("Use o formato usuario/repositorio.")
 
     return owner, repo
+
+
+def normalizar_usuario(usuario):
+    usuario = usuario.strip()
+
+    if usuario.startswith("http://") or usuario.startswith("https://"):
+        url = urlparse(usuario)
+        if url.netloc.lower() != "github.com":
+            raise ValueError("A URL precisa ser do github.com.")
+        partes = [parte for parte in url.path.split("/") if parte]
+        if not partes:
+            raise ValueError("Informe um usuário do GitHub.")
+        usuario = partes[0]
+
+    usuario = usuario.strip().strip("/")
+    if not usuario or "/" in usuario:
+        raise ValueError("Informe apenas o usuário do GitHub.")
+
+    return usuario
 
 
 def caminhos_da_arvore(arvore):
@@ -127,38 +147,14 @@ def calcular_score(checks):
 
 def gerar_recomendacoes(checks):
     regras = {
-        "readme": (
-            "alta",
-            "Adicionar README com objetivo, execução, exemplos e próximos passos.",
-        ),
-        "descricao": (
-            "media",
-            "Adicionar uma descrição curta e específica ao repositório no GitHub.",
-        ),
-        "licenca": (
-            "media",
-            "Definir uma licença adequada quando o projeto for destinado a reutilização pública.",
-        ),
-        "gitignore": (
-            "media",
-            "Adicionar .gitignore adequado à stack para evitar arquivos gerados e segredos locais.",
-        ),
-        "topics": (
-            "media",
-            "Adicionar topics relevantes para melhorar descoberta e contexto do projeto.",
-        ),
-        "ci": (
-            "alta",
-            "Adicionar CI para validar automaticamente testes, sintaxe ou build.",
-        ),
-        "testes": (
-            "alta",
-            "Adicionar testes automatizados para os comportamentos mais importantes.",
-        ),
-        "dependencias": (
-            "media",
-            "Registrar dependências em um arquivo padrão da tecnologia usada.",
-        ),
+        "readme": ("alta", "Adicionar README com objetivo, execução, exemplos e próximos passos."),
+        "descricao": ("media", "Adicionar uma descrição curta e específica ao repositório no GitHub."),
+        "licenca": ("media", "Definir uma licença adequada quando o projeto for destinado a reutilização pública."),
+        "gitignore": ("media", "Adicionar .gitignore adequado à stack para evitar arquivos gerados e segredos locais."),
+        "topics": ("media", "Adicionar topics relevantes para melhorar descoberta e contexto do projeto."),
+        "ci": ("alta", "Adicionar CI para validar automaticamente testes, sintaxe ou build."),
+        "testes": ("alta", "Adicionar testes automatizados para os comportamentos mais importantes."),
+        "dependencias": ("media", "Registrar dependências em um arquivo padrão da tecnologia usada."),
     }
 
     recomendacoes = []
@@ -167,13 +163,7 @@ def gerar_recomendacoes(checks):
             continue
 
         prioridade, acao = regras[nome]
-        recomendacoes.append(
-            {
-                "check": nome,
-                "prioridade": prioridade,
-                "acao": acao,
-            }
-        )
+        recomendacoes.append({"check": nome, "prioridade": prioridade, "acao": acao})
 
     return recomendacoes
 
@@ -184,11 +174,7 @@ def montar_snapshot(client, owner, repo):
     arvore = client.buscar_arvore(owner, repo, branch)
     linguagens = client.buscar_linguagens(owner, repo)
 
-    return {
-        "metadata": metadata,
-        "arvore": arvore,
-        "linguagens": linguagens,
-    }
+    return {"metadata": metadata, "arvore": arvore, "linguagens": linguagens}
 
 
 def analisar_snapshot(snapshot):
@@ -236,3 +222,100 @@ def analisar_repositorio_remoto(referencia, client=None):
     client = client or GitHubClient()
     snapshot = montar_snapshot(client, owner, repo)
     return analisar_snapshot(snapshot)
+
+
+def _percentual(parte, total):
+    if not total:
+        return 0
+    return round((parte / total) * 100, 1)
+
+
+def analisar_perfil_snapshot(usuario, repositorios):
+    login = usuario.get("login") or ""
+    repositorios_proprios = [repo for repo in repositorios if not repo.get("fork")]
+    total = len(repositorios_proprios)
+
+    com_descricao = sum(bool((repo.get("description") or "").strip()) for repo in repositorios_proprios)
+    com_topics = sum(bool(repo.get("topics")) for repo in repositorios_proprios)
+    com_licenca = sum(bool(repo.get("license")) for repo in repositorios_proprios)
+    stars = sum(int(repo.get("stargazers_count") or 0) for repo in repositorios_proprios)
+    forks = sum(int(repo.get("forks_count") or 0) for repo in repositorios_proprios)
+
+    linguagens = Counter(
+        repo.get("language")
+        for repo in repositorios_proprios
+        if repo.get("language")
+    )
+
+    repo_perfil = next(
+        (repo for repo in repositorios_proprios if (repo.get("name") or "").lower() == login.lower()),
+        None,
+    )
+
+    repos_ordenados = sorted(
+        repositorios_proprios,
+        key=lambda repo: (
+            int(repo.get("stargazers_count") or 0),
+            int(repo.get("forks_count") or 0),
+            repo.get("updated_at") or "",
+        ),
+        reverse=True,
+    )
+
+    lacunas = []
+    if not (usuario.get("name") or "").strip():
+        lacunas.append("nome_publico")
+    if not (usuario.get("bio") or "").strip():
+        lacunas.append("bio")
+    if not repo_perfil:
+        lacunas.append("repositorio_perfil")
+    if total and com_descricao < total:
+        lacunas.append("descricoes_repositorios")
+    if total and com_topics < total:
+        lacunas.append("topics_repositorios")
+    if total and com_licenca < total:
+        lacunas.append("licencas_repositorios")
+
+    return {
+        "usuario": login,
+        "url": usuario.get("html_url"),
+        "nome_publico": usuario.get("name"),
+        "bio": usuario.get("bio"),
+        "seguidores": int(usuario.get("followers") or 0),
+        "seguindo": int(usuario.get("following") or 0),
+        "repositorios_publicos_api": int(usuario.get("public_repos") or total),
+        "repositorios_analisados": total,
+        "repositorio_perfil_existe": bool(repo_perfil),
+        "cobertura": {
+            "descricao": {"quantidade": com_descricao, "percentual": _percentual(com_descricao, total)},
+            "topics": {"quantidade": com_topics, "percentual": _percentual(com_topics, total)},
+            "licenca": {"quantidade": com_licenca, "percentual": _percentual(com_licenca, total)},
+        },
+        "engajamento": {"stars_recebidos": stars, "forks_recebidos": forks},
+        "linguagens_principais": [
+            {"linguagem": linguagem, "repositorios": quantidade}
+            for linguagem, quantidade in linguagens.most_common(5)
+        ],
+        "repositorios_destaque": [
+            {
+                "nome": repo.get("name"),
+                "url": repo.get("html_url"),
+                "descricao": repo.get("description"),
+                "linguagem": repo.get("language"),
+                "stars": int(repo.get("stargazers_count") or 0),
+                "forks": int(repo.get("forks_count") or 0),
+                "topics": repo.get("topics") or [],
+            }
+            for repo in repos_ordenados[:5]
+        ],
+        "lacunas_objetivas": lacunas,
+        "observacao": "A análise de perfil usa metadados públicos e não atribui uma nota arbitrária de qualidade.",
+    }
+
+
+def analisar_perfil_remoto(usuario, client=None):
+    usuario = normalizar_usuario(usuario)
+    client = client or GitHubClient()
+    metadata = client.buscar_usuario(usuario)
+    repositorios = client.buscar_repositorios_usuario(usuario)
+    return analisar_perfil_snapshot(metadata, repositorios)
