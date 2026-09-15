@@ -9,11 +9,12 @@ from projetos.github_student_dashboard.engine import (
 from projetos.github_student_dashboard.github_client import GitHubApiError
 from projetos.github_student_dashboard.history import analisar_historico_remoto
 from projetos.github_student_dashboard.lab_web import register_lab_routes
+from projetos.github_student_dashboard.learning_path import resumo_trilha
 from projetos.github_student_dashboard.readme_quality import analisar_readme_remoto
 
 
 PUBLIC_BASE_URL = "https://github-student-dashboard-videirafoo.onrender.com"
-PUBLIC_PAGES = ["/", "/laboratorio", "/readme", "/comparar", "/historico", "/explicar"]
+PUBLIC_PAGES = ["/", "/trilha", "/laboratorio", "/readme", "/comparar", "/historico", "/explicar"]
 INTERACTIONS_STYLESHEET = '<link rel="stylesheet" href="/static/interactions.css">'
 LAB_REAL_SCRIPT = (
     '<script src="/static/laboratorio_systems_real.js" defer></script>'
@@ -68,6 +69,15 @@ def create_app(
     def inicio():
         return render_template("index.html")
 
+    @app.get("/trilha")
+    def pagina_trilha():
+        trilha = resumo_trilha()
+        return render_template(
+            "trilha.html",
+            niveis=trilha["niveis"],
+            total_missoes=trilha["total_missoes"],
+        )
+
     @app.get("/laboratorio")
     def pagina_laboratorio():
         return render_template("laboratorio.html")
@@ -117,6 +127,10 @@ def create_app(
             "</urlset>"
         )
         return Response(xml, mimetype="application/xml")
+
+    @app.get("/api/trilha")
+    def api_trilha():
+        return jsonify(resumo_trilha()), 200
 
     @app.get("/api/analisar")
     def analisar():
