@@ -6,10 +6,15 @@ from projetos.github_student_dashboard.github_client import GitHubApiError
 
 def create_app(analisador=analisar_repositorio_remoto):
     app = Flask(__name__)
+    app.json.ensure_ascii = False
 
     @app.get("/")
     def inicio():
         return render_template("index.html")
+
+    @app.get("/favicon.ico")
+    def favicon():
+        return "", 204
 
     @app.get("/api/analisar")
     def analisar():
