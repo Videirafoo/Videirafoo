@@ -23,19 +23,24 @@ Este documento reúne, **dentro do próprio GitHub**, o que já está funcionand
 
 ## Qualidade medida, não declarada
 
-Execução de referência: [CI #102](https://github.com/Videirafoo/Videirafoo/actions/runs/34993966082)
+Execução de referência: [CI #108](https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039)
 
 | Evidência | Resultado |
 |---|---:|
-| Testes | **118 passando** |
-| Cobertura total | **81,9%** |
-| Gate de regressão | **80%** |
-| `cli.py` | **100,0%** |
+| Testes | **147 passando** |
+| Cobertura total | **92,9%** |
+| Gate de regressão | **90%** |
+| `lab_api.py` | **99,0%** |
+| `lab_business.py` | **98,5%** |
 | `github_client.py` | **97,5%** |
 | `ai_explainer.py` | **95,7%** |
+| `lab_systems.py` | **94,8%** |
+| `lab_web.py` | **94,3%** |
 | Auditoria de dependências | **nenhuma vulnerabilidade conhecida reportada pelo `pip-audit` nessa execução** |
 
-A cobertura começou em **73,3% com 95 testes**. Os testes foram ampliados com base nas lacunas reais encontradas e chegaram a **81,9% com 118 testes**. A CI também publica `coverage.txt`, `coverage.json` e `pip-audit.txt` como artefatos verificáveis.
+A cobertura começou em **73,3% com 95 testes**. Os testes foram ampliados a partir das lacunas reais encontradas: **81,9%/118**, depois **89,0%/135** e finalmente **92,9%/147**. A CI publica `coverage.txt`, `coverage.json` e `pip-audit.txt` como artefatos verificáveis.
+
+Artefato da execução #108: [dashboard-quality-evidence](https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039/artifacts/10407506784)
 
 > O resultado do `pip-audit` é uma evidência daquela execução, não uma afirmação de segurança absoluta.
 
@@ -52,7 +57,7 @@ A cobertura começou em **73,3% com 95 testes**. Os testes foram ampliados com b
 | Testes | detecção por padrões comuns de Python, JS/TS, Go, Dart/Flutter, Ruby, Java/Kotlin, C#, PHP e diretórios convencionais |
 | Explicação | modo local transparente + IA externa opcional |
 | Laboratório | **10 mini sistemas utilizáveis, com regras centrais executadas pelo Python real** |
-| Qualidade interna | cobertura real, gate de regressão e auditoria informativa de dependências |
+| Qualidade interna | **147 testes, 92,9% de cobertura, gate 90% e auditoria informativa** |
 | Produção | Flask + Gunicorn no Render |
 | Descoberta | `robots.txt`, `sitemap.xml` e healthcheck |
 | Comunidade | feedback estruturado, formulários de bug/melhoria, segurança, contribuição, código de conduta e `good first issue` |
@@ -234,7 +239,7 @@ O objetivo é transformar boas práticas de GitHub em algo que uma pessoa inicia
 
 ## Próximo estágio
 
-- aumentar cobertura útil nos módulos `lab_business.py`, `lab_api.py`, `lab_web.py` e `lab_systems.py`;
+- aumentar cobertura útil de `engine.py`, `web.py` e `readme_quality.py` onde houver branches relevantes;
 - coletar e priorizar feedback real de estudantes;
 - acompanhar a revisão e o merge do PR externo #8150 sem interferir enquanto não houver solicitação do mantenedor;
 - histórico persistente das análises quando houver motivo de produto para armazená-las;
