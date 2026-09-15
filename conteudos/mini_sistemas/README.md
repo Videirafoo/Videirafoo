@@ -4,31 +4,40 @@ Esta coleção existe para levar quem está começando de exercícios isolados p
 
 ## Comece usando antes de ler
 
-Quatro conceitos da coleção possuem playground no navegador:
+Os **10 mini sistemas da coleção** agora possuem experiência prática no navegador:
 
 **https://github-student-dashboard-videirafoo.onrender.com/laboratorio**
 
 No laboratório você pode usar:
 
-- lista de tarefas;
-- cadastro de aluno e cálculo de média;
-- controle de estoque;
-- busca binária visual.
+1. agenda de contatos;
+2. lista de tarefas;
+3. cadastro de aluno e cálculo de média;
+4. controle de estoque;
+5. sistema de biblioteca com livros, usuários e empréstimos;
+6. caixa de mercado com catálogo, carrinho, desconto e fechamento;
+7. controle financeiro com receitas, despesas e saldo;
+8. gerenciador de hábitos com meta semanal e conclusão diária;
+9. console HTTP didático da API de tarefas;
+10. analisador local de repositórios, núcleo que evoluiu para o GitHub Student Dashboard.
 
-Depois de usar, volte para esta pasta e abra o código Python correspondente.
+Há também um playground extra de **busca binária visual**.
+
+Depois de usar um sistema, abra o código Python e os testes diretamente pelo card correspondente.
 
 ## Como estudar cada projeto
 
 Use sempre a mesma sequência:
 
-1. **Use** a aplicação ou leia o exemplo de uso.
+1. **Use** a aplicação no laboratório.
 2. **Preveja** o que o programa deveria fazer.
-3. **Abra** `app.py` ou `main.py`.
-4. **Leia** uma função de cada vez.
-5. **Abra** `test_app.py` ou `test_main.py` e veja quais comportamentos são comprovados.
-6. **Clone** o repositório e execute os testes.
-7. **Mude** uma regra e observe qual teste precisa mudar.
-8. **Crie** uma melhoria pequena por conta própria.
+3. **Quebre** uma regra de propósito e observe a validação.
+4. **Abra** `app.py` ou `main.py`.
+5. **Leia** uma função de cada vez.
+6. **Abra** `test_app.py` ou `test_main.py` e veja quais comportamentos são comprovados.
+7. **Clone** o repositório e execute os testes.
+8. **Mude** uma regra e observe qual teste precisa mudar.
+9. **Crie** uma melhoria pequena por conta própria.
 
 ## Rodar localmente
 
@@ -66,7 +75,8 @@ Nesta coleção, um título no roadmap não basta. Um projeto deve ter, quando a
 - persistência quando fizer sentido;
 - README com instruções de execução;
 - testes automatizados;
-- CI para validar o conjunto.
+- CI para validar o conjunto;
+- uma forma prática de experimentar o comportamento quando isso for viável.
 
 ## Progressão
 
