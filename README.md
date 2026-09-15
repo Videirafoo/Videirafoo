@@ -49,7 +49,8 @@ Aplicação pública que analisa repositórios e perfis do GitHub usando checks 
 - comparação entre repositórios;
 - histórico por commit;
 - explicação local ou IA opcional;
-- interface web, API JSON, testes e CI.
+- interface web, API JSON, testes e CI;
+- laboratório educacional com **10 mini sistemas ligados ao backend Flask e às funções Python originais**.
 
 ### Abrir
 
@@ -68,6 +69,8 @@ O laboratório existe para evitar um perfil cheio de nomes de projetos sem exper
 **Fluxo recomendado:**
 
 `usar no navegador` → `entender o comportamento` → `abrir o Python` → `abrir os testes` → `alterar sua cópia`
+
+**Não são apenas demos visuais:** as regras centrais dos 10 playgrounds passam pelo **Flask** e reaproveitam as **funções Python reais** versionadas em `conteudos/mini_sistemas`. O estado didático permanece no navegador sempre que possível para não misturar dados entre visitantes.
 
 Hoje os **10 mini sistemas** possuem experiência prática no navegador:
 
