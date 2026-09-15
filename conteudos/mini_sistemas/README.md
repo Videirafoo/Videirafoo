@@ -31,7 +31,7 @@ Cada projeto terá:
 6. [Caixa de Mercado](./caixa_mercado/README.md) — catálogo, carrinho, estoque, descontos, vendas e JSON
 7. [Controle Financeiro Pessoal](./controle_financeiro/README.md) — receitas, despesas, categorias, saldo, filtros, relatórios e JSON
 8. [Gerenciador de Hábitos](./gerenciador_habitos/README.md) — metas semanais, registros diários, sequência, progresso e JSON
-9. API de Tarefas
+9. [API de Tarefas](./api_tarefas/README.md) — HTTP, REST, JSON, Flask, validação e testes de API
 10. Projeto final integrado
 
 ## Progressão
