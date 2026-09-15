@@ -28,6 +28,10 @@ def create_app(
     def inicio():
         return render_template("index.html")
 
+    @app.get("/readme")
+    def pagina_readme():
+        return render_template("readme.html")
+
     @app.get("/favicon.ico")
     def favicon():
         return "", 204
