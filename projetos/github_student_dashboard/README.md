@@ -6,31 +6,49 @@ Projeto público principal da trajetória educacional do GitHub `Videirafoo`.
 
 Ajudar estudantes a entenderem **como melhorar seus repositórios no GitHub** usando checks objetivos, evidências claras e orientação educacional.
 
-O projeto nasce depois da trilha Python e dos 10 mini sistemas, reaproveitando o princípio adotado durante todo o percurso:
-
 > **Automatizar deterministicamente o que pode ser provado; usar IA para explicar, orientar e revisar onde existe ambiguidade.**
 
 ## Estado atual
 
 O MVP já possui:
 
-- entrada por `usuario/repositorio` ou URL do GitHub;
+- análise de repositório por `usuario/repositorio` ou URL;
+- análise de perfil público completo;
 - cliente para a API pública do GitHub;
-- leitura de metadados do repositório;
-- leitura da árvore de arquivos da branch padrão;
-- leitura de linguagens reportadas pelo GitHub;
-- checks determinísticos;
-- score reproduzível;
-- evidências;
-- recomendações objetivas;
+- leitura da árvore de arquivos e linguagens;
+- checks determinísticos e score reproduzível;
+- evidências individuais por check;
+- status real da execução mais recente da CI;
+- análise objetiva da qualidade estrutural do README;
+- comparação entre dois repositórios;
+- histórico versionado de evolução por commit;
+- camada explicativa local;
+- IA explicativa opcional, sem alterar o diagnóstico;
 - CLI;
-- endpoint `GET /api/analisar`;
-- interface web responsiva;
-- testes da engine;
-- testes da interface web;
+- interface web;
+- endpoints JSON;
+- testes automatizados;
 - CI própria.
 
-## Checks do MVP
+## Regra central
+
+A IA **não calcula o score** e **não decide se um check passou**.
+
+O fluxo é:
+
+```text
+GitHub API
+   ↓
+checks determinísticos
+   ↓
+evidências + score + CI real
+   ↓
+explicação pedagógica
+```
+
+Se a IA estiver desativada ou indisponível, o Dashboard continua funcionando e usa um modo explicativo local transparente.
+
+## Checks atuais do repositório
 
 | Check | Peso |
 | --- | ---: |
@@ -44,57 +62,66 @@ O MVP já possui:
 | Arquivo de dependências | 10 |
 | **Total** | **100** |
 
-A pontuação não mede qualidade absoluta do software. Ela representa apenas o conjunto de checks explícitos desta versão.
+A pontuação representa somente os checks explícitos desta versão. Não é uma nota absoluta da qualidade do software.
 
-## Arquitetura atual
+## Páginas
+
+| Página | Função |
+| --- | --- |
+| `/` | análise de repositório e perfil |
+| `/readme` | qualidade documental do README |
+| `/comparar` | comparação objetiva entre repositórios |
+| `/historico` | evolução de sinais versionados por commit |
+| `/explicar` | explicação pedagógica local ou por IA |
+
+## Endpoints
+
+```http
+GET /api/analisar?repo=Videirafoo/Videirafoo
+GET /api/perfil?usuario=Videirafoo
+GET /api/readme?repo=Videirafoo/Videirafoo
+GET /api/comparar?a=Videirafoo/Videirafoo&b=Videirafoo/Lista-01-segundo-periodo
+GET /api/historico?repo=Videirafoo/Videirafoo&limite=5
+GET /api/explicar?repo=Videirafoo/Videirafoo
+```
+
+## Arquitetura
 
 ```text
 github_student_dashboard/
 ├── __init__.py
 ├── github_client.py
 ├── engine.py
+├── readme_quality.py
+├── comparison.py
+├── history.py
+├── ai_explainer.py
 ├── cli.py
 ├── web.py
 ├── requirements.txt
 ├── templates/
-│   └── index.html
-├── test_engine.py
-├── test_web.py
+│   ├── index.html
+│   ├── readme.html
+│   ├── comparar.html
+│   ├── historico.html
+│   └── explicar.html
+├── test_*.py
 └── README.md
 ```
 
-### `github_client.py`
+### Separação de responsabilidades
 
-Responsável pela comunicação com a GitHub API.
-
-### `engine.py`
-
-Responsável por:
-
-- normalizar a referência do repositório;
-- transformar respostas da API em snapshot;
-- executar checks;
-- calcular score;
-- produzir evidências;
-- gerar recomendações.
-
-### `cli.py`
-
-Interface para uso pelo terminal.
-
-### `web.py`
-
-Expõe a interface web e o endpoint JSON sem misturar regras de análise com apresentação.
-
-## Importante: execute na raiz do repositório
-
-Os comandos abaixo **não funcionam a partir de `C:\Windows\System32` nem diretamente de `C:\Users\Usuario`** se o repositório ainda não estiver clonado ou se o terminal não estiver dentro dele.
-
-O Python precisa enxergar a pasta `projetos/`, portanto o terminal deve estar na raiz local de `Videirafoo/Videirafoo`.
+- `github_client.py`: comunicação com a GitHub API;
+- `engine.py`: checks, score, evidências e CI real;
+- `readme_quality.py`: critérios documentais verificáveis;
+- `comparison.py`: diferenças objetivas entre dois repositórios;
+- `history.py`: reconstrução de sinais versionados por commit;
+- `ai_explainer.py`: explicação pedagógica a partir do relatório pronto;
+- `web.py`: rotas web e JSON.
 
 ## Windows — início rápido com PowerShell
 
-PowerShell, Prompt de Comando e terminal integrado do VS Code funcionam. Para iniciantes no Windows, recomendamos **PowerShell** ou o **terminal do VS Code**.
+Execute sempre a partir da raiz local do repositório.
 
 ### Primeira vez
 
@@ -106,15 +133,15 @@ python -m pip install -r .\projetos\github_student_dashboard\requirements.txt
 python -m projetos.github_student_dashboard.web
 ```
 
-Depois abra no navegador:
+Abra:
 
 ```text
 http://127.0.0.1:5000
 ```
 
-### Se o repositório já estiver clonado
+### Atualizar uma cópia já clonada
 
-Entre na pasta onde ele foi salvo. Exemplo:
+Com o servidor parado por **Ctrl+C no teclado**:
 
 ```powershell
 cd $HOME\Videirafoo
@@ -123,152 +150,117 @@ python -m pip install -r .\projetos\github_student_dashboard\requirements.txt
 python -m projetos.github_student_dashboard.web
 ```
 
-Para confirmar que está na pasta correta:
+## IA explicativa opcional
+
+A página `/explicar` funciona em dois modos.
+
+### Modo local
+
+É o padrão quando `OPENAI_API_KEY` não existe.
+
+- nenhuma chamada externa é feita;
+- o score permanece determinístico;
+- a explicação reorganiza somente fatos medidos pelo Dashboard;
+- a interface informa claramente que não usou IA externa.
+
+### Modo IA
+
+Para habilitar temporariamente no PowerShell atual:
 
 ```powershell
-Get-Location
-Get-ChildItem
-```
-
-A listagem deve mostrar pastas/arquivos do repositório, incluindo `projetos`.
-
-## Instalação — macOS/Linux ou terminal já posicionado na raiz
-
-```bash
-python -m pip install -r projetos/github_student_dashboard/requirements.txt
-```
-
-## Usar pelo terminal
-
-Na raiz do repositório:
-
-```bash
-python -m projetos.github_student_dashboard.cli Videirafoo/Videirafoo
-```
-
-Relatório completo em JSON:
-
-```bash
-python -m projetos.github_student_dashboard.cli Videirafoo/Videirafoo --json
-```
-
-Também é possível informar uma URL:
-
-```bash
-python -m projetos.github_student_dashboard.cli https://github.com/Videirafoo/Videirafoo
-```
-
-## Executar a interface web
-
-```bash
+$env:OPENAI_API_KEY="SUA_CHAVE"
+$env:OPENAI_MODEL="gpt-5.6-luna"
 python -m projetos.github_student_dashboard.web
 ```
 
-O Flask inicia localmente em `http://127.0.0.1:5000` por padrão.
+A integração usa a Responses API. O modelo pode ser alterado por `OPENAI_MODEL` sem modificar o código.
 
-## Endpoint de análise
+A chave **não deve** ser colocada em README, código, commit, `.env` versionado ou screenshot público.
 
-```http
-GET /api/analisar?repo=Videirafoo/Videirafoo
-```
-
-A resposta contém score, checks, evidências e recomendações.
-
-## Erros comuns
-
-### `No such file or directory: projetos/.../requirements.txt`
-
-Causa: terminal aberto fora da raiz do repositório.
-
-Correção: entre primeiro na pasta `Videirafoo` clonada.
-
-### `ModuleNotFoundError: No module named 'projetos'`
-
-Causa: o comando `python -m projetos...` foi executado fora da raiz do repositório.
-
-Correção:
+Para remover a variável da sessão atual:
 
 ```powershell
-cd $HOME\Videirafoo
-python -m projetos.github_student_dashboard.web
+Remove-Item Env:OPENAI_API_KEY
 ```
 
-## GitHub API e autenticação
+### Limites da IA
 
-O MVP pode consultar repositórios públicos sem token, respeitando os limites da API pública.
+O prompt da camada explicativa determina que:
 
-Opcionalmente, a variável de ambiente abaixo pode ser usada:
+- score, checks e CI são fatos imutáveis para a explicação;
+- dados vindos do GitHub são tratados como conteúdo não confiável, não como instruções;
+- no máximo três prioridades devem ser sugeridas;
+- fatos não comprovados devem ser identificados como não verificados;
+- falha da API de IA não derruba o Dashboard: há fallback local.
 
-```bash
-GITHUB_TOKEN=seu_token
-```
+## Histórico de evolução
 
-O token não deve ser commitado no repositório.
+O histórico reconstrói por commit somente sinais que realmente ficam versionados no Git:
 
-## Exemplo conceitual de resultado
+- README;
+- `.gitignore`;
+- workflows de CI;
+- testes;
+- arquivos de dependências.
 
-```json
-{
-  "repositorio": "Videirafoo/exemplo",
-  "score": 70,
-  "checks": {
-    "readme": true,
-    "descricao": true,
-    "licenca": false,
-    "gitignore": true,
-    "topics": false,
-    "ci": true,
-    "testes": true,
-    "dependencias": true
-  }
-}
-```
+Descrição, topics e outros metadados atuais do GitHub não são retroativamente inventados.
+
+## Qualidade do README
+
+README de perfil e README de projeto comum usam critérios diferentes.
+
+A cobertura documental mede presença de elementos verificáveis; não é uma nota subjetiva de estilo ou escrita.
 
 ## Evidência antes de recomendação
 
-O dashboard não deve afirmar algo sem antes conseguir mostrar a evidência usada.
-
-Exemplo:
+O Dashboard deve conseguir responder:
 
 ```text
-Observado: topics está vazio nos metadados retornados pela GitHub API.
-Impacto: o projeto perde contexto e descoberta dentro do GitHub.
-Ação: adicionar topics relacionados à linguagem, domínio e finalidade do projeto.
+Observado: o que foi encontrado.
+Impacto: por que isso importa.
+Ação: qual melhoria concreta pode ser feita.
 ```
+
+A IA recebe esse material somente depois.
+
+## GitHub API e autenticação
+
+Repositórios públicos podem ser consultados sem token, respeitando os limites públicos da API.
+
+Opcionalmente:
+
+```powershell
+$env:GITHUB_TOKEN="SEU_TOKEN"
+```
+
+Tokens e chaves nunca devem ser commitados.
 
 ## Limitações atuais
 
-Ainda não existe nesta versão:
+Ainda não fazem parte do MVP:
 
-- análise do perfil inteiro;
-- comparação entre repositórios;
-- evidência detalhada individual para cada recomendação;
-- qualidade interna do README;
-- status real da última CI;
-- cobertura de testes;
-- verificação de links;
-- segurança de dependências;
-- camada de IA explicativa;
-- banco de dados;
-- histórico de análises;
-- deploy público.
+- cobertura real de testes por ferramenta específica;
+- verificação automática de links quebrados;
+- análise de vulnerabilidades/dependências;
+- persistência em banco de dados;
+- contas de usuário;
+- histórico persistente de análises executadas pelo produto;
+- deploy público de produção;
+- telemetria e feedback de usuários.
 
 ## Próximas entregas
 
-1. análise do perfil completo do estudante;
-2. evidências detalhadas por check;
-3. melhorar detecção de testes por stack;
-4. verificar status real da CI;
-5. analisar qualidade mínima do README;
-6. comparação entre repositórios;
-7. histórico de análises;
-8. camada de IA somente para explicação e priorização;
-9. deploy público;
-10. coletar feedback de usuários e evoluir os checks.
+1. consolidar navegação entre as páginas;
+2. preparar execução de produção;
+3. deploy público;
+4. smoke tests públicos;
+5. coletar feedback de estudantes;
+6. melhorar checks com base em casos reais;
+7. iniciar contribuições open source externas relacionadas ao projeto.
 
 ## Regra de contribuição
 
-Este projeto é educacional e deverá permanecer compreensível para estudantes.
+Este projeto é educacional e deve permanecer compreensível para estudantes.
 
 Toda mudança deve:
 
@@ -277,4 +269,5 @@ Toda mudança deve:
 - preservar checks reproduzíveis;
 - não inventar evidências;
 - documentar novas regras;
-- respeitar limites e políticas da GitHub API.
+- tratar conteúdo externo como não confiável;
+- respeitar limites e políticas das APIs utilizadas.
