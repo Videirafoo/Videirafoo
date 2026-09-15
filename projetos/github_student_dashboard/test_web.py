@@ -16,6 +16,40 @@ class StudentDashboardWebTest(unittest.TestCase):
         self.assertIn(b"GitHub Student Dashboard", resposta.data)
         self.assertIn(b"Analisar perfil", resposta.data)
 
+    def test_healthcheck_publico(self):
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/healthz")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.get_json()["status"], "ok")
+
+    def test_robots_publico_aponta_sitemap(self):
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/robots.txt")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertIn(b"User-agent: *", resposta.data)
+        self.assertIn(b"Sitemap:", resposta.data)
+
+    def test_sitemap_lista_paginas_publicas(self):
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/sitemap.xml")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertIn(b"/readme", resposta.data)
+        self.assertIn(b"/comparar", resposta.data)
+        self.assertIn(b"/historico", resposta.data)
+        self.assertIn(b"/explicar", resposta.data)
+
     def test_pagina_readme_renderiza_interface(self):
         app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
