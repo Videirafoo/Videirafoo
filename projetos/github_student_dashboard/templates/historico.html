@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de evolução — GitHub Student Dashboard</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#f0f6fc;
+      --muted:#8b949e; --accent:#58a6ff; --success:#3fb950; --danger:#f85149;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    main { width:min(1040px,calc(100% - 32px)); margin:0 auto; padding:48px 0 80px; }
+    h1 { margin:0 0 8px; font-size:clamp(2rem,5vw,3.2rem); }
+    .muted { color:var(--muted); }
+    .panel { margin-top:20px; padding:20px; border:1px solid var(--border); border-radius:16px; background:var(--panel); }
+    form { display:grid; grid-template-columns:1fr 110px auto; gap:12px; }
+    input,select,button { min-height:46px; border-radius:10px; border:1px solid var(--border); font:inherit; }
+    input,select { background:var(--bg); color:var(--text); padding:0 14px; }
+    button { padding:0 18px; background:var(--accent); color:#07111f; border-color:var(--accent); font-weight:700; cursor:pointer; }
+    button:disabled { opacity:.65; cursor:wait; }
+    .timeline { display:grid; gap:14px; margin-top:18px; }
+    .commit { border:1px solid var(--border); border-radius:14px; padding:16px; }
+    .commit-head { display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; align-items:flex-start; }
+    .commit a { color:var(--accent); font-weight:700; text-decoration:none; }
+    .coverage { font-size:1.5rem; font-weight:800; }
+    .checks { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px; margin-top:14px; }
+    .check { border:1px solid var(--border); border-radius:10px; padding:9px; }
+    .ok { border-color:var(--success); }
+    .missing { border-color:var(--danger); }
+    .changes { margin:12px 0 0; padding-left:20px; }
+    .error { color:var(--danger); font-weight:600; }
+    .hidden { display:none; }
+    .nav { margin-top:18px; display:flex; gap:14px; flex-wrap:wrap; }
+    .nav a { color:var(--accent); }
+    @media(max-width:700px){ form{grid-template-columns:1fr;} main{width:min(100% - 20px,1040px);padding-top:28px;} }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Histórico de evolução</h1>
+  <p class="muted">Reconstrói, por commit, apenas sinais que ficam versionados no Git: README, .gitignore, CI, testes e dependências.</p>
+
+  <div class="nav">
+    <a href="/">Dashboard</a>
+    <a href="/readme">Qualidade do README</a>
+    <a href="/comparar">Comparar repositórios</a>
+  </div>
+
+  <section class="panel">
+    <form id="form">
+      <input id="repo" value="Videirafoo/Videirafoo" aria-label="Repositório" required>
+      <select id="limite" aria-label="Quantidade de commits">
+        <option value="3">3 commits</option>
+        <option value="5" selected>5 commits</option>
+        <option value="8">8 commits</option>
+        <option value="10">10 commits</option>
+      </select>
+      <button id="submit" type="submit">Analisar histórico</button>
+    </form>
+    <p id="erro" class="error hidden"></p>
+  </section>
+
+  <section id="resultado" class="panel hidden">
+    <h2 id="titulo"></h2>
+    <p id="observacao" class="muted"></p>
+    <div id="timeline" class="timeline"></div>
+  </section>
+</main>
+<script>
+  const form=document.querySelector('#form');
+  const repo=document.querySelector('#repo');
+  const limite=document.querySelector('#limite');
+  const submit=document.querySelector('#submit');
+  const erro=document.querySelector('#erro');
+  const resultado=document.querySelector('#resultado');
+  const titulo=document.querySelector('#titulo');
+  const observacao=document.querySelector('#observacao');
+  const timeline=document.querySelector('#timeline');
+
+  const nomes={readme:'README',gitignore:'.gitignore',ci:'CI',testes:'Testes',dependencias:'Dependências'};
+
+  form.addEventListener('submit', async (event)=>{
+    event.preventDefault();
+    erro.classList.add('hidden');
+    resultado.classList.add('hidden');
+    submit.disabled=true;
+    submit.textContent='Analisando...';
+    try{
+      const response=await fetch(`/api/historico?repo=${encodeURIComponent(repo.value.trim())}&limite=${limite.value}`);
+      const data=await response.json();
+      if(!response.ok) throw new Error(data.erro || 'Não foi possível analisar o histórico.');
+
+      titulo.textContent=`${data.repositorio} — ${data.commits_analisados} commit(s)`;
+      observacao.textContent=data.observacao;
+      timeline.innerHTML='';
+
+      data.evolucao.forEach((item)=>{
+        const card=document.createElement('article');
+        card.className='commit';
+
+        const head=document.createElement('div');
+        head.className='commit-head';
+        const left=document.createElement('div');
+        const link=document.createElement('a');
+        link.href=item.commit.url;
+        link.target='_blank';
+        link.rel='noreferrer';
+        link.textContent=`${item.commit.sha_curto} — ${item.commit.mensagem || 'Sem mensagem'}`;
+        const meta=document.createElement('div');
+        meta.className='muted';
+        meta.textContent=`${item.commit.autor} · ${item.commit.data || 'data indisponível'}`;
+        left.append(link,meta);
+
+        const cobertura=document.createElement('div');
+        cobertura.className='coverage';
+        cobertura.textContent=`${item.estado.cobertura_versionada.percentual}%`;
+        head.append(left,cobertura);
+        card.appendChild(head);
+
+        const checks=document.createElement('div');
+        checks.className='checks';
+        Object.entries(item.estado.checks).forEach(([nome,passou])=>{
+          const div=document.createElement('div');
+          div.className=`check ${passou?'ok':'missing'}`;
+          div.textContent=`${nomes[nome] || nome}: ${passou?'OK':'Falta'}`;
+          checks.appendChild(div);
+        });
+        card.appendChild(checks);
+
+        const mudancas=item.mudancas || {};
+        const lista=document.createElement('ul');
+        lista.className='changes';
+        if((mudancas.adicionados || []).length){
+          const li=document.createElement('li');
+          li.textContent=`Adicionados: ${mudancas.adicionados.map(n=>nomes[n] || n).join(', ')}`;
+          lista.appendChild(li);
+        }
+        if((mudancas.removidos || []).length){
+          const li=document.createElement('li');
+          li.textContent=`Removidos: ${mudancas.removidos.map(n=>nomes[n] || n).join(', ')}`;
+          lista.appendChild(li);
+        }
+        if(!lista.children.length){
+          const li=document.createElement('li');
+          li.textContent=mudancas.observacao || 'Sem mudança detectável nos checks versionados.';
+          lista.appendChild(li);
+        }
+        card.appendChild(lista);
+        timeline.appendChild(card);
+      });
+
+      resultado.classList.remove('hidden');
+    }catch(e){
+      erro.textContent=e.message;
+      erro.classList.remove('hidden');
+    }finally{
+      submit.disabled=false;
+      submit.textContent='Analisar histórico';
+    }
+  });
+</script>
+</body>
+</html>
