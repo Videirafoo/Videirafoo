@@ -61,6 +61,7 @@
       <h2 id="titulo">Resultado</h2>
       <p id="observacao" class="muted"></p>
       <div id="resumo" class="summary"></div>
+      <article id="linksInternos" class="criterion hidden" style="margin-top: 12px;"></article>
       <h2>Critérios verificáveis</h2>
       <div id="criterios" class="grid"></div>
     </section>
@@ -76,6 +77,7 @@
     const observacao = document.querySelector('#observacao');
     const resumo = document.querySelector('#resumo');
     const criterios = document.querySelector('#criterios');
+    const linksInternos = document.querySelector('#linksInternos');
 
     const nomes = {
       titulo: 'Título', sobre: 'Apresentação', stack: 'Stack', projetos: 'Projetos', aprendizado: 'Aprendizado', navegacao: 'Navegação', estrutura: 'Estrutura',
@@ -127,6 +129,22 @@
           metric('Links', data.metricas.links),
           metric('Blocos de código', data.metricas.blocos_codigo)
         );
+
+        linksInternos.className = 'criterion hidden';
+        linksInternos.replaceChildren();
+        const links = data.links_internos;
+        if (links && links.verificados) {
+          const quebrados = links.quebrados || [];
+          linksInternos.className = `criterion ${quebrados.length ? 'missing' : 'ok'}`;
+          const h3 = document.createElement('h3');
+          h3.textContent = `Links internos — ${quebrados.length ? 'Revisar' : 'OK'}`;
+          linksInternos.append(
+            h3,
+            linha('Observado', `${links.validos}/${links.total} link(s) interno(s) válido(s).`),
+            linha('Impacto', 'Links internos quebrados fazem visitantes encontrarem páginas inexistentes dentro do próprio repositório.'),
+            linha('Ação', quebrados.length ? `Corrigir: ${quebrados.join(', ')}` : 'Manter os caminhos internos sincronizados com os arquivos do repositório.')
+          );
+        }
 
         criterios.innerHTML = '';
         Object.entries(data.criterios).forEach(([nome, item]) => {
