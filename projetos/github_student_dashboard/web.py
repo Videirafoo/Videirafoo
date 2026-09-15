@@ -21,6 +21,10 @@ LAB_REAL_SCRIPT = (
     '<script src="/static/laboratorio_business_real.js" defer></script>'
     '<script src="/static/laboratorio_api_real.js" defer></script>'
 )
+HOME_NAV_MARKER = '<nav class="quick-nav" aria-label="Navegação principal">'
+HOME_EDUCATION_LINKS = '<a href="/trilha">Trilha</a><a href="/laboratorio">Laboratório</a>'
+LAB_NAV_MARKER = '<nav aria-label="Navegação do laboratório">'
+LAB_TRAIL_LINK = '<a href="/trilha">Trilha Educacional</a>'
 
 
 def _status_para_erro_github(erro):
@@ -44,7 +48,7 @@ def create_app(
 
     @app.after_request
     def aplicar_microinteracoes(response):
-        """Carrega os recursos compartilhados apenas em respostas HTML."""
+        """Carrega recursos compartilhados e atalhos educacionais em HTML."""
         content_type = response.headers.get("Content-Type", "")
         if "text/html" not in content_type:
             return response
@@ -56,12 +60,25 @@ def create_app(
                 f"  {INTERACTIONS_STYLESHEET}\n</head>",
                 1,
             )
-        if request.path == "/laboratorio" and LAB_REAL_SCRIPT not in html and "</body>" in html:
+        if request.path == "/" and '/trilha' not in html and HOME_NAV_MARKER in html:
             html = html.replace(
-                "</body>",
-                f"  {LAB_REAL_SCRIPT}\n</body>",
+                HOME_NAV_MARKER,
+                f"{HOME_NAV_MARKER}{HOME_EDUCATION_LINKS}",
                 1,
             )
+        if request.path == "/laboratorio":
+            if LAB_TRAIL_LINK not in html and LAB_NAV_MARKER in html:
+                html = html.replace(
+                    LAB_NAV_MARKER,
+                    f"{LAB_NAV_MARKER}{LAB_TRAIL_LINK}",
+                    1,
+                )
+            if LAB_REAL_SCRIPT not in html and "</body>" in html:
+                html = html.replace(
+                    "</body>",
+                    f"  {LAB_REAL_SCRIPT}\n</body>",
+                    1,
+                )
         response.set_data(html)
         return response
 
