@@ -14,6 +14,12 @@ from projetos.github_student_dashboard.lab_api import (
     excluir_tarefa_lab,
     listar_tarefas_lab,
 )
+from projetos.github_student_dashboard.lab_business import (
+    biblioteca_operacao_lab,
+    caixa_operacao_lab,
+    financeiro_operacao_lab,
+    habito_operacao_lab,
+)
 from projetos.github_student_dashboard.lab_systems import (
     calcular_aluno_lab,
     criar_produto_lab,
@@ -114,6 +120,72 @@ def register_lab_routes(app):
             return jsonify(resultado), 200
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
+
+    @app.post("/api/laboratorio/biblioteca")
+    def laboratorio_biblioteca():
+        dados = request.get_json(silent=True)
+        if not isinstance(dados, dict):
+            return jsonify({"erro": "Envie um objeto JSON válido."}), 400
+        try:
+            resultado = biblioteca_operacao_lab(
+                dados.get("estado", {}),
+                str(dados.get("acao", "")),
+                dados.get("dados", {}),
+            )
+        except ValueError as erro:
+            return jsonify({"erro": str(erro)}), 400
+        return jsonify(resultado), 200
+
+    @app.post("/api/laboratorio/caixa")
+    def laboratorio_caixa():
+        dados = request.get_json(silent=True)
+        if not isinstance(dados, dict):
+            return jsonify({"erro": "Envie um objeto JSON válido."}), 400
+        try:
+            resultado = caixa_operacao_lab(
+                dados.get("estado", {}),
+                str(dados.get("acao", "")),
+                dados.get("dados", {}),
+            )
+            if resultado is None:
+                return jsonify({"erro": "Item do carrinho não encontrado."}), 404
+        except (ValueError, TypeError) as erro:
+            return jsonify({"erro": str(erro)}), 400
+        return jsonify(resultado), 200
+
+    @app.post("/api/laboratorio/financeiro")
+    def laboratorio_financeiro():
+        dados = request.get_json(silent=True)
+        if not isinstance(dados, dict):
+            return jsonify({"erro": "Envie um objeto JSON válido."}), 400
+        try:
+            resultado = financeiro_operacao_lab(
+                dados.get("estado", []),
+                str(dados.get("acao", "")),
+                dados.get("dados", {}),
+            )
+            if resultado is None:
+                return jsonify({"erro": "Lançamento não encontrado."}), 404
+        except (ValueError, TypeError) as erro:
+            return jsonify({"erro": str(erro)}), 400
+        return jsonify(resultado), 200
+
+    @app.post("/api/laboratorio/habitos")
+    def laboratorio_habitos():
+        dados = request.get_json(silent=True)
+        if not isinstance(dados, dict):
+            return jsonify({"erro": "Envie um objeto JSON válido."}), 400
+        try:
+            resultado = habito_operacao_lab(
+                dados.get("estado", []),
+                str(dados.get("acao", "")),
+                dados.get("dados", {}),
+            )
+            if resultado is None:
+                return jsonify({"erro": "Hábito não encontrado."}), 404
+        except (ValueError, TypeError) as erro:
+            return jsonify({"erro": str(erro)}), 400
+        return jsonify(resultado), 200
 
     @app.route("/api/laboratorio/tarefas", methods=["GET", "POST", "PATCH", "DELETE"])
     def laboratorio_tarefas():
