@@ -8,10 +8,15 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 
 - detecção de arquivos de teste ampliada para padrões comuns de Python, JavaScript, TypeScript, JSX, Go, Dart/Flutter, Ruby, Java, Kotlin, C#, PHP e diretórios convencionais de teste;
 - teste automatizado para evitar falsos positivos simples como `contest.py` e `latest.ts`;
+- verificação determinística de links internos do README usando a árvore do próprio repositório;
+- links internos quebrados agora aparecem na página de qualidade do README com ação concreta de correção;
+- URLs externas não são consultadas por essa verificação, reduzindo risco de requisições arbitrárias;
 - microinterações compartilhadas e acessíveis em desktop, teclado e touch/mobile;
 - showcase público dentro do próprio GitHub;
 - primeira `good first issue` aberta para contribuição da comunidade;
-- template de Pull Request para orientar contribuidores iniciantes.
+- labels `good first issue`, `documentation` e `help wanted` aplicadas à tarefa inicial;
+- template de Pull Request para orientar contribuidores iniciantes;
+- roadmap atualizado para refletir somente entregas já verificadas.
 
 ## [0.1.0] — 2026-09-15
 
