@@ -17,6 +17,60 @@ class LabWebApiTest(unittest.TestCase):
         self.assertEqual(resposta.status_code, 200)
         self.assertIn("/static/laboratorio_api_real.js", conteudo)
 
+    def test_agenda_cria_e_exclui_contato_no_backend_real(self):
+        criada = self.cliente.post(
+            "/api/laboratorio/agenda",
+            json={"contatos": [], "nome": "Ana", "telefone": "21999999999"},
+        )
+        self.assertEqual(criada.status_code, 201)
+        contatos = criada.get_json()["contatos"]
+        self.assertEqual(contatos[0]["nome"], "Ana")
+
+        duplicada = self.cliente.post(
+            "/api/laboratorio/agenda",
+            json={"contatos": contatos, "nome": " ana ", "telefone": "21888888888"},
+        )
+        self.assertEqual(duplicada.status_code, 400)
+
+        excluida = self.cliente.delete(
+            "/api/laboratorio/agenda",
+            json={"contatos": contatos, "id": contatos[0]["id"]},
+        )
+        self.assertEqual(excluida.status_code, 200)
+        self.assertEqual(excluida.get_json()["contatos"], [])
+
+    def test_lista_02_cria_conclui_reabre_e_exclui(self):
+        criada = self.cliente.post(
+            "/api/laboratorio/lista-tarefas",
+            json={"tarefas": [], "titulo": "Revisar Python", "prioridade": "alta"},
+        )
+        self.assertEqual(criada.status_code, 201)
+        tarefas = criada.get_json()["tarefas"]
+        self.assertEqual(tarefas[0]["id"], 1)
+
+        concluida = self.cliente.patch(
+            "/api/laboratorio/lista-tarefas",
+            json={"tarefas": tarefas, "id": 1, "concluida": True},
+        )
+        self.assertEqual(concluida.status_code, 200)
+        tarefas = concluida.get_json()["tarefas"]
+        self.assertTrue(tarefas[0]["concluida"])
+
+        reaberta = self.cliente.patch(
+            "/api/laboratorio/lista-tarefas",
+            json={"tarefas": tarefas, "id": 1, "concluida": False},
+        )
+        self.assertEqual(reaberta.status_code, 200)
+        tarefas = reaberta.get_json()["tarefas"]
+        self.assertFalse(tarefas[0]["concluida"])
+
+        excluida = self.cliente.delete(
+            "/api/laboratorio/lista-tarefas",
+            json={"tarefas": tarefas, "id": 1},
+        )
+        self.assertEqual(excluida.status_code, 200)
+        self.assertEqual(excluida.get_json()["tarefas"], [])
+
     def test_fluxo_http_criar_listar_atualizar_excluir(self):
         criada = self.cliente.post(
             "/api/laboratorio/tarefas",
