@@ -105,7 +105,7 @@ A coleção agora ensina progressivamente:
 
 ### GitHub Student Dashboard
 
-Status: **MVP público em produção e recebendo feedback**.
+Status: **MVP público em produção, com qualidade interna mensurada e recebendo feedback**.
 
 Produção:
 
@@ -118,6 +118,10 @@ Código:
 Showcase:
 
 `SHOWCASE.md`
+
+Qualidade:
+
+`QUALITY.md`
 
 ### Arquitetura aplicada
 
@@ -187,7 +191,14 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] template de Pull Request para contribuidores;
 - [x] `good first issue` real para a comunidade;
 - [x] laboratório público com os 10 mini sistemas interativos;
-- [x] backend real do laboratório reutilizando os 10 mini sistemas Python em vez de manter apenas simulações de interface.
+- [x] backend real do laboratório reutilizando os 10 mini sistemas Python em vez de manter apenas simulações de interface;
+- [x] cobertura interna real com `coverage.py` e medição de branches;
+- [x] baseline de cobertura elevado de **73,3% / 95 testes** para **81,9% / 118 testes** com testes de comportamento;
+- [x] gate de regressão de cobertura em **80%**;
+- [x] auditoria informativa das dependências de produção com `pip-audit`;
+- [x] artefato de CI com `coverage.txt`, `coverage.json` e `pip-audit.txt`;
+- [x] actions oficiais da CI atualizadas para a geração v7;
+- [x] documentação pública de qualidade em `QUALITY.md`.
 
 ### Melhorias recentes concluídas
 
@@ -198,12 +209,23 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] transformar os 10 mini sistemas em experiências utilizáveis no navegador;
 - [x] manter cada experiência ligada ao código e aos testes reais do GitHub;
 - [x] executar regras de negócio no backend pelas funções Python originais;
-- [x] validar integrações do laboratório com testes unitários, HTTP e sintaxe JavaScript.
+- [x] validar integrações do laboratório com testes unitários, HTTP e sintaxe JavaScript;
+- [x] cobrir CLI, cliente GitHub e provider de IA, levando esses módulos a 100,0%, 97,5% e 95,7% na execução de referência.
 
 ### Próximas melhorias do produto
 
-- [ ] cobertura real de testes quando a stack fornecer essa informação;
-- [ ] análise de vulnerabilidades/dependências em modo informativo;
+Há duas frentes diferentes e não devem ser confundidas:
+
+**Qualidade interna do próprio Dashboard**
+
+- [ ] elevar cobertura útil de `lab_business.py`, `lab_api.py`, `lab_web.py` e `lab_systems.py`;
+- [ ] aprofundar branches de erro e casos-limite do `engine.py`;
+- [ ] revisar qualquer ocorrência futura do `pip-audit` com contexto antes de decidir bloqueio.
+
+**Análise de repositórios externos pelo produto**
+
+- [ ] descobrir e mostrar cobertura real de testes de um repositório analisado somente quando a stack fornecer evidência confiável;
+- [ ] análise informativa de vulnerabilidades/dependências de repositórios externos, sem substituir scanners especializados;
 - [ ] histórico persistente das análises executadas pelo produto;
 - [ ] priorizar melhorias a partir de feedback real de estudantes;
 - [ ] incorporar screenshots reais nas documentações quando houver um fluxo de assets binários simples e reproduzível.
@@ -221,13 +243,15 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] limitar a mudança a `tasks/flask/easy/app.py`;
 - [x] abrir o primeiro Pull Request externo: `fork-commit-merge/fork-commit-merge#8150`;
 - [x] registrar o PR público no perfil e no showcase;
-- [ ] aguardar aprovação dos workflows pelo mantenedor;
-- [ ] acompanhar revisão e responder aos maintainers;
+- [ ] aguardar ação/revisão do mantenedor;
+- [ ] acompanhar revisão e responder somente quando houver solicitação;
 - [ ] registrar o merge como contribuição aceita, se aprovado.
 
 PR atual:
 
 https://github.com/fork-commit-merge/fork-commit-merge/pull/8150
+
+Estado verificado nesta etapa: **aberto, mergeável, sem comentários/revisões novas**.
 
 ## Fase 6 — Comunidade
 
@@ -265,6 +289,7 @@ Acompanhar:
 - forks e stars orgânicos;
 - documentação melhorada;
 - projetos concluídos;
+- cobertura útil e regressões detectadas;
 - contribuições externas aceitas.
 
 Evitar usar número de commits como principal métrica de qualidade.
