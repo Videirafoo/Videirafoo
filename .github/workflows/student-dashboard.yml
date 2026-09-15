@@ -6,6 +6,8 @@ on:
     paths:
       - "projetos/github_student_dashboard/**/*.py"
       - "projetos/github_student_dashboard/**/*.html"
+      - "projetos/github_student_dashboard/**/*.js"
+      - "projetos/github_student_dashboard/**/*.css"
       - "projetos/github_student_dashboard/requirements.txt"
       - ".github/workflows/student-dashboard.yml"
   pull_request:
@@ -13,6 +15,8 @@ on:
     paths:
       - "projetos/github_student_dashboard/**/*.py"
       - "projetos/github_student_dashboard/**/*.html"
+      - "projetos/github_student_dashboard/**/*.js"
+      - "projetos/github_student_dashboard/**/*.css"
       - "projetos/github_student_dashboard/requirements.txt"
       - ".github/workflows/student-dashboard.yml"
 
@@ -37,6 +41,9 @@ jobs:
 
       - name: Validate Python syntax
         run: python -m compileall -q projetos/github_student_dashboard
+
+      - name: Validate JavaScript syntax
+        run: node --check projetos/github_student_dashboard/static/laboratorio.js
 
       - name: Run dashboard tests
         run: python -m unittest discover -s projetos/github_student_dashboard -t . -p "test_*.py"

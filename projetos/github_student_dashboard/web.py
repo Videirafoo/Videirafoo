@@ -12,7 +12,7 @@ from projetos.github_student_dashboard.readme_quality import analisar_readme_rem
 
 
 PUBLIC_BASE_URL = "https://github-student-dashboard-videirafoo.onrender.com"
-PUBLIC_PAGES = ["/", "/readme", "/comparar", "/historico", "/explicar"]
+PUBLIC_PAGES = ["/", "/laboratorio", "/readme", "/comparar", "/historico", "/explicar"]
 INTERACTIONS_STYLESHEET = '<link rel="stylesheet" href="/static/interactions.css">'
 
 
@@ -37,11 +37,7 @@ def create_app(
 
     @app.after_request
     def aplicar_microinteracoes(response):
-        """Carrega o CSS compartilhado apenas em respostas HTML.
-
-        Mantém as páginas independentes e permite evoluir a camada visual sem
-        duplicar regras de interação em cada template.
-        """
+        """Carrega o CSS compartilhado apenas em respostas HTML."""
         content_type = response.headers.get("Content-Type", "")
         if "text/html" not in content_type:
             return response
@@ -59,6 +55,10 @@ def create_app(
     @app.get("/")
     def inicio():
         return render_template("index.html")
+
+    @app.get("/laboratorio")
+    def pagina_laboratorio():
+        return render_template("laboratorio.html")
 
     @app.get("/readme")
     def pagina_readme():
@@ -109,104 +109,85 @@ def create_app(
     @app.get("/api/analisar")
     def analisar():
         repositorio = (request.args.get("repo") or "").strip()
-
         if not repositorio:
             return jsonify({"erro": "Informe um repositório no formato usuario/repositorio."}), 400
-
         try:
             relatorio = analisador(repositorio)
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
         except GitHubApiError as erro:
             return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
-
         return jsonify(relatorio), 200
 
     @app.get("/api/perfil")
     def analisar_perfil():
         usuario = (request.args.get("usuario") or "").strip()
-
         if not usuario:
             return jsonify({"erro": "Informe um usuário do GitHub."}), 400
-
         try:
             relatorio = analisador_perfil(usuario)
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
         except GitHubApiError as erro:
             return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
-
         return jsonify(relatorio), 200
 
     @app.get("/api/readme")
     def analisar_readme():
         repositorio = (request.args.get("repo") or "").strip()
-
         if not repositorio:
             return jsonify({"erro": "Informe um repositório no formato usuario/repositorio."}), 400
-
         try:
             relatorio = analisador_readme(repositorio)
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
         except GitHubApiError as erro:
             return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
-
         return jsonify(relatorio), 200
 
     @app.get("/api/comparar")
     def comparar():
         repositorio_a = (request.args.get("a") or "").strip()
         repositorio_b = (request.args.get("b") or "").strip()
-
         if not repositorio_a or not repositorio_b:
             return jsonify({"erro": "Informe os dois repositórios para comparação."}), 400
-
         try:
             relatorio = comparador(repositorio_a, repositorio_b)
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
         except GitHubApiError as erro:
             return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
-
         return jsonify(relatorio), 200
 
     @app.get("/api/historico")
     def historico():
         repositorio = (request.args.get("repo") or "").strip()
         limite_texto = (request.args.get("limite") or "5").strip()
-
         if not repositorio:
             return jsonify({"erro": "Informe um repositório no formato usuario/repositorio."}), 400
-
         try:
             limite = int(limite_texto)
         except ValueError:
             return jsonify({"erro": "O limite precisa ser um número inteiro entre 2 e 10."}), 400
-
         try:
             relatorio = analisador_historico(repositorio, limite=limite)
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
         except GitHubApiError as erro:
             return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
-
         return jsonify(relatorio), 200
 
     @app.get("/api/explicar")
     def explicar():
         repositorio = (request.args.get("repo") or "").strip()
-
         if not repositorio:
             return jsonify({"erro": "Informe um repositório no formato usuario/repositorio."}), 400
-
         try:
             relatorio = explicador(repositorio)
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
         except GitHubApiError as erro:
             return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
-
         return jsonify(relatorio), 200
 
     return app

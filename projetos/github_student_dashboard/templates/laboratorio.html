@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Laboratório interativo com mini sistemas reais do GitHub Videirafoo para aprender programação usando e estudando o código.">
+  <title>Laboratório de Projetos — Videirafoo</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg:#0d1117; --panel:#161b22; --soft:#11161d; --border:#30363d;
+      --text:#f0f6fc; --muted:#8b949e; --accent:#58a6ff; --ok:#3fb950; --danger:#f85149;
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+    a{color:var(--accent)} main{width:min(1120px,calc(100% - 28px));margin:auto;padding:32px 0 72px}
+    .top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:30px}.top nav{display:flex;gap:8px;flex-wrap:wrap}
+    .btn,.top a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 12px;border:1px solid var(--border);border-radius:9px;background:var(--soft);color:var(--text);text-decoration:none;font-weight:700}
+    .btn.primary{background:var(--accent);border-color:var(--accent);color:#07111f}.eyebrow{color:var(--ok);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
+    h1{font-size:clamp(2.2rem,6vw,4.5rem);line-height:1.02;margin:8px 0 14px;letter-spacing:-.04em}.lead{color:var(--muted);max-width:820px;font-size:1.05rem}
+    .rule{margin-top:18px;padding:14px 16px;border-left:4px solid var(--accent);background:var(--soft);border-radius:8px;color:var(--muted)}
+    .status-grid,.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px;margin-top:22px}
+    .status,.project{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px}.status strong{font-size:1.35rem;display:block}.status span,.muted{color:var(--muted)}
+    .project{display:flex;flex-direction:column;gap:14px}.project h2{margin:0}.tag{display:inline-block;width:max-content;padding:4px 8px;border:1px solid color-mix(in srgb,var(--ok) 60%,var(--border));border-radius:999px;color:var(--ok);font-size:.78rem;font-weight:800}
+    .app{border:1px solid var(--border);background:var(--soft);border-radius:12px;padding:14px}.row{display:grid;grid-template-columns:1fr auto;gap:8px}.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    input,button{min-height:42px;border-radius:9px;border:1px solid var(--border);font:inherit}input{background:var(--bg);color:var(--text);padding:0 11px;width:100%}button{background:var(--accent);border-color:var(--accent);color:#07111f;padding:0 14px;font-weight:800;cursor:pointer}
+    button.secondary{background:var(--soft);color:var(--text);border-color:var(--border)}ul{padding-left:20px}.list-clean{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 10px;border:1px solid var(--border);border-radius:9px}.item-main{display:flex;gap:8px;align-items:center;min-width:0}.done{text-decoration:line-through;color:var(--muted)}
+    .output{margin-top:12px;padding:10px;border-radius:9px;background:var(--bg);border:1px solid var(--border);min-height:44px;white-space:pre-wrap;overflow-wrap:anywhere}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}.code-note{font-size:.9rem;color:var(--muted)}
+    .section-title{margin-top:42px}.planned{opacity:.82}.planned .tag{color:#d29922;border-color:#d29922}
+    @media(max-width:640px){main{width:min(100% - 18px,1120px);padding-top:20px}.row,.row3{grid-template-columns:1fr}button{width:100%}.item{align-items:flex-start}.actions .btn{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <a href="/">← Student Dashboard</a>
+    <nav aria-label="Navegação do laboratório">
+      <a href="https://github.com/Videirafoo/Videirafoo/tree/main/conteudos/mini_sistemas" target="_blank" rel="noreferrer">Código dos mini sistemas</a>
+      <a href="https://github.com/Videirafoo/Videirafoo" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <section>
+    <div class="eyebrow">Executável agora</div>
+    <h1>Laboratório de Projetos</h1>
+    <p class="lead">Aqui não é catálogo de ideias. São pequenas aplicações que você pode usar no navegador e, logo abaixo, abrir o código Python original e os testes no GitHub para entender como cada conceito foi implementado.</p>
+    <div class="rule"><strong>Como estudar:</strong> use a aplicação → tente prever o comportamento → abra o código → altere sua cópia → rode os testes → compare o resultado.</div>
+
+    <div class="status-grid">
+      <article class="status"><strong>4 playgrounds</strong><span>interativos no navegador</span></article>
+      <article class="status"><strong>Código real</strong><span>Python versionado no GitHub</span></article>
+      <article class="status"><strong>Testes reais</strong><span>arquivos test_*.py nos projetos</span></article>
+      <article class="status"><strong>Sem cadastro</strong><span>dados ficam somente no seu navegador</span></article>
+    </div>
+  </section>
+
+  <h2 class="section-title">Use, quebre, entenda e refaça</h2>
+  <section class="project-grid">
+    <article class="project" id="tarefas">
+      <span class="tag">Executável agora</span>
+      <div><h2>Lista de tarefas</h2><p class="muted">CRUD, estado, conclusão, remoção e persistência local.</p></div>
+      <div class="app">
+        <form id="tarefas-form" class="row">
+          <input id="tarefa-texto" maxlength="80" placeholder="Ex.: revisar funções" required>
+          <button type="submit">Adicionar</button>
+        </form>
+        <ul id="tarefas-lista" class="list-clean" aria-live="polite"></ul>
+      </div>
+      <p class="code-note">A versão Python trabalha os mesmos conceitos com organização de funções, JSON e testes.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/Videirafoo/Videirafoo/tree/main/conteudos/mini_sistemas/lista_tarefas" target="_blank" rel="noreferrer">Ver código Python</a>
+        <a class="btn" href="https://github.com/Videirafoo/Videirafoo/blob/main/conteudos/mini_sistemas/lista_tarefas/test_app.py" target="_blank" rel="noreferrer">Ver testes</a>
+      </div>
+    </article>
+
+    <article class="project" id="alunos">
+      <span class="tag">Executável agora</span>
+      <div><h2>Cadastro de aluno</h2><p class="muted">Entrada, validação, média e regra de situação acadêmica.</p></div>
+      <div class="app">
+        <input id="aluno-nome" maxlength="60" placeholder="Nome do aluno">
+        <div class="row3" style="margin-top:8px">
+          <input id="nota-1" inputmode="decimal" placeholder="Nota 1">
+          <input id="nota-2" inputmode="decimal" placeholder="Nota 2">
+          <input id="nota-3" inputmode="decimal" placeholder="Nota 3">
+        </div>
+        <button id="calcular-media" style="margin-top:8px">Calcular média</button>
+        <div id="media-resultado" class="output" aria-live="polite">Informe nome e três notas de 0 a 10.</div>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/Videirafoo/Videirafoo/tree/main/conteudos/mini_sistemas/cadastro_alunos" target="_blank" rel="noreferrer">Ver código Python</a>
+        <a class="btn" href="https://github.com/Videirafoo/Videirafoo/blob/main/conteudos/mini_sistemas/cadastro_alunos/test_app.py" target="_blank" rel="noreferrer">Ver testes</a>
+      </div>
+    </article>
+
+    <article class="project" id="estoque">
+      <span class="tag">Executável agora</span>
+      <div><h2>Controle de estoque</h2><p class="muted">Produtos, quantidade, preço, exclusão e valor total.</p></div>
+      <div class="app">
+        <form id="estoque-form">
+          <input id="produto-nome" maxlength="60" placeholder="Produto" required>
+          <div class="row3" style="margin-top:8px">
+            <input id="produto-qtd" type="number" min="1" step="1" placeholder="Quantidade" required>
+            <input id="produto-preco" type="number" min="0" step="0.01" placeholder="Preço" required>
+            <button type="submit">Adicionar</button>
+          </div>
+        </form>
+        <ul id="estoque-lista" class="list-clean" aria-live="polite"></ul>
+        <div id="estoque-total" class="output">Valor do estoque: R$ 0,00</div>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/Videirafoo/Videirafoo/tree/main/conteudos/mini_sistemas/controle_estoque" target="_blank" rel="noreferrer">Ver código Python</a>
+        <a class="btn" href="https://github.com/Videirafoo/Videirafoo/blob/main/conteudos/mini_sistemas/controle_estoque/test_app.py" target="_blank" rel="noreferrer">Ver testes</a>
+      </div>
+    </article>
+
+    <article class="project" id="busca-binaria">
+      <span class="tag">Executável agora</span>
+      <div><h2>Busca binária visual</h2><p class="muted">Ordenação, início/meio/fim e complexidade logarítmica na prática.</p></div>
+      <div class="app">
+        <input id="busca-lista" value="4, 9, 15, 22, 31, 48, 60" aria-label="Lista de números separados por vírgula">
+        <div class="row" style="margin-top:8px">
+          <input id="busca-alvo" value="31" inputmode="numeric" placeholder="Número procurado">
+          <button id="executar-busca">Executar busca</button>
+        </div>
+        <div id="busca-resultado" class="output" aria-live="polite">Execute para acompanhar cada comparação.</div>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/Videirafoo/Lista-03-segundo-periodo" target="_blank" rel="noreferrer">Estudar exercícios de busca</a>
+        <a class="btn" href="https://github.com/Videirafoo/Videirafoo/tree/main/conteudos/python-para-iniciantes" target="_blank" rel="noreferrer">Trilha Python</a>
+      </div>
+    </article>
+  </section>
+
+  <h2 class="section-title">Código completo para estudar</h2>
+  <section class="project-grid">
+    <article class="project"><span class="tag">Código + testes</span><h2>Agenda de contatos</h2><p class="muted">Cadastro, busca, edição, exclusão e JSON.</p><a class="btn" href="https://github.com/Videirafoo/Videirafoo/tree/main/conteudos/mini_sistemas/agenda_contatos" target="_blank" rel="noreferrer">Abrir projeto</a></article>
+    <article class="project"><span class="tag">Código + testes</span><h2>API de tarefas</h2><p class="muted">Flask, HTTP, REST, JSON, validação e testes de API.</p><a class="btn" href="https://github.com/Videirafoo/Videirafoo/tree/main/conteudos/mini_sistemas/api_tarefas" target="_blank" rel="noreferrer">Abrir projeto</a></article>
+    <article class="project"><span class="tag">Código + testes</span><h2>Coleção completa</h2><p class="muted">De CRUD em terminal até API e analisador de repositórios.</p><a class="btn" href="https://github.com/Videirafoo/Videirafoo/tree/main/conteudos/mini_sistemas" target="_blank" rel="noreferrer">Ver os 10 sistemas</a></article>
+  </section>
+
+  <h2 class="section-title">Planejado — ainda não apresentado como entregue</h2>
+  <section class="project-grid">
+    <article class="project planned"><span class="tag">Planejado</span><h2>Projetos Web para iniciantes</h2><p class="muted">Só será promovido como projeto quando houver código navegável, exemplos e validação.</p></article>
+    <article class="project planned"><span class="tag">Planejado</span><h2>Desafios Flutter</h2><p class="muted">Só será promovido quando houver apps executáveis e código estudável.</p></article>
+  </section>
+</main>
+<script src="/static/laboratorio.js" defer></script>
+</body>
+</html>
