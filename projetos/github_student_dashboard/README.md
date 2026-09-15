@@ -30,6 +30,7 @@ GET /sitemap.xml
 Documentação complementar:
 
 - [`SHOWCASE.md`](../../SHOWCASE.md)
+- [`QUALITY.md`](../../QUALITY.md)
 - [`CHANGELOG.md`](./CHANGELOG.md)
 - [`COMMUNITY.md`](../../COMMUNITY.md)
 
@@ -54,14 +55,34 @@ O MVP já possui:
 - CLI;
 - interface web;
 - endpoints JSON;
+- laboratório com 10 mini sistemas executando regras Python reais;
 - testes automatizados;
-- CI própria;
+- cobertura interna real com `coverage.py` e branches;
+- gate mínimo de cobertura;
+- auditoria informativa das dependências de produção com `pip-audit`;
+- artefatos de qualidade anexados à CI;
 - deploy público com Gunicorn no Render;
 - `healthz`, `robots.txt` e `sitemap.xml`;
 - formulário estruturado de feedback no GitHub;
 - formulários públicos de bug e sugestão de melhoria;
 - `good first issue` para contribuições de iniciantes;
 - template de Pull Request.
+
+## Qualidade interna verificada
+
+Execução de referência: [GitHub Student Dashboard CI #102](https://github.com/Videirafoo/Videirafoo/actions/runs/34993966082)
+
+- **118 testes automatizados passando**;
+- **81,9% de cobertura total**;
+- `cli.py`: **100,0%**;
+- `github_client.py`: **97,5%**;
+- `ai_explainer.py`: **95,7%**;
+- gate de regressão configurado em **80%**;
+- `pip-audit`: nenhuma vulnerabilidade conhecida reportada nas dependências resolvidas naquela execução.
+
+A CI publica `coverage.txt`, `coverage.json` e `pip-audit.txt` no artefato `dashboard-quality-evidence`.
+
+Os números são evidências de uma execução específica, não garantias permanentes. Consulte [`QUALITY.md`](../../QUALITY.md) para metodologia, limites e próximos alvos.
 
 ## Regra central
 
@@ -102,6 +123,7 @@ A pontuação representa somente os checks explícitos desta versão. Não é um
 | Página | Função |
 | --- | --- |
 | `/` | análise de repositório e perfil |
+| `/laboratorio` | 10 mini sistemas educacionais ligados ao backend Python |
 | `/readme` | qualidade documental do README e links internos |
 | `/comparar` | comparação objetiva entre repositórios |
 | `/historico` | evolução de sinais versionados por commit |
@@ -119,6 +141,8 @@ GET /api/historico?repo=Videirafoo/Videirafoo&limite=5
 GET /api/explicar?repo=Videirafoo/Videirafoo
 ```
 
+Rotas do laboratório também estão disponíveis sob `/api/laboratorio/*` e executam as regras dos mini sistemas Python reais.
+
 ## Arquitetura
 
 ```text
@@ -130,16 +154,18 @@ github_student_dashboard/
 ├── comparison.py
 ├── history.py
 ├── ai_explainer.py
+├── lab_api.py
+├── lab_business.py
+├── lab_systems.py
+├── lab_web.py
 ├── cli.py
 ├── web.py
 ├── requirements.txt
+├── requirements-dev.txt
+├── .coveragerc
 ├── CHANGELOG.md
 ├── templates/
-│   ├── index.html
-│   ├── readme.html
-│   ├── comparar.html
-│   ├── historico.html
-│   └── explicar.html
+├── static/
 ├── test_*.py
 └── README.md
 ```
@@ -152,7 +178,24 @@ github_student_dashboard/
 - `comparison.py`: diferenças objetivas entre dois repositórios;
 - `history.py`: reconstrução de sinais versionados por commit;
 - `ai_explainer.py`: explicação pedagógica a partir do relatório pronto;
+- `lab_*.py`: adaptação segura dos mini sistemas para o laboratório público;
 - `web.py`: rotas web, JSON, saúde e arquivos de descoberta.
+
+## CI e qualidade
+
+A CI executa, em ordem:
+
+1. checkout do código;
+2. Python 3.12;
+3. instalação das dependências de validação;
+4. `compileall` do projeto;
+5. validação de sintaxe dos JavaScripts do laboratório;
+6. **118+ testes** sob `coverage.py`;
+7. gate mínimo de cobertura em **80%**;
+8. auditoria informativa de produção com `pip-audit`;
+9. upload das evidências de cobertura e auditoria.
+
+As ferramentas de desenvolvimento ficam em `requirements-dev.txt`; `requirements.txt` continua reservado ao runtime de produção.
 
 ## Detecção de testes por stack
 
@@ -217,6 +260,15 @@ cd $HOME\Videirafoo
 git pull
 python -m pip install -r .\projetos\github_student_dashboard\requirements.txt
 python -m projetos.github_student_dashboard.web
+```
+
+### Executar a validação de qualidade localmente
+
+```powershell
+python -m pip install -r .\projetos\github_student_dashboard\requirements-dev.txt
+coverage run --rcfile=.\projetos\github_student_dashboard\.coveragerc -m unittest discover -s projetos/github_student_dashboard -t . -p "test_*.py"
+coverage report --rcfile=.\projetos\github_student_dashboard\.coveragerc -m
+pip-audit -r .\projetos\github_student_dashboard\requirements.txt
 ```
 
 ## Produção
@@ -314,6 +366,7 @@ https://github.com/Videirafoo/Videirafoo/issues/8
 
 Documentação:
 
+- [`QUALITY.md`](../../QUALITY.md)
 - [`FEEDBACK.md`](../../FEEDBACK.md)
 - [`COMMUNITY.md`](../../COMMUNITY.md)
 - [`CONTRIBUTING.md`](../../CONTRIBUTING.md)
@@ -345,24 +398,26 @@ Tokens e chaves nunca devem ser commitados.
 
 Ainda não fazem parte do MVP:
 
-- cobertura real de testes por ferramenta específica;
-- análise automática de vulnerabilidades/dependências;
+- extração confiável de **cobertura de testes de qualquer repositório externo analisado**;
+- análise automática de vulnerabilidades de **repositórios externos**;
 - persistência em banco de dados;
 - contas de usuário;
 - histórico persistente das análises executadas pelo produto;
 - telemetria própria de uso além dos logs da plataforma;
 - validação ativa de URLs externas do README.
 
+A cobertura e a auditoria descritas em `QUALITY.md` medem **o próprio GitHub Student Dashboard**, não qualquer repositório externo enviado ao produto.
+
 A validação de URLs externas permanece fora do MVP de propósito: qualquer implementação futura deve aplicar allowlist, limites, timeout e proteção contra SSRF antes de fazer requisições externas.
 
 ## Próximas entregas
 
-1. coletar feedback real de estudantes;
-2. corrigir pontos encontrados no uso público;
-3. adicionar cobertura real de testes quando a stack fornecer dados confiáveis;
-4. estudar análise informativa de dependências sem substituir ferramentas de segurança;
-5. iniciar contribuições open source externas progressivas;
-6. documentar PRs externos aceitos somente quando existirem publicamente.
+1. elevar cobertura útil de `lab_business.py`, `lab_api.py`, `lab_web.py` e `lab_systems.py`;
+2. aprofundar branches de erro do engine;
+3. coletar feedback real de estudantes e corrigir pontos encontrados no uso público;
+4. estudar como ler cobertura de projetos externos somente quando existir evidência confiável da stack;
+5. estudar análise informativa de dependências de projetos externos sem substituir scanners especializados;
+6. acompanhar contribuições open source externas e registrar como aceitas somente depois de merge público.
 
 ## Regra de contribuição
 
