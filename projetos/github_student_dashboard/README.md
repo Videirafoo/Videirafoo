@@ -27,6 +27,12 @@ GET /robots.txt
 GET /sitemap.xml
 ```
 
+Documentação complementar:
+
+- [`SHOWCASE.md`](../../SHOWCASE.md)
+- [`CHANGELOG.md`](./CHANGELOG.md)
+- [`COMMUNITY.md`](../../COMMUNITY.md)
+
 ## Estado atual
 
 O MVP já possui:
@@ -39,6 +45,8 @@ O MVP já possui:
 - evidências individuais por check;
 - status real da execução mais recente da CI;
 - análise objetiva da qualidade estrutural do README;
+- verificação de links internos do README contra a árvore do próprio repositório;
+- detecção de arquivos de teste em padrões comuns de múltiplas stacks;
 - comparação entre dois repositórios;
 - histórico versionado de evolução por commit;
 - camada explicativa local;
@@ -50,7 +58,10 @@ O MVP já possui:
 - CI própria;
 - deploy público com Gunicorn no Render;
 - `healthz`, `robots.txt` e `sitemap.xml`;
-- formulário estruturado de feedback no GitHub.
+- formulário estruturado de feedback no GitHub;
+- formulários públicos de bug e sugestão de melhoria;
+- `good first issue` para contribuições de iniciantes;
+- template de Pull Request.
 
 ## Regra central
 
@@ -91,7 +102,7 @@ A pontuação representa somente os checks explícitos desta versão. Não é um
 | Página | Função |
 | --- | --- |
 | `/` | análise de repositório e perfil |
-| `/readme` | qualidade documental do README |
+| `/readme` | qualidade documental do README e links internos |
 | `/comparar` | comparação objetiva entre repositórios |
 | `/historico` | evolução de sinais versionados por commit |
 | `/explicar` | explicação pedagógica local ou por IA |
@@ -122,6 +133,7 @@ github_student_dashboard/
 ├── cli.py
 ├── web.py
 ├── requirements.txt
+├── CHANGELOG.md
 ├── templates/
 │   ├── index.html
 │   ├── readme.html
@@ -135,12 +147,46 @@ github_student_dashboard/
 ### Separação de responsabilidades
 
 - `github_client.py`: comunicação com a GitHub API;
-- `engine.py`: checks, score, evidências e CI real;
-- `readme_quality.py`: critérios documentais verificáveis;
+- `engine.py`: checks, score, evidências, CI real e detecção de testes;
+- `readme_quality.py`: critérios documentais e validação de links internos;
 - `comparison.py`: diferenças objetivas entre dois repositórios;
 - `history.py`: reconstrução de sinais versionados por commit;
 - `ai_explainer.py`: explicação pedagógica a partir do relatório pronto;
 - `web.py`: rotas web, JSON, saúde e arquivos de descoberta.
+
+## Detecção de testes por stack
+
+A detecção atual reconhece padrões frequentes sem depender apenas de um nome genérico de pasta.
+
+Exemplos suportados:
+
+- Python: `test_*.py`, `*_test.py`;
+- JavaScript/TypeScript: `*.test.*`, `*.spec.*`, incluindo JSX/TSX, MJS e CJS;
+- Go: `*_test.go`;
+- Dart/Flutter: `*_test.dart`;
+- Ruby: `*_spec.rb`, `*_test.rb`;
+- Java/Kotlin: `*Test.java`, `*Tests.java`, `*Test.kt`, `*Tests.kt`;
+- C#: `*Test.cs`, `*Tests.cs`;
+- PHP: `*Test.php`, `*Tests.php`;
+- diretórios convencionais: `test`, `tests`, `__tests__`, `spec`, `specs`.
+
+Há teste de regressão para evitar falsos positivos simples como `contest.py` e `latest.ts`.
+
+## Qualidade do README
+
+README de perfil e README de projeto comum usam critérios diferentes.
+
+A cobertura documental mede presença de elementos verificáveis; não é uma nota subjetiva de estilo ou escrita.
+
+Além da estrutura documental, a análise remota verifica links internos do README contra a árvore do próprio repositório.
+
+A verificação:
+
+- valida arquivos e diretórios internos;
+- ignora anchors locais;
+- não consulta URLs externas arbitrárias;
+- não inventa link quebrado quando a árvore do repositório não pode ser confirmada;
+- mostra caminhos internos quebrados diretamente na interface `/readme`.
 
 ## Windows — início rápido com PowerShell
 
@@ -236,12 +282,6 @@ O histórico reconstrói por commit somente sinais que realmente ficam versionad
 
 Descrição, topics e outros metadados atuais do GitHub não são retroativamente inventados.
 
-## Qualidade do README
-
-README de perfil e README de projeto comum usam critérios diferentes.
-
-A cobertura documental mede presença de elementos verificáveis; não é uma nota subjetiva de estilo ou escrita.
-
 ## Evidência antes de recomendação
 
 O Dashboard deve conseguir responder:
@@ -254,16 +294,31 @@ Ação: qual melhoria concreta pode ser feita.
 
 A IA recebe esse material somente depois.
 
-## Feedback real de estudantes
+## Feedback e comunidade
 
-Formulário estruturado:
+### Feedback do Dashboard
 
 https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml
+
+### Relatar bug
+
+https://github.com/Videirafoo/Videirafoo/issues/new?template=bug-report.yml
+
+### Sugerir melhoria
+
+https://github.com/Videirafoo/Videirafoo/issues/new?template=feature-request.yml
+
+### Primeira tarefa para contribuidores
+
+https://github.com/Videirafoo/Videirafoo/issues/8
 
 Documentação:
 
 - [`FEEDBACK.md`](../../FEEDBACK.md)
 - [`COMMUNITY.md`](../../COMMUNITY.md)
+- [`CONTRIBUTING.md`](../../CONTRIBUTING.md)
+- [`CODE_OF_CONDUCT.md`](../../CODE_OF_CONDUCT.md)
+- [`SECURITY.md`](../../SECURITY.md)
 
 A prioridade de correção é:
 
@@ -291,19 +346,21 @@ Tokens e chaves nunca devem ser commitados.
 Ainda não fazem parte do MVP:
 
 - cobertura real de testes por ferramenta específica;
-- verificação automática de links quebrados;
-- análise de vulnerabilidades/dependências;
+- análise automática de vulnerabilidades/dependências;
 - persistência em banco de dados;
 - contas de usuário;
 - histórico persistente das análises executadas pelo produto;
-- telemetria própria de uso além dos logs da plataforma.
+- telemetria própria de uso além dos logs da plataforma;
+- validação ativa de URLs externas do README.
+
+A validação de URLs externas permanece fora do MVP de propósito: qualquer implementação futura deve aplicar allowlist, limites, timeout e proteção contra SSRF antes de fazer requisições externas.
 
 ## Próximas entregas
 
 1. coletar feedback real de estudantes;
 2. corrigir pontos encontrados no uso público;
-3. melhorar checks com base em casos reais;
-4. consolidar acessibilidade e navegação;
+3. adicionar cobertura real de testes quando a stack fornecer dados confiáveis;
+4. estudar análise informativa de dependências sem substituir ferramentas de segurança;
 5. iniciar contribuições open source externas progressivas;
 6. documentar PRs externos aceitos somente quando existirem publicamente.
 
