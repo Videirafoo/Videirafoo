@@ -32,13 +32,13 @@ Cada projeto terá:
 7. [Controle Financeiro Pessoal](./controle_financeiro/README.md) — receitas, despesas, categorias, saldo, filtros, relatórios e JSON
 8. [Gerenciador de Hábitos](./gerenciador_habitos/README.md) — metas semanais, registros diários, sequência, progresso e JSON
 9. [API de Tarefas](./api_tarefas/README.md) — HTTP, REST, JSON, Flask, validação e testes de API
-10. Projeto final integrado
+10. [Projeto Integrado — Analisador Local de Repositórios](./projeto_integrado/README.md) — checks determinísticos, score, evidências, recomendações e JSON
 
-## Progressão
+## Progressão concluída
 
-Os primeiros projetos usam terminal e JSON. Depois entram testes mais completos, banco de dados, API e interface.
+A coleção começa com terminal e JSON, passa por regras de negócio, relacionamentos, cálculos, datas e HTTP, e termina com análise automatizada de repositórios.
 
-O objetivo é que cada sistema reutilize conhecimentos anteriores e acrescente apenas algumas ideias novas por vez.
+O objetivo é que cada sistema reutilize conhecimentos anteriores e acrescente poucas ideias novas por vez.
 
 ## Regra de qualidade
 
@@ -46,4 +46,8 @@ A coleção adota uma regra simples:
 
 > **Automatizar deterministicamente o que pode ser provado; usar IA para explicar, orientar e revisar onde existe ambiguidade.**
 
-Por isso, sintaxe, testes e comportamentos objetivos devem ser validados automaticamente sempre que possível.
+Por isso, sintaxe, testes e comportamentos objetivos são validados automaticamente sempre que possível.
+
+## Próxima etapa
+
+Com os 10 mini sistemas concluídos, a trajetória avança para o **GitHub Student Dashboard**, projeto público principal do `Videirafoo`.
