@@ -193,8 +193,10 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] laboratório público com os 10 mini sistemas interativos;
 - [x] backend real do laboratório reutilizando os 10 mini sistemas Python em vez de manter apenas simulações de interface;
 - [x] cobertura interna real com `coverage.py` e medição de branches;
-- [x] baseline de cobertura elevado de **73,3% / 95 testes** para **81,9% / 118 testes** com testes de comportamento;
-- [x] gate de regressão de cobertura em **80%**;
+- [x] cobertura elevada de **73,3% / 95 testes** para **92,9% / 147 testes** usando testes de comportamento e casos-limite;
+- [x] evolução intermediária comprovada em **81,9% / 118 testes** e **89,0% / 135 testes**;
+- [x] gate de regressão de cobertura em **90%**;
+- [x] `lab_api.py` em **99,0%**, `lab_business.py` em **98,5%**, `lab_systems.py` em **94,8%** e `lab_web.py` em **94,3%** na execução de referência;
 - [x] auditoria informativa das dependências de produção com `pip-audit`;
 - [x] artefato de CI com `coverage.txt`, `coverage.json` e `pip-audit.txt`;
 - [x] actions oficiais da CI atualizadas para a geração v7;
@@ -210,7 +212,9 @@ O Mini Sistema 10 originou os primeiros checks locais:
 - [x] manter cada experiência ligada ao código e aos testes reais do GitHub;
 - [x] executar regras de negócio no backend pelas funções Python originais;
 - [x] validar integrações do laboratório com testes unitários, HTTP e sintaxe JavaScript;
-- [x] cobrir CLI, cliente GitHub e provider de IA, levando esses módulos a 100,0%, 97,5% e 95,7% na execução de referência.
+- [x] cobrir CLI, cliente GitHub e provider de IA, levando esses módulos a 100,0%, 97,5% e 95,7%;
+- [x] cobrir normalização, limites, recursos ausentes e branches HTTP dos adaptadores do laboratório;
+- [x] executar **147 testes** com **92,9%** de cobertura e gate **90%** na CI #108.
 
 ### Próximas melhorias do produto
 
@@ -218,8 +222,9 @@ Há duas frentes diferentes e não devem ser confundidas:
 
 **Qualidade interna do próprio Dashboard**
 
-- [ ] elevar cobertura útil de `lab_business.py`, `lab_api.py`, `lab_web.py` e `lab_systems.py`;
-- [ ] aprofundar branches de erro e casos-limite do `engine.py`;
+- [ ] elevar cobertura útil do `engine.py` (**82,1%**) nos branches de erro e casos-limite relevantes;
+- [ ] elevar cobertura útil do `web.py` (**85,2%**) nos handlers de falha;
+- [ ] elevar cobertura útil do `readme_quality.py` (**86,9%**) em validações de borda;
 - [ ] revisar qualquer ocorrência futura do `pip-audit` com contexto antes de decidir bloqueio.
 
 **Análise de repositórios externos pelo produto**
