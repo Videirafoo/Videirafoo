@@ -1,0 +1,35 @@
+name: Conteúdos Python CI
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "conteudos/**/*.py"
+      - ".github/workflows/conteudos-python.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "conteudos/**/*.py"
+      - ".github/workflows/conteudos-python.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate Python syntax
+        run: python -m compileall -q conteudos
+
+      - name: Run mini system tests
+        run: python -m unittest discover -s conteudos/mini_sistemas -p "test_*.py"
