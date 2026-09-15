@@ -15,6 +15,7 @@ from projetos.github_student_dashboard.readme_quality import analisar_readme_rem
 
 
 PUBLIC_BASE_URL = "https://github-student-dashboard-videirafoo.onrender.com"
+PUBLIC_HOST = "github-student-dashboard-videirafoo.onrender.com"
 PUBLIC_PAGES = [
     "/",
     "/trilha",
@@ -59,9 +60,13 @@ def _evidencia_runtime_publico():
     fizer HTTP para o próprio `/healthz`. Quando a chamada já chegou ao host
     público canônico, o atendimento da própria API é evidência suficiente de
     que o runtime está respondendo naquele instante.
+
+    A comparação usa somente o host, e não o esquema, porque proxies reversos
+    podem entregar a requisição ao processo Python como HTTP mesmo quando o
+    visitante acessou HTTPS externamente.
     """
-    host_atual = request.host_url.rstrip("/")
-    if host_atual == PUBLIC_BASE_URL:
+    host_atual = request.host.partition(":")[0].lower()
+    if host_atual == PUBLIC_HOST:
         return True, "A Matriz está sendo executada e respondida pelo host público de produção."
     return False, "Execução fora do host público canônico; produção não é inferida a partir do ambiente local."
 
