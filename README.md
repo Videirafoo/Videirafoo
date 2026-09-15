@@ -74,16 +74,14 @@ Aplicação premium para treino e gestão fitness, com foco mobile, sessões de 
 
 ---
 
-## Evolução técnica
+## Em evolução
 
-```text
-Fundamentos       ███████████████░░░  Algoritmos, lógica, estruturas de dados
-Backend           █████████████░░░░░  APIs, Java, Python, Node.js, PostgreSQL
-Frontend          ██████████████░░░░  React, Next.js, TypeScript, Tailwind
-Mobile            ████████████░░░░░░  Flutter, Dart, sincronização e UX
-DevOps            ███████████░░░░░░░  GitHub Actions, Docker, Linux, deploy
-AI Engineering    █████████████░░░░░  Agentes, RAG, automação e integração de IA
-```
+- **Fundamentos:** algoritmos, lógica, estruturas de dados e resolução de problemas
+- **Backend:** APIs, Java, Python, Node.js e PostgreSQL
+- **Frontend:** React, Next.js, TypeScript e Tailwind CSS
+- **Mobile:** Flutter, Dart, sincronização e experiência mobile
+- **DevOps:** GitHub Actions, Docker, Linux, deploy e observabilidade
+- **AI Engineering:** agentes, RAG, automação, integração de modelos e ferramentas
 
 ---
 
