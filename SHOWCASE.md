@@ -25,14 +25,14 @@ Este documento reúne, **dentro do próprio GitHub**, o que já está funcionand
 | Repositório | score determinístico + 8 checks verificáveis |
 | Perfil | cobertura de descrição, topics e licença; stars, forks e linguagens |
 | CI | consulta a execução real mais recente do GitHub Actions |
-| README | análise estrutural com critérios diferentes para perfil e projeto |
+| README | análise estrutural + verificação segura de links internos do próprio repositório |
 | Comparação | dois repositórios lado a lado sem declarar vencedor subjetivo |
 | Histórico | reconstrução por commit de README, `.gitignore`, CI, testes e dependências |
 | Testes | detecção por padrões comuns de Python, JS/TS, Go, Dart/Flutter, Ruby, Java/Kotlin, C#, PHP e diretórios convencionais |
 | Explicação | modo local transparente + IA externa opcional |
 | Produção | Flask + Gunicorn no Render |
 | Descoberta | `robots.txt`, `sitemap.xml` e healthcheck |
-| Comunidade | feedback estruturado, segurança, contribuição, código de conduta e `good first issue` |
+| Comunidade | feedback estruturado, formulários de bug/melhoria, segurança, contribuição, código de conduta e `good first issue` |
 
 ## Resultados reais já verificados
 
@@ -40,7 +40,7 @@ Os exemplos abaixo foram observados usando o próprio `Videirafoo` como caso de 
 
 ### `Videirafoo/Videirafoo`
 
-- score atual observado na rodada de validação: **80/100**;
+- score observado na rodada de validação: **80/100**;
 - CI real: **success**;
 - README: **100% de cobertura documental, 7/7 critérios**;
 - checks atendidos: README, licença, `.gitignore`, CI, testes e dependências;
@@ -77,6 +77,14 @@ O histórico não tenta reconstruir metadados que o Git não preserva com segura
 
 Na validação com os 5 commits mais recentes do perfil, esses cinco sinais estavam presentes em todos os pontos da janela analisada.
 
+## Qualidade do README e links internos
+
+A análise de README agora também verifica caminhos internos Markdown/HTML contra a árvore do repositório.
+
+Ela pode identificar arquivos ou pastas internas ausentes sem transformar URLs externas em requisições arbitrárias. Anchors locais e links externos são ignorados por essa verificação.
+
+Se a árvore não puder ser confirmada, o sistema informa que a verificação não foi realizada em vez de inventar um erro.
+
 ## IA explicativa
 
 A camada explicativa segue uma restrição arquitetural deliberada:
@@ -106,10 +114,11 @@ Sem `OPENAI_API_KEY`, o produto usa um modo local transparente e continua plenam
 1. Abra https://github-student-dashboard-videirafoo.onrender.com
 2. Em **Analisar repositório**, use `Videirafoo/Videirafoo`.
 3. Abra **Qualidade do README** e analise o mesmo repositório.
-4. Em **Comparar**, use `Videirafoo/Videirafoo` e `Videirafoo/Lista-01-segundo-periodo`.
-5. Em **Histórico**, analise 5 commits.
-6. Em **Explicação**, confira o modo local e as prioridades detectadas.
-7. Se algo ficar confuso, envie feedback pelo formulário público.
+4. Observe também o estado dos links internos encontrados no README.
+5. Em **Comparar**, use `Videirafoo/Videirafoo` e `Videirafoo/Lista-01-segundo-periodo`.
+6. Em **Histórico**, analise 5 commits.
+7. Em **Explicação**, confira o modo local e as prioridades detectadas.
+8. Se algo ficar confuso, envie feedback pelo formulário público.
 
 ## Endpoints públicos
 
@@ -132,8 +141,11 @@ Ela pede exemplos públicos da API com `curl` e PowerShell, sem exigir alteraç�
 O repositório também possui:
 
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md);
+- [`COMMUNITY.md`](./COMMUNITY.md);
 - [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md);
 - [`SECURITY.md`](./SECURITY.md);
+- [formulário de bug](https://github.com/Videirafoo/Videirafoo/issues/new?template=bug-report.yml);
+- [formulário de melhoria](https://github.com/Videirafoo/Videirafoo/issues/new?template=feature-request.yml);
 - [template de Pull Request](./.github/PULL_REQUEST_TEMPLATE.md).
 
 ## Por que este projeto existe
@@ -147,7 +159,7 @@ O objetivo é transformar boas práticas de GitHub em algo que uma pessoa inicia
 ## Próximo estágio
 
 - cobertura real de testes quando disponível;
-- verificar links quebrados;
 - análise informativa de vulnerabilidades/dependências;
+- histórico persistente de análises quando houver motivo de produto para armazená-las;
 - incorporar melhorias vindas de feedback real;
 - concluir a primeira contribuição open source externa verificável.
