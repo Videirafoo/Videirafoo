@@ -62,7 +62,9 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] Mini Sistema 04 — Controle de Estoque
 - [x] persistência em JSON no Controle de Estoque
 - [x] testes automatizados do Controle de Estoque
-- [ ] Mini Sistema 05 — Sistema de Biblioteca
+- [x] Mini Sistema 05 — Sistema de Biblioteca
+- [x] persistência em JSON no Sistema de Biblioteca
+- [x] testes automatizados do Sistema de Biblioteca
 - [ ] Mini Sistema 06 — Caixa de Mercado
 - [ ] Mini Sistema 07 — Controle Financeiro Pessoal
 - [ ] Mini Sistema 08 — Gerenciador de Hábitos
