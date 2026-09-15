@@ -32,35 +32,53 @@ Este documento reúne, **dentro do próprio GitHub**, o que já está funcionand
 | Histórico | reconstrução por commit de README, `.gitignore`, CI, testes e dependências |
 | Testes | detecção por padrões comuns de Python, JS/TS, Go, Dart/Flutter, Ruby, Java/Kotlin, C#, PHP e diretórios convencionais |
 | Explicação | modo local transparente + IA externa opcional |
-| Laboratório | os 10 mini sistemas da trilha possuem experiência prática no navegador + links para Python e testes |
+| Laboratório | **10 mini sistemas utilizáveis, com regras centrais executadas pelo Python real** |
 | Produção | Flask + Gunicorn no Render |
 | Descoberta | `robots.txt`, `sitemap.xml` e healthcheck |
 | Comunidade | feedback estruturado, formulários de bug/melhoria, segurança, contribuição, código de conduta e `good first issue` |
 
-## Laboratório — código que pode ser usado
+## Laboratório — interface + backend + código original
 
-A coleção educacional não é apenas uma lista de títulos. Os 10 mini sistemas agora podem ser experimentados em:
+A coleção educacional não é apenas uma lista de títulos nem uma coleção de mockups. Os 10 mini sistemas podem ser experimentados em:
 
 https://github-student-dashboard-videirafoo.onrender.com/laboratorio
 
-| # | Sistema | Experiência prática |
+A arquitetura didática é:
+
+```text
+navegador
+   ↓
+interface do playground
+   ↓
+endpoint Flask do laboratório
+   ↓
+funções Python originais de conteudos/mini_sistemas
+   ↓
+resultado validado
+   ↓
+estado isolado no navegador do visitante
+```
+
+| # | Sistema | O que é executado pelo Python real |
 |---:|---|---|
-| 01 | Agenda de Contatos | cadastrar, buscar e remover contatos |
-| 02 | Lista de Tarefas | adicionar, concluir e excluir tarefas |
-| 03 | Cadastro de Alunos | validar notas, calcular média e situação |
-| 04 | Controle de Estoque | cadastrar produtos e calcular valor total |
+| 01 | Agenda de Contatos | cadastro, duplicidade e exclusão |
+| 02 | Lista de Tarefas | criação, conclusão, reabertura e exclusão |
+| 03 | Cadastro de Alunos | notas, média e situação acadêmica |
+| 04 | Controle de Estoque | cadastro, quantidade e exclusão |
 | 05 | Sistema de Biblioteca | livros, usuários, empréstimos e devoluções |
-| 06 | Caixa de Mercado | catálogo, carrinho, desconto e fechamento com baixa de estoque |
-| 07 | Controle Financeiro | receitas, despesas e saldo derivado |
-| 08 | Gerenciador de Hábitos | meta semanal e conclusão diária |
-| 09 | API de Tarefas | simulação didática de GET, POST, PATCH e DELETE com status HTTP |
-| 10 | Projeto Integrado | checks determinísticos e score do analisador local |
+| 06 | Caixa de Mercado | catálogo, carrinho, estoque, desconto e fechamento |
+| 07 | Controle Financeiro | receitas, despesas, exclusões e totais |
+| 08 | Gerenciador de Hábitos | criação, conclusão diária, exclusão e progresso |
+| 09 | API de Tarefas | GET, POST, PATCH e DELETE via Flask real |
+| 10 | Projeto Integrado | repositório temporário + `analisar_repositorio()` original |
 
 O laboratório também inclui **busca binária visual** como bônus.
 
-A regra de ensino é sempre:
+Os dados didáticos permanecem no navegador quando isso é suficiente. O backend público recebe apenas o estado necessário para executar a operação; isso evita misturar dados de visitantes e mantém a relação entre **comportamento → código → teste** clara para quem está aprendendo.
 
-`usar` → `prever` → `abrir código` → `abrir testes` → `alterar` → `validar`
+A regra de ensino é:
+
+`usar` → `prever` → `quebrar uma regra` → `abrir código` → `abrir testes` → `alterar` → `validar`
 
 ## Resultados reais já verificados
 
@@ -103,15 +121,9 @@ O histórico não tenta reconstruir metadados que o Git não preserva com segura
 - testes;
 - dependências.
 
-Na validação com os 5 commits mais recentes do perfil, esses cinco sinais estavam presentes em todos os pontos da janela analisada.
-
 ## Qualidade do README e links internos
 
-A análise de README também verifica caminhos internos Markdown/HTML contra a árvore do repositório.
-
-Ela pode identificar arquivos ou pastas internas ausentes sem transformar URLs externas em requisições arbitrárias. Anchors locais e links externos são ignorados por essa verificação.
-
-Se a árvore não puder ser confirmada, o sistema informa que a verificação não foi realizada em vez de inventar um erro.
+A análise de README verifica caminhos internos Markdown/HTML contra a árvore do repositório. Anchors locais e URLs externas não são transformados em requisições arbitrárias.
 
 ## IA explicativa
 
@@ -127,15 +139,7 @@ evidências + score + CI real
 explicação pedagógica local ou por IA
 ```
 
-A IA **não calcula o score**, **não decide se um check passou** e **não substitui evidências**.
-
-Sem `OPENAI_API_KEY`, o produto usa um modo local transparente e continua plenamente utilizável.
-
-## Arquitetura visual
-
-<p align="center">
-  <img src="./docs/github-student-dashboard-flow.svg" alt="Fluxo de decisão do GitHub Student Dashboard" width="960" />
-</p>
+A IA **não calcula o score**, **não decide se um check passou** e **não substitui evidências**. Sem `OPENAI_API_KEY`, o produto continua utilizável em modo local transparente.
 
 ## Teste em menos de 3 minutos
 
@@ -145,11 +149,11 @@ Sem `OPENAI_API_KEY`, o produto usa um modo local transparente e continua plenam
 4. Em **Comparar**, use `Videirafoo/Videirafoo` e `Videirafoo/Lista-01-segundo-periodo`.
 5. Em **Histórico**, analise 5 commits.
 6. Em **Explicação**, confira o modo local e as prioridades detectadas.
-7. Abra **Laboratório** e use pelo menos dois dos 10 mini sistemas.
-8. Em cada sistema, abra o código Python e o teste correspondente.
+7. Abra **Laboratório** e use alguns dos 10 mini sistemas.
+8. Em cada card, provoque uma validação e depois abra o código Python e o teste correspondente.
 9. Se algo ficar confuso, envie feedback pelo formulário público.
 
-## Endpoints públicos
+## Endpoints públicos principais
 
 ```http
 GET /healthz
@@ -159,6 +163,20 @@ GET /api/readme?repo=Videirafoo/Videirafoo
 GET /api/comparar?a=Videirafoo/Videirafoo&b=Videirafoo/Lista-01-segundo-periodo
 GET /api/historico?repo=Videirafoo/Videirafoo&limite=5
 GET /api/explicar?repo=Videirafoo/Videirafoo
+
+POST   /api/laboratorio/agenda
+POST   /api/laboratorio/lista-tarefas
+POST   /api/laboratorio/aluno-media
+POST   /api/laboratorio/estoque
+POST   /api/laboratorio/biblioteca
+POST   /api/laboratorio/caixa
+POST   /api/laboratorio/financeiro
+POST   /api/laboratorio/habitos
+GET    /api/laboratorio/tarefas
+POST   /api/laboratorio/tarefas
+PATCH  /api/laboratorio/tarefas
+DELETE /api/laboratorio/tarefas
+POST   /api/laboratorio/analisar
 ```
 
 ## Open source externo
@@ -174,8 +192,6 @@ O perfil diferencia contribuição enviada de contribuição aceita: o PR só se
 ## Comece a contribuir
 
 Se você está começando em open source, a [Issue #8](https://github.com/Videirafoo/Videirafoo/issues/8) foi escrita especificamente como uma primeira contribuição pequena e verificável.
-
-Ela pede exemplos públicos da API com `curl` e PowerShell, sem exigir alteração na lógica do produto.
 
 O repositório também possui:
 
@@ -200,5 +216,5 @@ O objetivo é transformar boas práticas de GitHub em algo que uma pessoa inicia
 - acompanhar a revisão e o merge do PR externo #8150;
 - cobertura real de testes quando disponível;
 - análise informativa de vulnerabilidades/dependências;
-- histórico persistente de análises quando houver motivo de produto para armazená-las;
+- histórico persistente das análises quando houver motivo de produto para armazená-las;
 - incorporar melhorias vindas de feedback real.
