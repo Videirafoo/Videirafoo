@@ -167,13 +167,14 @@ Aplicação mobile para treino e gestão fitness. **Em desenvolvimento; não é 
 ## Open source e comunidade
 
 - **Guia:** [`OPEN_SOURCE_START.md`](./OPEN_SOURCE_START.md)
-- **Contribuição externa em andamento:** [Issue #6](https://github.com/Videirafoo/Videirafoo/issues/6)
+- **Primeiro PR externo verificável — em revisão:** [fork-commit-merge/fork-commit-merge#8150](https://github.com/fork-commit-merge/fork-commit-merge/pull/8150)
+- **Rastreamento da contribuição:** [Issue #6](https://github.com/Videirafoo/Videirafoo/issues/6)
 - **Como contribuir aqui:** [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 - **Comunidade:** [`COMMUNITY.md`](./COMMUNITY.md)
 - **Código de conduta:** [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
 - **Segurança:** [`SECURITY.md`](./SECURITY.md)
 
-A regra permanece: **nenhuma contribuição externa é apresentada como conquista antes de existir um Pull Request público verificável.**
+A regra permanece: **PR aberto é evidência de contribuição enviada; contribuição aceita só será registrada depois do merge público.**
 
 ---
 
