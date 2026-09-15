@@ -101,17 +101,34 @@ class LabBusinessTest(unittest.TestCase):
         resultado = financeiro_operacao_lab(estado, "excluir", {"id": removido_id})
         self.assertEqual(resultado["totais"]["saldo"], 100.0)
 
-    def test_habitos_cria_marca_e_exclui(self):
-        resultado = habito_operacao_lab([], "criar", {"nome": "Estudar Python", "meta": 5})
+    def test_habitos_respeita_data_enviada_pelo_navegador(self):
+        data_local = "2026-09-15"
+        resultado = habito_operacao_lab(
+            [],
+            "criar",
+            {"nome": "Estudar Python", "meta": 5, "data": data_local},
+        )
         estado = resultado["habitos"]
         habito_id = estado[0]["id"]
         self.assertEqual(estado[0]["meta_semanal"], 5)
 
-        resultado = habito_operacao_lab(estado, "marcar_hoje", {"id": habito_id})
+        resultado = habito_operacao_lab(
+            estado,
+            "marcar_hoje",
+            {"id": habito_id, "data": data_local},
+        )
         estado = resultado["habitos"]
-        self.assertEqual(len(estado[0]["registros"]), 1)
+        self.assertEqual(estado[0]["registros"], [data_local])
+        self.assertEqual(resultado["resumos"][0]["concluidos_semana"], 1)
 
-        resultado = habito_operacao_lab(estado, "excluir", {"id": habito_id})
+        resultado = habito_operacao_lab(
+            estado,
+            "desmarcar_hoje",
+            {"id": habito_id, "data": data_local},
+        )
+        self.assertEqual(resultado["habitos"][0]["registros"], [])
+
+        resultado = habito_operacao_lab(resultado["habitos"], "excluir", {"id": habito_id, "data": data_local})
         self.assertEqual(resultado["habitos"], [])
 
 
