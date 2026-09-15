@@ -2,6 +2,7 @@ from flask import Flask, Response, jsonify, render_template, request
 
 from projetos.github_student_dashboard.ai_explainer import explicar_repositorio_remoto
 from projetos.github_student_dashboard.comparison import comparar_repositorios_remotos
+from projetos.github_student_dashboard.competency_matrix import gerar_matriz_competencias
 from projetos.github_student_dashboard.engine import (
     analisar_perfil_remoto,
     analisar_repositorio_remoto,
@@ -14,7 +15,16 @@ from projetos.github_student_dashboard.readme_quality import analisar_readme_rem
 
 
 PUBLIC_BASE_URL = "https://github-student-dashboard-videirafoo.onrender.com"
-PUBLIC_PAGES = ["/", "/trilha", "/laboratorio", "/readme", "/comparar", "/historico", "/explicar"]
+PUBLIC_PAGES = [
+    "/",
+    "/trilha",
+    "/competencias",
+    "/laboratorio",
+    "/readme",
+    "/comparar",
+    "/historico",
+    "/explicar",
+]
 INTERACTIONS_STYLESHEET = '<link rel="stylesheet" href="/static/interactions.css">'
 LAB_REAL_SCRIPT = (
     '<script src="/static/laboratorio_systems_real.js" defer></script>'
@@ -22,9 +32,16 @@ LAB_REAL_SCRIPT = (
     '<script src="/static/laboratorio_api_real.js" defer></script>'
 )
 HOME_NAV_MARKER = '<nav class="quick-nav" aria-label="Navegação principal">'
-HOME_EDUCATION_LINKS = '<a href="/trilha">Trilha</a><a href="/laboratorio">Laboratório</a>'
+HOME_EDUCATION_LINKS = (
+    '<a href="/trilha">Trilha</a>'
+    '<a href="/competencias">Competências</a>'
+    '<a href="/laboratorio">Laboratório</a>'
+)
 LAB_NAV_MARKER = '<nav aria-label="Navegação do laboratório">'
-LAB_TRAIL_LINK = '<a href="/trilha">Trilha Educacional</a>'
+LAB_EDUCATION_LINKS = (
+    '<a href="/trilha">Trilha Educacional</a>'
+    '<a href="/competencias">Matriz de Competências</a>'
+)
 
 
 def _status_para_erro_github(erro):
@@ -42,6 +59,7 @@ def create_app(
     comparador=comparar_repositorios_remotos,
     analisador_historico=analisar_historico_remoto,
     explicador=explicar_repositorio_remoto,
+    gerador_competencias=gerar_matriz_competencias,
 ):
     app = Flask(__name__)
     app.json.ensure_ascii = False
@@ -60,17 +78,17 @@ def create_app(
                 f"  {INTERACTIONS_STYLESHEET}\n</head>",
                 1,
             )
-        if request.path == "/" and '/trilha' not in html and HOME_NAV_MARKER in html:
+        if request.path == "/" and '/competencias' not in html and HOME_NAV_MARKER in html:
             html = html.replace(
                 HOME_NAV_MARKER,
                 f"{HOME_NAV_MARKER}{HOME_EDUCATION_LINKS}",
                 1,
             )
         if request.path == "/laboratorio":
-            if LAB_TRAIL_LINK not in html and LAB_NAV_MARKER in html:
+            if '/competencias' not in html and LAB_NAV_MARKER in html:
                 html = html.replace(
                     LAB_NAV_MARKER,
-                    f"{LAB_NAV_MARKER}{LAB_TRAIL_LINK}",
+                    f"{LAB_NAV_MARKER}{LAB_EDUCATION_LINKS}",
                     1,
                 )
             if LAB_REAL_SCRIPT not in html and "</body>" in html:
@@ -94,6 +112,10 @@ def create_app(
             niveis=trilha["niveis"],
             total_missoes=trilha["total_missoes"],
         )
+
+    @app.get("/competencias")
+    def pagina_competencias():
+        return render_template("competencias.html")
 
     @app.get("/laboratorio")
     def pagina_laboratorio():
@@ -148,6 +170,10 @@ def create_app(
     @app.get("/api/trilha")
     def api_trilha():
         return jsonify(resumo_trilha()), 200
+
+    @app.get("/api/competencias")
+    def api_competencias():
+        return jsonify(gerador_competencias()), 200
 
     @app.get("/api/analisar")
     def analisar():
