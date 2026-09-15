@@ -24,6 +24,42 @@ Sou estudante de **Engenharia de Software** e desenvolvedor focado em transforma
 
 ---
 
+## Projeto em destaque — GitHub Student Dashboard
+
+O **GitHub Student Dashboard** nasceu dentro desta trajetória para ajudar estudantes e pessoas iniciantes a entenderem, com evidências objetivas, como melhorar seus próprios repositórios.
+
+### O que já está funcionando
+
+- análise de repositório por `usuario/repositorio` ou URL;
+- análise de perfil público completo;
+- score determinístico e evidências por check;
+- verificação de README, descrição, licença, `.gitignore`, topics, CI, testes e dependências;
+- status real da execução mais recente da CI;
+- análise objetiva da qualidade do README;
+- comparação entre dois repositórios;
+- histórico versionado de evolução por commit;
+- explicação pedagógica local;
+- IA explicativa opcional sem alterar o diagnóstico;
+- interface web pública;
+- API JSON;
+- testes automatizados e GitHub Actions;
+- deploy em produção com Flask + Gunicorn no Render;
+- healthcheck, `robots.txt`, sitemap e canal público de feedback.
+
+### Acesse e acompanhe
+
+- **Demo pública:** https://github-student-dashboard-videirafoo.onrender.com
+- **Código:** [`projetos/github_student_dashboard`](./projetos/github_student_dashboard)
+- **Documentação:** [`README do Dashboard`](./projetos/github_student_dashboard/README.md)
+- **Feedback:** [abrir formulário estruturado](https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml)
+- **Feedback aberto:** [Issue #5](https://github.com/Videirafoo/Videirafoo/issues/5)
+- **Comunidade:** [`COMMUNITY.md`](./COMMUNITY.md)
+- **Segurança:** [`SECURITY.md`](./SECURITY.md)
+
+> Princípio do projeto: **automatizar deterministicamente o que pode ser provado; usar IA para explicar e orientar somente depois das evidências.**
+
+---
+
 ## Projetos em desenvolvimento
 
 ### MarcaIA
@@ -99,6 +135,8 @@ Aqui você encontra exemplos de:
 | API de tarefas | HTTP, rotas, JSON, CRUD e backend |
 | App de hábitos | Flutter, estado, persistência e UX mobile |
 
+Os mini sistemas, módulos de estudo e o projeto integrado ficam organizados dentro de [`conteudos/`](./conteudos) para que quem está começando consiga acompanhar a evolução em ordem.
+
 ---
 
 ## Trilhas de evolução
@@ -133,6 +171,22 @@ Aqui você encontra exemplos de:
 | [lista-04-segundo-periodo](https://github.com/Videirafoo/lista-04-segundo-periodo) | 6 exercícios de recursividade em Python |
 | [lista-05-revisao-segundo-periodo](https://github.com/Videirafoo/lista-05-revisao-segundo-periodo) | revisão de algoritmos e lógica antes das avaliações |
 | [jogo_primeiro_periodo](https://github.com/Videirafoo/jogo_primeiro_periodo) | jogo de adivinhação didático com funções, validação e CI |
+
+---
+
+## Open source e comunidade
+
+A evolução do perfil também inclui aprender a participar de projetos de outras pessoas de forma correta e verificável.
+
+- **Primeira contribuição externa em preparação:** [Issue #6 — Flask good first issue](https://github.com/Videirafoo/Videirafoo/issues/6)
+- **Guia de início em open source:** [`OPEN_SOURCE_START.md`](./OPEN_SOURCE_START.md)
+- **Plano da contribuição externa 001:** [`CONTRIBUICAO_EXTERNA_001.md`](./CONTRIBUICAO_EXTERNA_001.md)
+- **Como contribuir neste repositório:** [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- **Comunidade:** [`COMMUNITY.md`](./COMMUNITY.md)
+- **Código de conduta:** [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
+- **Política de segurança:** [`SECURITY.md`](./SECURITY.md)
+
+A regra permanece: **nenhuma contribuição é apresentada como conquista antes de existir um Pull Request público verificável.**
 
 ---
 
@@ -184,6 +238,7 @@ Aqui você encontra exemplos de:
 - publicar projetos organizados, documentados e fáceis de estudar;
 - compartilhar conhecimento útil para outras pessoas que estão começando;
 - contribuir em projetos open source externos;
+- construir comunidade em torno de conteúdo útil e verificável;
 - avançar em sistemas seguros, escaláveis e integrados com IA.
 
 <div align="center">
