@@ -136,8 +136,11 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
             relatorio["evidencias"]["arquivos_dependencias"],
             ["projetos/dashboard/requirements.txt"],
         )
+        self.assertTrue(relatorio["detalhes_checks"]["readme"]["passou"])
+        self.assertIn("README.md", relatorio["detalhes_checks"]["readme"]["observado"])
+        self.assertIn("ci.yml", relatorio["detalhes_checks"]["ci"]["observado"])
 
-    def test_snapshot_incompleto_gera_recomendacoes(self):
+    def test_snapshot_incompleto_gera_recomendacoes_e_evidencias(self):
         snapshot = {
             "metadata": {
                 "full_name": "Videirafoo/incompleto",
@@ -160,6 +163,9 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
         self.assertEqual(len(relatorio["recomendacoes"]), 8)
         self.assertFalse(relatorio["checks"]["readme"])
         self.assertFalse(relatorio["checks"]["ci"])
+        self.assertIn("vazio", relatorio["detalhes_checks"]["descricao"]["observado"])
+        self.assertIn("Nenhum topic", relatorio["detalhes_checks"]["topics"]["observado"])
+        self.assertIn("Nenhum workflow", relatorio["detalhes_checks"]["ci"]["observado"])
 
     def test_analise_remota_usa_cliente_injetado(self):
         cliente = ClienteFalso()
