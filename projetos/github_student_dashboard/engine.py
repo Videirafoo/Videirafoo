@@ -113,17 +113,45 @@ def detectar_ci(caminhos):
 
 def arquivos_de_testes(caminhos):
     encontrados = []
+    diretorios_teste = {"test", "tests", "__tests__", "spec", "specs"}
+    sufixos_teste = (
+        "_test.py",
+        ".test.js",
+        ".test.jsx",
+        ".test.ts",
+        ".test.tsx",
+        ".test.mjs",
+        ".test.cjs",
+        ".spec.js",
+        ".spec.jsx",
+        ".spec.ts",
+        ".spec.tsx",
+        ".spec.mjs",
+        ".spec.cjs",
+        "_test.go",
+        "_test.dart",
+        "_spec.rb",
+        "_test.rb",
+        "test.java",
+        "tests.java",
+        "test.kt",
+        "tests.kt",
+        "test.cs",
+        "tests.cs",
+        "test.php",
+        "tests.php",
+    )
+
     for caminho in caminhos:
-        partes = caminho.lower().split("/")
+        caminho_lower = caminho.lower()
+        partes = caminho_lower.split("/")
         nome = partes[-1]
-        if (
-            "tests" in partes
-            or "test" in partes
-            or nome.startswith("test_")
-            or nome.endswith("_test.py")
-            or nome.endswith((".test.js", ".test.ts", ".test.tsx", ".spec.js", ".spec.ts", ".spec.tsx"))
-        ):
+        em_diretorio_de_teste = any(parte in diretorios_teste for parte in partes[:-1])
+        nome_de_teste = nome.startswith("test_") or nome.endswith(sufixos_teste)
+
+        if em_diretorio_de_teste or nome_de_teste:
             encontrados.append(caminho)
+
     return sorted(encontrados)
 
 
