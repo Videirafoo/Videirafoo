@@ -105,6 +105,7 @@ class GitHubClientTest(unittest.TestCase):
             cliente.buscar_linguagens("org", "repo")
             cliente.buscar_workflow_runs("org", "repo", branch="feat/x", limite=999)
             cliente.buscar_commits("org", "repo", limite=999)
+            cliente.buscar_pull_request("org x", "repo/y", 8150)
 
         chamadas = [chamada.args[0] for chamada in get_json.call_args_list]
         self.assertIn("/users/nome%20com%20espa%C3%A7o", chamadas)
@@ -114,6 +115,12 @@ class GitHubClientTest(unittest.TestCase):
         self.assertIn("/repos/org/repo/languages", chamadas)
         self.assertIn("/repos/org/repo/actions/runs?per_page=20&branch=feat%2Fx", chamadas)
         self.assertIn("/repos/org/repo/commits?per_page=10", chamadas)
+        self.assertIn("/repos/org%20x/repo%2Fy/pulls/8150", chamadas)
+
+    def test_pull_request_rejeita_numero_invalido(self):
+        cliente = GitHubClient(base_url="https://api.exemplo")
+        with self.assertRaisesRegex(ValueError, "maior que zero"):
+            cliente.buscar_pull_request("org", "repo", 0)
 
 
 if __name__ == "__main__":
