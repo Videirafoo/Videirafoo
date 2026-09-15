@@ -105,7 +105,7 @@
       gap: 12px;
     }
 
-    .check, .metric, .repo-card {
+    .check, .metric, .repo-card, .evidence-card {
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 14px;
@@ -119,6 +119,10 @@
     .metric strong { display: block; font-size: 1.7rem; margin-top: 4px; }
     .repo-card a { color: var(--accent); font-weight: 700; text-decoration: none; }
     .repo-card p { color: var(--muted); margin-bottom: 0; }
+    .evidence-card h3 { margin: 0 0 10px; font-size: 1rem; }
+    .evidence-card p { margin: 7px 0; }
+    .evidence-card strong { color: var(--text); }
+    .evidence-copy { color: var(--muted); }
 
     ul { padding-left: 20px; }
 
@@ -172,6 +176,8 @@
       <p id="repoNome"></p>
       <h2>Checks</h2>
       <div id="checks" class="grid"></div>
+      <h2>Evidências por check</h2>
+      <div id="detalhesChecks" class="grid"></div>
       <h2>Próximas melhorias</h2>
       <ul id="recomendacoes"></ul>
     </section>
@@ -227,6 +233,7 @@
     const score = document.querySelector('#score');
     const repoNome = document.querySelector('#repoNome');
     const checks = document.querySelector('#checks');
+    const detalhesChecks = document.querySelector('#detalhesChecks');
     const recomendacoes = document.querySelector('#recomendacoes');
 
     const perfilForm = document.querySelector('#perfilForm');
@@ -280,6 +287,7 @@
         score.textContent = data.score;
         repoNome.textContent = data.repositorio;
         checks.innerHTML = '';
+        detalhesChecks.innerHTML = '';
         recomendacoes.innerHTML = '';
 
         Object.entries(data.checks).forEach(([nome, passou]) => {
@@ -287,6 +295,18 @@
           item.className = `check ${passou ? 'ok' : 'missing'}`;
           item.innerHTML = `<div class="label">${nomes[nome] || nome}</div><div class="value">${passou ? 'OK' : 'Falta'}</div>`;
           checks.appendChild(item);
+        });
+
+        Object.entries(data.detalhes_checks || {}).forEach(([nome, detalhe]) => {
+          const item = document.createElement('article');
+          item.className = `evidence-card ${detalhe.passou ? 'ok' : 'missing'}`;
+          item.innerHTML = `
+            <h3>${nomes[nome] || nome}</h3>
+            <p><strong>Observado:</strong> <span class="evidence-copy">${detalhe.observado}</span></p>
+            <p><strong>Impacto:</strong> <span class="evidence-copy">${detalhe.impacto}</span></p>
+            <p><strong>Ação:</strong> <span class="evidence-copy">${detalhe.acao}</span></p>
+          `;
+          detalhesChecks.appendChild(item);
         });
 
         if (data.recomendacoes.length === 0) {
