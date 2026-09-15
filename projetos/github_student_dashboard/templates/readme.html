@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qualidade do README — GitHub Student Dashboard</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d1117;
+      --panel: #161b22;
+      --border: #30363d;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --success: #3fb950;
+      --danger: #f85149;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+    main { width: min(1040px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 70px; }
+    a { color: var(--accent); }
+    h1 { margin: 0 0 8px; font-size: clamp(2rem, 5vw, 3.4rem); }
+    .muted { color: var(--muted); }
+    .panel { margin-top: 20px; padding: 20px; background: var(--panel); border: 1px solid var(--border); border-radius: 16px; }
+    form { display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+    input, button { min-height: 46px; border-radius: 10px; font: inherit; }
+    input { border: 1px solid var(--border); background: var(--bg); color: var(--text); padding: 0 14px; }
+    button { border: 1px solid var(--accent); background: var(--accent); color: #07111f; font-weight: 800; padding: 0 18px; cursor: pointer; }
+    button:disabled { opacity: .65; cursor: wait; }
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 18px; }
+    .metric, .criterion { border: 1px solid var(--border); border-radius: 12px; padding: 14px; min-width: 0; }
+    .metric strong { display: block; margin-top: 4px; font-size: 1.7rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 12px; align-items: start; }
+    .criterion.ok { border-color: color-mix(in srgb, var(--success) 65%, var(--border)); }
+    .criterion.missing { border-color: color-mix(in srgb, var(--danger) 65%, var(--border)); }
+    .criterion h3 { margin: 0 0 10px; font-size: 1rem; }
+    .criterion p { margin: 7px 0; color: var(--muted); overflow-wrap: anywhere; }
+    .criterion strong { color: var(--text); }
+    .error { color: var(--danger); font-weight: 700; }
+    .hidden { display: none; }
+    .back { display: inline-block; margin-bottom: 20px; text-decoration: none; }
+    @media (max-width: 640px) { form { grid-template-columns: 1fr; } button { width: 100%; } main { width: min(100% - 20px, 1040px); } }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="/">← Voltar ao Dashboard</a>
+    <h1>Qualidade do README</h1>
+    <p class="muted">Verificação objetiva de estrutura documental. Perfil do GitHub e projeto comum usam critérios diferentes.</p>
+
+    <section class="panel">
+      <form id="form">
+        <input id="repo" value="Videirafoo/Videirafoo" aria-label="Repositório no formato usuário/repositório" required>
+        <button id="submit" type="submit">Analisar README</button>
+      </form>
+      <p id="error" class="error hidden"></p>
+    </section>
+
+    <section id="resultado" class="panel hidden">
+      <h2 id="titulo">Resultado</h2>
+      <p id="observacao" class="muted"></p>
+      <div id="resumo" class="summary"></div>
+      <h2>Critérios verificáveis</h2>
+      <div id="criterios" class="grid"></div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector('#form');
+    const repo = document.querySelector('#repo');
+    const submit = document.querySelector('#submit');
+    const error = document.querySelector('#error');
+    const resultado = document.querySelector('#resultado');
+    const titulo = document.querySelector('#titulo');
+    const observacao = document.querySelector('#observacao');
+    const resumo = document.querySelector('#resumo');
+    const criterios = document.querySelector('#criterios');
+
+    const nomes = {
+      titulo: 'Título', sobre: 'Apresentação', stack: 'Stack', projetos: 'Projetos', aprendizado: 'Aprendizado', navegacao: 'Navegação', estrutura: 'Estrutura',
+      objetivo: 'Objetivo', instalacao: 'Instalação', execucao: 'Execução', comandos: 'Exemplos/Comandos', testes: 'Testes', contribuicao: 'Contribuição', licenca: 'Licença'
+    };
+
+    function metric(label, value) {
+      const item = document.createElement('div');
+      item.className = 'metric';
+      const small = document.createElement('div');
+      small.className = 'muted';
+      small.textContent = label;
+      const strong = document.createElement('strong');
+      strong.textContent = value;
+      item.append(small, strong);
+      return item;
+    }
+
+    function linha(rotulo, texto) {
+      const p = document.createElement('p');
+      const strong = document.createElement('strong');
+      strong.textContent = `${rotulo}: `;
+      p.append(strong, document.createTextNode(texto));
+      return p;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const referencia = repo.value.trim();
+      if (!referencia) return;
+      submit.disabled = true;
+      submit.textContent = 'Analisando...';
+      error.classList.add('hidden');
+      resultado.classList.add('hidden');
+
+      try {
+        const response = await fetch(`/api/readme?repo=${encodeURIComponent(referencia)}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.erro || 'Não foi possível analisar o README.');
+
+        titulo.textContent = `README: ${data.repositorio}`;
+        observacao.textContent = data.observacao;
+        resumo.innerHTML = '';
+        resumo.append(
+          metric('Tipo detectado', data.tipo_detectado === 'perfil_github' ? 'Perfil GitHub' : 'Projeto'),
+          metric('Cobertura documental', `${data.cobertura_documental.percentual}%`),
+          metric('Critérios atendidos', `${data.cobertura_documental.aprovados}/${data.cobertura_documental.total}`),
+          metric('Headings', data.metricas.headings),
+          metric('Links', data.metricas.links),
+          metric('Blocos de código', data.metricas.blocos_codigo)
+        );
+
+        criterios.innerHTML = '';
+        Object.entries(data.criterios).forEach(([nome, item]) => {
+          const card = document.createElement('article');
+          card.className = `criterion ${item.passou ? 'ok' : 'missing'}`;
+          const h3 = document.createElement('h3');
+          h3.textContent = `${nomes[nome] || nome} — ${item.passou ? 'OK' : 'Falta'}`;
+          card.append(h3, linha('Observado', item.observado), linha('Impacto', item.impacto), linha('Ação', item.acao));
+          criterios.appendChild(card);
+        });
+
+        resultado.classList.remove('hidden');
+      } catch (erroAtual) {
+        error.textContent = erroAtual.message;
+        error.classList.remove('hidden');
+      } finally {
+        submit.disabled = false;
+        submit.textContent = 'Analisar README';
+      }
+    });
+  </script>
+</body>
+</html>
