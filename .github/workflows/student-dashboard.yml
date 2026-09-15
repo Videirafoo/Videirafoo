@@ -46,6 +46,7 @@ jobs:
         run: |
           node --check projetos/github_student_dashboard/static/laboratorio.js
           node --check projetos/github_student_dashboard/static/laboratorio_systems_real.js
+          node --check projetos/github_student_dashboard/static/laboratorio_business_real.js
           node --check projetos/github_student_dashboard/static/laboratorio_api_real.js
 
       - name: Run dashboard tests
