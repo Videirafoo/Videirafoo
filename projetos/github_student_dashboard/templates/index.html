@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Student Dashboard</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0d1117;
+      --panel: #161b22;
+      --border: #30363d;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(960px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 80px;
+    }
+
+    .hero {
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 6vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+    }
+
+    input, button {
+      min-height: 46px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font: inherit;
+    }
+
+    input {
+      width: 100%;
+      padding: 0 14px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button {
+      padding: 0 20px;
+      cursor: pointer;
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #07111f;
+      font-weight: 700;
+    }
+
+    button:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
+    .score {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 0 0 18px;
+    }
+
+    .score strong {
+      font-size: 3rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+
+    .check {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .ok { border-color: color-mix(in srgb, var(--success) 60%, var(--border)); }
+    .missing { border-color: color-mix(in srgb, var(--danger) 60%, var(--border)); }
+
+    .label {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .value {
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .error {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .hidden { display: none; }
+
+    footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    @media (max-width: 640px) {
+      form { grid-template-columns: 1fr; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>GitHub Student Dashboard</h1>
+      <p class="subtitle">
+        Analise um repositório público com checks objetivos e veja quais melhorias podem deixá-lo mais claro, confiável e fácil de descobrir.
+      </p>
+    </section>
+
+    <section class="panel">
+      <form id="form">
+        <input
+          id="repo"
+          name="repo"
+          type="text"
+          autocomplete="off"
+          placeholder="Ex.: Videirafoo/Videirafoo"
+          aria-label="Repositório no formato usuário/repositório"
+          required
+        >
+        <button id="submit" type="submit">Analisar</button>
+      </form>
+      <p id="error" class="error hidden" role="alert"></p>
+    </section>
+
+    <section id="resultado" class="panel hidden" aria-live="polite">
+      <div class="score">
+        <strong id="score">0</strong>
+        <span>/100</span>
+      </div>
+
+      <p id="repoNome"></p>
+
+      <h2>Checks</h2>
+      <div id="checks" class="grid"></div>
+
+      <h2>Próximas melhorias</h2>
+      <ul id="recomendacoes"></ul>
+    </section>
+
+    <footer>
+      Projeto educacional open source do GitHub Videirafoo. Checks objetivos primeiro; explicações inteligentes depois.
+    </footer>
+  </main>
+
+  <script>
+    const form = document.querySelector('#form');
+    const repoInput = document.querySelector('#repo');
+    const submit = document.querySelector('#submit');
+    const error = document.querySelector('#error');
+    const resultado = document.querySelector('#resultado');
+    const score = document.querySelector('#score');
+    const repoNome = document.querySelector('#repoNome');
+    const checks = document.querySelector('#checks');
+    const recomendacoes = document.querySelector('#recomendacoes');
+
+    const nomes = {
+      readme: 'README',
+      descricao: 'Descrição',
+      licenca: 'Licença',
+      gitignore: '.gitignore',
+      topics: 'Topics',
+      ci: 'CI',
+      testes: 'Testes',
+      dependencias: 'Dependências'
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const repo = repoInput.value.trim();
+      if (!repo) return;
+
+      submit.disabled = true;
+      submit.textContent = 'Analisando...';
+      error.classList.add('hidden');
+      resultado.classList.add('hidden');
+
+      try {
+        const response = await fetch(`/api/analisar?repo=${encodeURIComponent(repo)}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.erro || 'Não foi possível analisar o repositório.');
+        }
+
+        score.textContent = data.score;
+        repoNome.textContent = data.repositorio;
+        checks.innerHTML = '';
+        recomendacoes.innerHTML = '';
+
+        Object.entries(data.checks).forEach(([nome, passou]) => {
+          const item = document.createElement('div');
+          item.className = `check ${passou ? 'ok' : 'missing'}`;
+          item.innerHTML = `
+            <div class="label">${nomes[nome] || nome}</div>
+            <div class="value">${passou ? 'OK' : 'Falta'}</div>
+          `;
+          checks.appendChild(item);
+        });
+
+        if (data.recomendacoes.length === 0) {
+          const item = document.createElement('li');
+          item.textContent = 'Nenhuma ausência encontrada nos checks atuais.';
+          recomendacoes.appendChild(item);
+        } else {
+          data.recomendacoes.forEach((recomendacao) => {
+            const item = document.createElement('li');
+            item.textContent = `[${recomendacao.prioridade}] ${recomendacao.acao}`;
+            recomendacoes.appendChild(item);
+          });
+        }
+
+        resultado.classList.remove('hidden');
+      } catch (erroAtual) {
+        error.textContent = erroAtual.message;
+        error.classList.remove('hidden');
+      } finally {
+        submit.disabled = false;
+        submit.textContent = 'Analisar';
+      }
+    });
+  </script>
+</body>
+</html>
