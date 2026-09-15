@@ -55,7 +55,10 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] Mini Sistema 02 — Lista de Tarefas
 - [x] persistência em JSON na Lista de Tarefas
 - [x] testes automatizados da Lista de Tarefas
-- [ ] Mini Sistema 03 — Cadastro de Alunos
+- [x] Mini Sistema 03 — Cadastro de Alunos
+- [x] persistência em JSON no Cadastro de Alunos
+- [x] testes automatizados do Cadastro de Alunos
+- [x] CI configurada para descobrir todos os testes dos mini sistemas
 - [ ] Mini Sistema 04 — Controle de Estoque
 - [ ] Mini Sistema 05 — Sistema de Biblioteca
 - [ ] Mini Sistema 06 — Caixa de Mercado
