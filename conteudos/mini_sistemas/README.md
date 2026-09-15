@@ -25,7 +25,7 @@ Cada projeto terá:
 
 1. [Agenda de Contatos](./agenda_contatos/README.md) — cadastro, busca, edição, exclusão e JSON
 2. [Lista de Tarefas](./lista_tarefas/README.md) — prioridades, filtros, conclusão, busca e JSON
-3. Cadastro de Alunos
+3. [Cadastro de Alunos](./cadastro_alunos/README.md) — matrícula, notas, média, situação acadêmica, relatório e JSON
 4. Controle de Estoque
 5. Sistema de Biblioteca
 6. Caixa de Mercado
