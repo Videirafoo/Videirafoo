@@ -13,8 +13,10 @@ Este documento reúne, **dentro do próprio GitHub**, o que já está funcionand
 - Produção: https://github-student-dashboard-videirafoo.onrender.com
 - Healthcheck: https://github-student-dashboard-videirafoo.onrender.com/healthz
 - CI: [GitHub Student Dashboard CI](https://github.com/Videirafoo/Videirafoo/actions/workflows/student-dashboard.yml)
+- Changelog: [`projetos/github_student_dashboard/CHANGELOG.md`](./projetos/github_student_dashboard/CHANGELOG.md)
 - Feedback: https://github.com/Videirafoo/Videirafoo/issues/new?template=dashboard-feedback.yml
 - Comunidade: [`COMMUNITY.md`](./COMMUNITY.md)
+- Primeira tarefa aberta para contribuidores: [Issue #8](https://github.com/Videirafoo/Videirafoo/issues/8)
 
 ## O que o produto já faz
 
@@ -26,10 +28,11 @@ Este documento reúne, **dentro do próprio GitHub**, o que já está funcionand
 | README | análise estrutural com critérios diferentes para perfil e projeto |
 | Comparação | dois repositórios lado a lado sem declarar vencedor subjetivo |
 | Histórico | reconstrução por commit de README, `.gitignore`, CI, testes e dependências |
+| Testes | detecção por padrões comuns de Python, JS/TS, Go, Dart/Flutter, Ruby, Java/Kotlin, C#, PHP e diretórios convencionais |
 | Explicação | modo local transparente + IA externa opcional |
 | Produção | Flask + Gunicorn no Render |
 | Descoberta | `robots.txt`, `sitemap.xml` e healthcheck |
-| Comunidade | feedback estruturado, segurança, contribuição e código de conduta |
+| Comunidade | feedback estruturado, segurança, contribuição, código de conduta e `good first issue` |
 
 ## Resultados reais já verificados
 
@@ -120,6 +123,19 @@ GET /api/historico?repo=Videirafoo/Videirafoo&limite=5
 GET /api/explicar?repo=Videirafoo/Videirafoo
 ```
 
+## Comece a contribuir
+
+Se você está começando em open source, a [Issue #8](https://github.com/Videirafoo/Videirafoo/issues/8) foi escrita especificamente como uma primeira contribuição pequena e verificável.
+
+Ela pede exemplos públicos da API com `curl` e PowerShell, sem exigir alteração na lógica do produto.
+
+O repositório também possui:
+
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md);
+- [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md);
+- [`SECURITY.md`](./SECURITY.md);
+- [template de Pull Request](./.github/PULL_REQUEST_TEMPLATE.md).
+
 ## Por que este projeto existe
 
 O Dashboard não foi criado para produzir uma nota decorativa. Ele faz parte de uma trajetória educacional maior:
@@ -130,8 +146,7 @@ O objetivo é transformar boas práticas de GitHub em algo que uma pessoa inicia
 
 ## Próximo estágio
 
-- melhorar detecção de testes por stack;
-- cobertura real quando disponível;
+- cobertura real de testes quando disponível;
 - verificar links quebrados;
 - análise informativa de vulnerabilidades/dependências;
 - incorporar melhorias vindas de feedback real;
