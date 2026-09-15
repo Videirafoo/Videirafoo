@@ -5,6 +5,7 @@ from projetos.github_student_dashboard.engine import (
     analisar_perfil_snapshot,
     analisar_repositorio_remoto,
     analisar_snapshot,
+    arquivos_de_testes,
     normalizar_referencia,
     normalizar_usuario,
     resumir_status_ci,
@@ -119,6 +120,35 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
     def test_rejeita_referencia_invalida(self):
         with self.assertRaises(ValueError):
             normalizar_referencia("somente-um-nome")
+
+    def test_detecta_testes_em_varias_stacks_sem_falso_positivo_simples(self):
+        caminhos = {
+            "python/test_app.py",
+            "web/Button.test.tsx",
+            "web/Card.spec.jsx",
+            "go/user_test.go",
+            "flutter/test/widget_test.dart",
+            "java/src/test/java/AppTest.java",
+            "ruby/spec/model_spec.rb",
+            "dotnet/ServiceTests.cs",
+            "php/UserTest.php",
+            "src/contest.py",
+            "src/latest.ts",
+        }
+
+        encontrados = arquivos_de_testes(caminhos)
+
+        self.assertIn("python/test_app.py", encontrados)
+        self.assertIn("web/Button.test.tsx", encontrados)
+        self.assertIn("web/Card.spec.jsx", encontrados)
+        self.assertIn("go/user_test.go", encontrados)
+        self.assertIn("flutter/test/widget_test.dart", encontrados)
+        self.assertIn("java/src/test/java/AppTest.java", encontrados)
+        self.assertIn("ruby/spec/model_spec.rb", encontrados)
+        self.assertIn("dotnet/ServiceTests.cs", encontrados)
+        self.assertIn("php/UserTest.php", encontrados)
+        self.assertNotIn("src/contest.py", encontrados)
+        self.assertNotIn("src/latest.ts", encontrados)
 
     def test_resumir_ci_success(self):
         resumo = resumir_status_ci(
