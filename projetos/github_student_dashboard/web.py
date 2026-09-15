@@ -6,6 +6,7 @@ from projetos.github_student_dashboard.engine import (
     analisar_repositorio_remoto,
 )
 from projetos.github_student_dashboard.github_client import GitHubApiError
+from projetos.github_student_dashboard.history import analisar_historico_remoto
 from projetos.github_student_dashboard.readme_quality import analisar_readme_remoto
 
 
@@ -22,6 +23,7 @@ def create_app(
     analisador_perfil=analisar_perfil_remoto,
     analisador_readme=analisar_readme_remoto,
     comparador=comparar_repositorios_remotos,
+    analisador_historico=analisar_historico_remoto,
 ):
     app = Flask(__name__)
     app.json.ensure_ascii = False
@@ -37,6 +39,10 @@ def create_app(
     @app.get("/comparar")
     def pagina_comparar():
         return render_template("comparar.html")
+
+    @app.get("/historico")
+    def pagina_historico():
+        return render_template("historico.html")
 
     @app.get("/favicon.ico")
     def favicon():
@@ -100,6 +106,28 @@ def create_app(
 
         try:
             relatorio = comparador(repositorio_a, repositorio_b)
+        except ValueError as erro:
+            return jsonify({"erro": str(erro)}), 400
+        except GitHubApiError as erro:
+            return jsonify({"erro": str(erro)}), _status_para_erro_github(erro)
+
+        return jsonify(relatorio), 200
+
+    @app.get("/api/historico")
+    def historico():
+        repositorio = (request.args.get("repo") or "").strip()
+        limite_texto = (request.args.get("limite") or "5").strip()
+
+        if not repositorio:
+            return jsonify({"erro": "Informe um repositório no formato usuario/repositorio."}), 400
+
+        try:
+            limite = int(limite_texto)
+        except ValueError:
+            return jsonify({"erro": "O limite precisa ser um número inteiro entre 2 e 10."}), 400
+
+        try:
+            relatorio = analisador_historico(repositorio, limite=limite)
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
         except GitHubApiError as erro:
