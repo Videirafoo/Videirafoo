@@ -1,4 +1,4 @@
-name: Generate Contribution Snake
+name: Generate Profile Assets
 
 on:
   workflow_dispatch:
@@ -8,6 +8,7 @@ on:
     branches: ["main"]
     paths:
       - ".github/workflows/snake.yml"
+      - "scripts/generate_profile_cards.py"
       - "README.md"
 
 permissions:
@@ -18,7 +19,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate snake SVGs
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate profile metric SVGs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_USER: Videirafoo
+          PROFILE_OUTPUT_DIR: dist
+        run: python3 scripts/generate_profile_cards.py
+
+      - name: Generate contribution snake SVGs
         uses: Platane/snk/svg-only@v3
         with:
           github_user_name: Videirafoo
@@ -26,7 +37,7 @@ jobs:
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      - name: Publish to output branch
+      - name: Publish generated profile assets
         uses: crazy-max/ghaction-github-pages@v4
         with:
           build_dir: dist
