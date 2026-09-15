@@ -11,6 +11,7 @@ from projetos.github_student_dashboard.engine import (
 from projetos.github_student_dashboard.github_client import GitHubApiError
 from projetos.github_student_dashboard.history import analisar_historico_remoto
 from projetos.github_student_dashboard.lab_api import (
+    analisar_projeto_lab,
     atualizar_tarefa_lab,
     criar_tarefa_lab,
     excluir_tarefa_lab,
@@ -245,6 +246,17 @@ def create_app(
             return "", 204
         except ValueError as erro:
             return jsonify({"erro": str(erro)}), 400
+
+    @app.post("/api/laboratorio/analisar")
+    def laboratorio_analisar():
+        dados = request.get_json(silent=True)
+        if not isinstance(dados, dict):
+            return jsonify({"erro": "Envie um objeto JSON válido."}), 400
+        try:
+            relatorio = analisar_projeto_lab(dados.get("checks", {}))
+        except ValueError as erro:
+            return jsonify({"erro": str(erro)}), 400
+        return jsonify(relatorio), 200
 
     return app
 
