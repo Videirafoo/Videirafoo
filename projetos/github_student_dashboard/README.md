@@ -86,15 +86,61 @@ Interface para uso pelo terminal.
 
 Expõe a interface web e o endpoint JSON sem misturar regras de análise com apresentação.
 
-## Instalação
+## Importante: execute na raiz do repositório
 
-Na raiz do repositório `Videirafoo/Videirafoo`:
+Os comandos abaixo **não funcionam a partir de `C:\Windows\System32` nem diretamente de `C:\Users\Usuario`** se o repositório ainda não estiver clonado ou se o terminal não estiver dentro dele.
+
+O Python precisa enxergar a pasta `projetos/`, portanto o terminal deve estar na raiz local de `Videirafoo/Videirafoo`.
+
+## Windows — início rápido com PowerShell
+
+PowerShell, Prompt de Comando e terminal integrado do VS Code funcionam. Para iniciantes no Windows, recomendamos **PowerShell** ou o **terminal do VS Code**.
+
+### Primeira vez
+
+```powershell
+cd $HOME
+git clone https://github.com/Videirafoo/Videirafoo.git
+cd .\Videirafoo
+python -m pip install -r .\projetos\github_student_dashboard\requirements.txt
+python -m projetos.github_student_dashboard.web
+```
+
+Depois abra no navegador:
+
+```text
+http://127.0.0.1:5000
+```
+
+### Se o repositório já estiver clonado
+
+Entre na pasta onde ele foi salvo. Exemplo:
+
+```powershell
+cd $HOME\Videirafoo
+git pull
+python -m pip install -r .\projetos\github_student_dashboard\requirements.txt
+python -m projetos.github_student_dashboard.web
+```
+
+Para confirmar que está na pasta correta:
+
+```powershell
+Get-Location
+Get-ChildItem
+```
+
+A listagem deve mostrar pastas/arquivos do repositório, incluindo `projetos`.
+
+## Instalação — macOS/Linux ou terminal já posicionado na raiz
 
 ```bash
 python -m pip install -r projetos/github_student_dashboard/requirements.txt
 ```
 
 ## Usar pelo terminal
+
+Na raiz do repositório:
 
 ```bash
 python -m projetos.github_student_dashboard.cli Videirafoo/Videirafoo
@@ -118,7 +164,7 @@ python -m projetos.github_student_dashboard.cli https://github.com/Videirafoo/Vi
 python -m projetos.github_student_dashboard.web
 ```
 
-Depois abra o endereço local mostrado pelo Flask e informe um repositório público.
+O Flask inicia localmente em `http://127.0.0.1:5000` por padrão.
 
 ## Endpoint de análise
 
@@ -127,6 +173,25 @@ GET /api/analisar?repo=Videirafoo/Videirafoo
 ```
 
 A resposta contém score, checks, evidências e recomendações.
+
+## Erros comuns
+
+### `No such file or directory: projetos/.../requirements.txt`
+
+Causa: terminal aberto fora da raiz do repositório.
+
+Correção: entre primeiro na pasta `Videirafoo` clonada.
+
+### `ModuleNotFoundError: No module named 'projetos'`
+
+Causa: o comando `python -m projetos...` foi executado fora da raiz do repositório.
+
+Correção:
+
+```powershell
+cd $HOME\Videirafoo
+python -m projetos.github_student_dashboard.web
+```
 
 ## GitHub API e autenticação
 
