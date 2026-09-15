@@ -54,7 +54,7 @@ Aqui você encontra exemplos de:
 
 - lógica de programação e algoritmos;
 - listas, matrizes, funções e estruturas de dados;
-- busca sequencial, busca binária, ordenação e recursividade;
+- busca sequencial, busca binária, ordenação, recursividade e complexidade;
 - organização de pequenos projetos em Python;
 - Git, GitHub e GitHub Actions;
 - evolução de exercícios acadêmicos para pequenos sistemas;
@@ -63,7 +63,10 @@ Aqui você encontra exemplos de:
 > A ideia é simples: **entender o conceito, praticar, errar, corrigir, testar e melhorar.**
 
 📘 [Guia de estudos para iniciantes](./GUIA_DE_ESTUDOS.md)  
-🧩 [Ideias de pequenos sistemas e desafios](./IDEIAS_DE_PROJETOS.md)
+🧩 [Ideias de pequenos sistemas e desafios](./IDEIAS_DE_PROJETOS.md)  
+🎓 [Padrão de ensino dos conteúdos](./PADRAO_DE_ENSINO.md)  
+🗺️ [Roadmap de conteúdo e open source](./ROADMAP_CONTEUDO.md)  
+📅 [Calendário de conteúdo](./CALENDARIO_DE_CONTEUDO.md)
 
 ---
 
@@ -124,11 +127,12 @@ Aqui você encontra exemplos de:
 
 | Repositório | Conteúdo |
 |---|---|
-| [Lista-Python-02](https://github.com/Videirafoo/Lista-Python-02) | 20 exercícios de algoritmos e listas em Python, com execução centralizada e CI |
-| [Lista-3](https://github.com/Videirafoo/Lista-3) | exercícios de Python organizados individualmente e validados automaticamente |
-| [revis-o-algoritmo](https://github.com/Videirafoo/revis-o-algoritmo) | revisão prática de algoritmos em Python |
-| [Exercicio-Algoritmo-em-Python](https://github.com/Videirafoo/Exercicio-Algoritmo-em-Python) | exercícios introdutórios de lógica e programação |
-| [jogo](https://github.com/Videirafoo/jogo) | pequeno projeto didático em Python para praticar funções, fluxo e validação |
+| [Lista-01-segundo-periodo](https://github.com/Videirafoo/Lista-01-segundo-periodo) | 10 exercícios de fundamentos de algoritmos e lógica em Python |
+| [Lista-02-segundo-periodo](https://github.com/Videirafoo/Lista-02-segundo-periodo) | 20 exercícios de listas, funções e manipulação de dados em Python |
+| [Lista-03-segundo-periodo](https://github.com/Videirafoo/Lista-03-segundo-periodo) | 30 exercícios de busca sequencial, busca binária e comparação de estratégias |
+| [lista-04-segundo-periodo](https://github.com/Videirafoo/lista-04-segundo-periodo) | 6 exercícios de recursividade em Python |
+| [lista-05-revisao-segundo-periodo](https://github.com/Videirafoo/lista-05-revisao-segundo-periodo) | revisão de algoritmos e lógica antes das avaliações |
+| [jogo_primeiro_periodo](https://github.com/Videirafoo/jogo_primeiro_periodo) | jogo de adivinhação didático com funções, validação e CI |
 
 ---
 
@@ -183,6 +187,7 @@ Aqui você encontra exemplos de:
 - construir aplicações web e mobile reais;
 - publicar projetos organizados, documentados e fáceis de estudar;
 - compartilhar conhecimento útil para outras pessoas que estão começando;
+- contribuir em projetos open source externos;
 - avançar em sistemas seguros, escaláveis e integrados com IA.
 
 <div align="center">
