@@ -146,8 +146,15 @@ Aqui você encontra exemplos de:
 
 <div align="center">
 
-<img height="170" src="https://github-readme-stats.vercel.app/api?username=Videirafoo&show_icons=true&theme=github_dark&hide_border=true&include_all_commits=true&count_private=true" alt="Estatísticas do GitHub" />
-<img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Videirafoo&layout=compact&theme=github_dark&hide_border=true&langs_count=8" alt="Linguagens mais utilizadas" />
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=Videirafoo&theme=github_dark" alt="Estatísticas do GitHub" />
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Videirafoo&theme=github_dark" alt="Repositórios por linguagem" />
+
+<br>
+
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Videirafoo&theme=github_dark" alt="Linguagens por commits" />
+<img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=Videirafoo&theme=github_dark&utcOffset=-3" alt="Horário mais produtivo" />
+
+<br><br>
 
 <img src="https://streak-stats.demolab.com?user=Videirafoo&theme=github-dark-blue&hide_border=true" alt="Sequência de contribuições" />
 
