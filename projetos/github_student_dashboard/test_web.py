@@ -37,6 +37,17 @@ class StudentDashboardWebTest(unittest.TestCase):
         self.assertEqual(resposta.status_code, 200)
         self.assertIn(b"Comparar reposit", resposta.data)
 
+    def test_pagina_historico_renderiza_interface(self):
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/historico")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertIn(b"Hist", resposta.data)
+        self.assertIn(b"Analisar hist", resposta.data)
+
     def test_api_exige_repositorio(self):
         app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
@@ -158,6 +169,38 @@ class StudentDashboardWebTest(unittest.TestCase):
 
         self.assertEqual(resposta.status_code, 200)
         self.assertEqual(resposta.get_json()["repositorio_a"]["score"], 90)
+
+    def test_api_historico_exige_repositorio(self):
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/api/historico")
+
+        self.assertEqual(resposta.status_code, 400)
+
+    def test_api_historico_retorna_evolucao(self):
+        def historico(repo, limite=5):
+            return {
+                "repositorio": repo,
+                "commits_analisados": limite,
+                "evolucao": [],
+            }
+
+        app = create_app(
+            lambda _: {},
+            lambda _: {},
+            lambda _: {},
+            lambda _a, _b: {},
+            historico,
+        )
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/api/historico?repo=Videirafoo/Videirafoo&limite=3")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.get_json()["commits_analisados"], 3)
 
     def test_api_rejeita_referencia_invalida(self):
         def analisador(_):
