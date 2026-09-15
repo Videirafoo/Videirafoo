@@ -1,6 +1,7 @@
 import unittest
 
 from projetos.github_student_dashboard.lab_api import (
+    analisar_projeto_lab,
     atualizar_tarefa_lab,
     criar_tarefa_lab,
     excluir_tarefa_lab,
@@ -66,6 +67,47 @@ class LabApiTest(unittest.TestCase):
 
         self.assertEqual([item["id"] for item in pendentes], [1])
         self.assertEqual([item["id"] for item in concluidas], [2])
+
+    def test_projeto_integrado_reutiliza_analisador_original(self):
+        relatorio = analisar_projeto_lab(
+            {
+                "readme": True,
+                "gitignore": True,
+                "licenca": False,
+                "ci": True,
+                "testes": False,
+                "dependencias": True,
+            }
+        )
+
+        self.assertEqual(relatorio["score"], 65)
+        self.assertTrue(relatorio["checks"]["readme"])
+        self.assertTrue(relatorio["checks"]["gitignore"])
+        self.assertFalse(relatorio["checks"]["licenca"])
+        self.assertTrue(relatorio["checks"]["ci"])
+        self.assertFalse(relatorio["checks"]["testes"])
+        self.assertTrue(relatorio["checks"]["dependencias"])
+        self.assertEqual(relatorio["caminho"], "temporário e isolado")
+        self.assertGreaterEqual(relatorio["evidencias"]["total_arquivos_analisados"], 5)
+
+    def test_projeto_integrado_com_todos_checks_chega_a_cem(self):
+        relatorio = analisar_projeto_lab(
+            {
+                "readme": True,
+                "gitignore": True,
+                "licenca": True,
+                "ci": True,
+                "testes": True,
+                "dependencias": True,
+            }
+        )
+
+        self.assertEqual(relatorio["score"], 100)
+        self.assertTrue(all(relatorio["checks"].values()))
+
+    def test_projeto_integrado_rejeita_check_desconhecido(self):
+        with self.assertRaisesRegex(ValueError, "não reconhecidos"):
+            analisar_projeto_lab({"readme": True, "inventado": True})
 
 
 if __name__ == "__main__":
