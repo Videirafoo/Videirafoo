@@ -4,20 +4,22 @@ Este documento registra **evidências reproduzíveis** da qualidade do GitHub St
 
 ## Estado verificado
 
-Execução de referência: [GitHub Student Dashboard CI #108](https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039)
+Execução de referência: [GitHub Student Dashboard CI #125](https://github.com/Videirafoo/Videirafoo/actions/runs/35004424114)
 
 | Evidência | Resultado observado |
 |---|---:|
-| Testes automatizados | **147 passando** |
-| Cobertura total medida | **92,9%** |
+| Testes automatizados | **177 passando** |
+| Cobertura total medida | **92,6%** |
 | Gate mínimo de cobertura | **90% — aprovado nessa execução** |
+| `competency_matrix.py` | **89,5%** |
+| `github_client.py` | **97,8%** |
 | `lab_api.py` | **99,0%** |
 | `lab_business.py` | **98,5%** |
 | `lab_systems.py` | **94,8%** |
 | `lab_web.py` | **94,3%** |
 | Auditoria de dependências | **nenhuma vulnerabilidade conhecida reportada pelo `pip-audit` nessa execução** |
 | Sintaxe Python | **OK** |
-| Sintaxe JavaScript do laboratório | **OK** |
+| Sintaxe JavaScript do laboratório, trilha e matriz | **OK** |
 | CI | **success** |
 
 > A frase sobre vulnerabilidades é limitada ao que o `pip-audit` conseguiu verificar naquela execução. Ela não significa que o software seja livre de qualquer vulnerabilidade.
@@ -44,8 +46,10 @@ A cobertura foi usada como mapa de trabalho, em vez de aumentar números artific
 | CLI + GitHub client + provider de IA | 118 | 81,9% | transporte, parsing, erros HTTP/rede/JSON |
 | Bordas dos mini sistemas | 135 | 89,0% | estados inválidos, limites, 404 e regras de negócio |
 | Adaptador da API do laboratório | 147 | **92,9%** | normalização, CRUD, branches e checks |
+| Trilha Educacional | 156 | **92,9%** | rota, API, sitemap, progresso e navegação |
+| Matriz Viva de Competências | 177 | **92,6%** | evidências públicas, CI, healthcheck, PR externo e estados parciais |
 
-A execução #108 confirmou o resultado final desta etapa já com o **gate de 90% ativo**.
+A execução #125 confirmou **177 testes passando** com o **gate de 90% ativo**.
 
 ### Módulos fortalecidos
 
@@ -53,11 +57,15 @@ A execução #108 confirmou o resultado final desta etapa já com o **gate de 90
 - `comparison.py`: **100,0%**;
 - `lab_api.py`: **99,0%**;
 - `lab_business.py`: **98,5%**;
-- `github_client.py`: **97,5%**;
+- `github_client.py`: **97,8%**;
 - `ai_explainer.py`: **95,7%**;
 - `history.py`: **95,9%**;
 - `lab_systems.py`: **94,8%**;
-- `lab_web.py`: **94,3%**.
+- `lab_web.py`: **94,3%**;
+- `competency_matrix.py`: **89,5%**;
+- `web.py`: **86,4%**;
+- `readme_quality.py`: **86,9%**;
+- `engine.py`: **82,1%**.
 
 A melhoria veio de testes de comportamento e casos-limite; não de exclusões artificiais na configuração de cobertura.
 
@@ -66,9 +74,10 @@ A melhoria veio de testes de comportamento e casos-limite; não de exclusões ar
 O objetivo não é buscar 100% por aparência. Os próximos testes devem proteger branches que realmente importam:
 
 1. `engine.py` — **82,1%**;
-2. `web.py` — **85,2%**;
+2. `web.py` — **86,4%**;
 3. `readme_quality.py` — **86,9%**;
-4. branches residuais de tratamento de erro nos módulos já acima de 94%.
+4. branches residuais da `competency_matrix.py` — **89,5%**, principalmente estados de evidência pouco frequentes;
+5. manter o gate global em **90%** sem perseguir 100% apenas para melhorar a aparência do perfil.
 
 ## Auditoria de dependências
 
@@ -80,7 +89,7 @@ pip-audit -r projetos/github_student_dashboard/requirements.txt
 
 A auditoria é **informativa**. Uma ocorrência futura aparece no resumo e no artefato da CI para revisão, sem ser tratada automaticamente como prova de exploração ou como motivo suficiente para derrubar produção sem análise.
 
-Na execução #108, o log registrou:
+Na execução #125, o log registrou:
 
 ```text
 No known vulnerabilities found
@@ -94,7 +103,7 @@ Cada execução de qualidade publica o artefato `dashboard-quality-evidence` con
 - `coverage.json`;
 - `pip-audit.txt`.
 
-Artefato da execução #108: [dashboard-quality-evidence](https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039/artifacts/10407506784)
+Artefato da execução #125: [dashboard-quality-evidence](https://github.com/Videirafoo/Videirafoo/actions/runs/35004424114/artifacts/10411171361)
 
 ## Princípio
 
