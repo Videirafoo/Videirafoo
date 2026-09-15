@@ -1,0 +1,14 @@
+[run]
+branch = True
+source =
+    projetos.github_student_dashboard
+omit =
+    */test_*.py
+
+[report]
+show_missing = True
+skip_covered = False
+precision = 1
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
