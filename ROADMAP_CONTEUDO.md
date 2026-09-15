@@ -65,7 +65,10 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] Mini Sistema 05 — Sistema de Biblioteca
 - [x] persistência em JSON no Sistema de Biblioteca
 - [x] testes automatizados do Sistema de Biblioteca
-- [ ] Mini Sistema 06 — Caixa de Mercado
+- [x] Mini Sistema 06 — Caixa de Mercado
+- [x] catálogo, carrinho, estoque, desconto e fechamento de venda
+- [x] persistência em JSON no Caixa de Mercado
+- [x] testes automatizados do Caixa de Mercado
 - [ ] Mini Sistema 07 — Controle Financeiro Pessoal
 - [ ] Mini Sistema 08 — Gerenciador de Hábitos
 - [ ] Mini Sistema 09 — API de Tarefas
