@@ -8,16 +8,34 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 
 - medição real de cobertura adicionada à CI com `coverage.py` e branch coverage;
 - baseline inicial observado: **95 testes / 73,3% de cobertura**;
-- testes direcionados adicionados para CLI, cliente GitHub e provider de IA;
-- execução de referência posterior: **118 testes passando / 81,9% de cobertura**;
-- cobertura de `cli.py` elevada para **100,0%**, `github_client.py` para **97,5%** e `ai_explainer.py` para **95,7%** na execução de referência;
-- gate de regressão de cobertura configurado em **80%**;
-- auditoria informativa de dependências de produção adicionada com `pip-audit`;
-- execução de referência do `pip-audit` não reportou vulnerabilidade conhecida nas dependências resolvidas naquele run;
+- testes direcionados adicionados para CLI, cliente GitHub, provider de IA, adaptadores do laboratório, rotas HTTP e casos de borda;
+- evolução intermediária comprovada: **118 testes / 81,9% de cobertura**;
+- nova execução de referência: [GitHub Student Dashboard CI #108](https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039);
+- execução #108 confirmou **147 testes passando / 92,9% de cobertura total**;
+- gate de regressão de cobertura elevado para **90%** e aprovado na execução #108;
+- `cli.py`: **100,0%**;
+- `github_client.py`: **97,5%**;
+- `ai_explainer.py`: **95,7%**;
+- `lab_api.py`: **99,0%**;
+- `lab_business.py`: **98,5%**;
+- `lab_systems.py`: **94,8%**;
+- `lab_web.py`: **94,3%**;
+- auditoria informativa de dependências de produção mantida com `pip-audit`;
+- execução #108 registrou `No known vulnerabilities found` para as dependências resolvidas naquele run;
 - artefato `dashboard-quality-evidence` publica `coverage.txt`, `coverage.json` e `pip-audit.txt` em cada execução;
+- artefato da execução #108: https://github.com/Videirafoo/Videirafoo/actions/runs/34995444039/artifacts/10407506784;
 - `ResourceWarning` identificado pela primeira medição foi corrigido nos testes de recursos estáticos;
 - `actions/checkout`, `actions/setup-python` e `actions/upload-artifact` atualizadas para a geração v7;
-- evidências e limites documentados publicamente em `QUALITY.md`.
+- evidências, limites e metodologia documentados publicamente em `QUALITY.md`.
+
+### Próximos alvos de qualidade
+
+A cobertura passou a orientar a prioridade de teste. Os próximos alvos úteis são:
+
+- `engine.py` — **82,1%**, principalmente branches de erro e casos-limite;
+- `web.py` — **85,2%**, especialmente respostas de erro e fluxos alternativos;
+- `readme_quality.py` — **86,9%**, com foco em parsing e links internos de borda;
+- manter o gate global em **90%** sem perseguir 100% apenas por aparência.
 
 ### Melhorias
 
