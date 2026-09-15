@@ -1,0 +1,65 @@
+name: Sugerir melhoria
+description: Proponha uma melhoria útil, verificável e alinhada ao objetivo educacional do projeto.
+title: "[Melhoria] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        O projeto prioriza melhorias que resolvem problemas reais, ensinam melhor ou reduzem atrito para iniciantes.
+
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qual problema esta melhoria resolve?
+      description: Explique o problema antes da solução.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Proposta
+      description: Descreva a mudança de forma simples.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: publico
+    attributes:
+      label: Quem se beneficia mais?
+      options:
+        - Estudantes iniciantes
+        - Contribuidores open source
+        - Professores ou mentores
+        - Recrutadores ou avaliadores de portfólio
+        - Usuários da API
+        - Comunidade em geral
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidência ou exemplo
+      description: Se possível, mostre um caso real em que a melhoria ajudaria.
+
+  - type: textarea
+    id: aceite
+    attributes:
+      label: Como saberemos que ficou pronto?
+      description: Sugira critérios objetivos de aceite.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: principios
+    attributes:
+      label: Princípios do projeto
+      options:
+        - label: A proposta não depende de inventar dados ou alterar o diagnóstico determinístico sem evidência.
+          required: true
+        - label: A proposta pode ser implementada e testada sem incluir segredos ou dados privados.
+          required: true
