@@ -6,7 +6,7 @@ from projetos.github_student_dashboard.web import create_app
 
 class StudentDashboardWebTest(unittest.TestCase):
     def test_home_renderiza_interface(self):
-        app = create_app(lambda _: {}, lambda _: {})
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
         cliente = app.test_client()
 
@@ -17,7 +17,7 @@ class StudentDashboardWebTest(unittest.TestCase):
         self.assertIn(b"Analisar perfil", resposta.data)
 
     def test_api_exige_repositorio(self):
-        app = create_app(lambda _: {}, lambda _: {})
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
         cliente = app.test_client()
 
@@ -42,7 +42,7 @@ class StudentDashboardWebTest(unittest.TestCase):
                 ],
             }
 
-        app = create_app(analisador, lambda _: {})
+        app = create_app(analisador, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
         cliente = app.test_client()
 
@@ -52,7 +52,7 @@ class StudentDashboardWebTest(unittest.TestCase):
         self.assertEqual(resposta.get_json()["score"], 80)
 
     def test_api_perfil_exige_usuario(self):
-        app = create_app(lambda _: {}, lambda _: {})
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
         cliente = app.test_client()
 
@@ -77,7 +77,7 @@ class StudentDashboardWebTest(unittest.TestCase):
                 "lacunas_objetivas": [],
             }
 
-        app = create_app(lambda _: {}, analisador_perfil)
+        app = create_app(lambda _: {}, analisador_perfil, lambda _: {})
         app.config["TESTING"] = True
         cliente = app.test_client()
 
@@ -86,11 +86,44 @@ class StudentDashboardWebTest(unittest.TestCase):
         self.assertEqual(resposta.status_code, 200)
         self.assertEqual(resposta.get_json()["usuario"], "Videirafoo")
 
+    def test_api_readme_exige_repositorio(self):
+        app = create_app(lambda _: {}, lambda _: {}, lambda _: {})
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/api/readme")
+
+        self.assertEqual(resposta.status_code, 400)
+
+    def test_api_readme_retorna_cobertura_documental(self):
+        def analisador_readme(_):
+            return {
+                "repositorio": "Videirafoo/Videirafoo",
+                "tipo_detectado": "perfil_github",
+                "cobertura_documental": {
+                    "aprovados": 7,
+                    "total": 7,
+                    "percentual": 100.0,
+                },
+                "criterios": {},
+                "metricas": {},
+            }
+
+        app = create_app(lambda _: {}, lambda _: {}, analisador_readme)
+        app.config["TESTING"] = True
+        cliente = app.test_client()
+
+        resposta = cliente.get("/api/readme?repo=Videirafoo/Videirafoo")
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.get_json()["tipo_detectado"], "perfil_github")
+        self.assertEqual(resposta.get_json()["cobertura_documental"]["percentual"], 100.0)
+
     def test_api_rejeita_referencia_invalida(self):
         def analisador(_):
             raise ValueError("Use o formato usuario/repositorio.")
 
-        app = create_app(analisador, lambda _: {})
+        app = create_app(analisador, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
         cliente = app.test_client()
 
@@ -102,7 +135,7 @@ class StudentDashboardWebTest(unittest.TestCase):
         def analisador(_):
             raise GitHubApiError("Não encontrado.", status=404)
 
-        app = create_app(analisador, lambda _: {})
+        app = create_app(analisador, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
         cliente = app.test_client()
 
@@ -114,7 +147,7 @@ class StudentDashboardWebTest(unittest.TestCase):
         def analisador(_):
             raise GitHubApiError("Limite atingido.", status=403)
 
-        app = create_app(analisador, lambda _: {})
+        app = create_app(analisador, lambda _: {}, lambda _: {})
         app.config["TESTING"] = True
         cliente = app.test_client()
 
