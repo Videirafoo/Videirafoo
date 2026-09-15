@@ -11,7 +11,10 @@ Este arquivo registra mudanças relevantes do projeto de forma legível para est
 - regras do playground da API reutilizam as funções Python versionadas em `conteudos/mini_sistemas/api_tarefas/app.py`;
 - estado didático da API permanece no navegador, evitando misturar dados de visitantes no servidor público;
 - limites e validações foram adicionados ao endpoint do laboratório para reduzir abuso e estados inválidos;
-- testes automatizados cobrem criação `201`, listagem `200`, atualização `200`, exclusão `204`, erros `400/404` e integração da página com o backend real;
+- Mini Sistema 10 agora monta um repositório temporário e isolado no servidor e executa o `analisar_repositorio()` original do projeto integrado;
+- o score, checks, evidências e recomendações do playground 10 deixam de ser calculados apenas no JavaScript e passam a vir do Python real;
+- diretórios temporários são descartados depois de cada análise e nenhum caminho informado pelo visitante é acessado pelo servidor;
+- testes automatizados cobrem criação `201`, listagem `200`, atualização `200`, exclusão `204`, erros `400/404`, o analisador real e integração da página com o backend;
 - CI agora valida a sintaxe dos dois arquivos JavaScript do laboratório;
 - detecção de arquivos de teste ampliada para padrões comuns de Python, JavaScript, TypeScript, JSX, Go, Dart/Flutter, Ruby, Java, Kotlin, C#, PHP e diretórios convencionais de teste;
 - teste automatizado para evitar falsos positivos simples como `contest.py` e `latest.ts`;
