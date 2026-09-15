@@ -1,15 +1,59 @@
 import unittest
 
 from projetos.github_student_dashboard.engine import (
+    analisar_perfil_remoto,
+    analisar_perfil_snapshot,
     analisar_repositorio_remoto,
     analisar_snapshot,
     normalizar_referencia,
+    normalizar_usuario,
 )
 
 
 class ClienteFalso:
     def __init__(self):
         self.chamadas = []
+
+    def buscar_usuario(self, usuario):
+        self.chamadas.append(("usuario", usuario))
+        return {
+            "login": usuario,
+            "html_url": f"https://github.com/{usuario}",
+            "name": "Fernando Videira",
+            "bio": "Estudante de Engenharia de Software",
+            "followers": 10,
+            "following": 5,
+            "public_repos": 2,
+        }
+
+    def buscar_repositorios_usuario(self, usuario):
+        self.chamadas.append(("repositorios", usuario))
+        return [
+            {
+                "name": usuario,
+                "html_url": f"https://github.com/{usuario}/{usuario}",
+                "description": "Perfil educacional",
+                "language": "Python",
+                "fork": False,
+                "stargazers_count": 2,
+                "forks_count": 1,
+                "topics": ["education"],
+                "license": {"spdx_id": "MIT"},
+                "updated_at": "2026-09-15T00:00:00Z",
+            },
+            {
+                "name": "projeto",
+                "html_url": f"https://github.com/{usuario}/projeto",
+                "description": None,
+                "language": "Python",
+                "fork": False,
+                "stargazers_count": 1,
+                "forks_count": 0,
+                "topics": [],
+                "license": None,
+                "updated_at": "2026-09-14T00:00:00Z",
+            },
+        ]
 
     def buscar_repositorio(self, owner, repo):
         self.chamadas.append(("repo", owner, repo))
@@ -51,6 +95,10 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
             normalizar_referencia("https://github.com/Videirafoo/projeto.git"),
             ("Videirafoo", "projeto"),
         )
+
+    def test_normaliza_usuario(self):
+        self.assertEqual(normalizar_usuario("Videirafoo"), "Videirafoo")
+        self.assertEqual(normalizar_usuario("https://github.com/Videirafoo"), "Videirafoo")
 
     def test_rejeita_referencia_invalida(self):
         with self.assertRaises(ValueError):
@@ -122,6 +170,28 @@ class GitHubStudentDashboardEngineTest(unittest.TestCase):
         self.assertIn(("repo", "Videirafoo", "projeto"), cliente.chamadas)
         self.assertIn(("tree", "Videirafoo", "projeto", "main"), cliente.chamadas)
         self.assertIn(("languages", "Videirafoo", "projeto"), cliente.chamadas)
+
+    def test_perfil_snapshot_calcula_cobertura_sem_nota_arbitraria(self):
+        cliente = ClienteFalso()
+        usuario = cliente.buscar_usuario("Videirafoo")
+        repositorios = cliente.buscar_repositorios_usuario("Videirafoo")
+
+        relatorio = analisar_perfil_snapshot(usuario, repositorios)
+
+        self.assertEqual(relatorio["repositorios_analisados"], 2)
+        self.assertEqual(relatorio["cobertura"]["descricao"]["percentual"], 50.0)
+        self.assertEqual(relatorio["engajamento"]["stars_recebidos"], 3)
+        self.assertTrue(relatorio["repositorio_perfil_existe"])
+        self.assertNotIn("score", relatorio)
+
+    def test_analise_perfil_remoto_usa_cliente_injetado(self):
+        cliente = ClienteFalso()
+
+        relatorio = analisar_perfil_remoto("Videirafoo", client=cliente)
+
+        self.assertEqual(relatorio["usuario"], "Videirafoo")
+        self.assertIn(("usuario", "Videirafoo"), cliente.chamadas)
+        self.assertIn(("repositorios", "Videirafoo"), cliente.chamadas)
 
 
 if __name__ == "__main__":
