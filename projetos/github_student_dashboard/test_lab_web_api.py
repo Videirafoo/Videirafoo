@@ -80,6 +80,38 @@ class LabWebApiTest(unittest.TestCase):
         self.assertEqual(resposta.status_code, 400)
         self.assertIn("JSON", resposta.get_json()["erro"])
 
+    def test_projeto_integrado_executa_analisador_python_real(self):
+        resposta = self.cliente.post(
+            "/api/laboratorio/analisar",
+            json={
+                "checks": {
+                    "readme": True,
+                    "gitignore": True,
+                    "licenca": False,
+                    "ci": True,
+                    "testes": True,
+                    "dependencias": True,
+                }
+            },
+        )
+
+        self.assertEqual(resposta.status_code, 200)
+        relatorio = resposta.get_json()
+        self.assertEqual(relatorio["score"], 85)
+        self.assertEqual(relatorio["repositorio"], "projeto-laboratorio")
+        self.assertEqual(relatorio["caminho"], "temporário e isolado")
+        self.assertTrue(relatorio["checks"]["testes"])
+        self.assertFalse(relatorio["checks"]["licenca"])
+
+    def test_projeto_integrado_rejeita_payload_invalido(self):
+        resposta = self.cliente.post(
+            "/api/laboratorio/analisar",
+            json={"checks": {"readme": "sim"}},
+        )
+
+        self.assertEqual(resposta.status_code, 400)
+        self.assertIn("true ou false", resposta.get_json()["erro"])
+
 
 if __name__ == "__main__":
     unittest.main()
