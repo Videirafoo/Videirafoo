@@ -4,7 +4,7 @@ Esta coleção existe para levar quem está começando de exercícios isolados p
 
 ## Comece usando antes de ler
 
-Os **10 mini sistemas da coleção** agora possuem experiência prática no navegador:
+Os **10 mini sistemas da coleção** possuem experiência prática no navegador:
 
 **https://github-student-dashboard-videirafoo.onrender.com/laboratorio**
 
@@ -14,16 +14,31 @@ No laboratório você pode usar:
 2. lista de tarefas;
 3. cadastro de aluno e cálculo de média;
 4. controle de estoque;
-5. sistema de biblioteca com livros, usuários e empréstimos;
-6. caixa de mercado com catálogo, carrinho, desconto e fechamento;
-7. controle financeiro com receitas, despesas e saldo;
-8. gerenciador de hábitos com meta semanal e conclusão diária;
-9. API de tarefas com **HTTP real + Flask real + regras Python reais** executadas no backend;
+5. sistema de biblioteca com livros, usuários, empréstimos e devoluções;
+6. caixa de mercado com catálogo, carrinho, desconto, estoque e fechamento;
+7. controle financeiro com receitas, despesas, categorias e saldo;
+8. gerenciador de hábitos com meta semanal, conclusão e progresso;
+9. API de tarefas com HTTP real;
 10. analisador local de repositórios, núcleo que evoluiu para o GitHub Student Dashboard.
 
 Há também um playground extra de **busca binária visual**.
 
-No Mini Sistema 09, o estado didático permanece no navegador para não misturar dados de visitantes, mas as operações `GET`, `POST`, `PATCH` e `DELETE` são processadas pelo servidor usando as mesmas funções Python versionadas em `api_tarefas/app.py`.
+## O que é real no laboratório
+
+Os cards não servem apenas como mockups. As regras centrais dos 10 sistemas são processadas pelo backend Flask usando as funções Python versionadas nesta coleção.
+
+- **01 Agenda:** criação, validação de duplicidade e exclusão usam o Python original.
+- **02 Tarefas:** criação, conclusão, reabertura e exclusão usam o Python original.
+- **03 Alunos:** validação de notas, média e situação acadêmica usam o Python original.
+- **04 Estoque:** cadastro, quantidade e exclusão usam o Python original.
+- **05 Biblioteca:** cadastro de livro/usuário, empréstimo e devolução usam o Python original.
+- **06 Caixa:** cadastro de produto, carrinho, estoque, desconto e fechamento usam o Python original.
+- **07 Financeiro:** lançamentos, exclusões e totais usam o Python original.
+- **08 Hábitos:** criação, conclusão diária, exclusão e progresso usam o Python original.
+- **09 API:** `GET`, `POST`, `PATCH` e `DELETE` passam pelo Flask real e pelas funções de `api_tarefas/app.py`.
+- **10 Projeto Integrado:** o servidor monta um repositório temporário e executa o `analisar_repositorio()` original.
+
+O estado didático fica no navegador sempre que possível para não misturar dados de visitantes. O servidor recebe somente o estado necessário para executar uma operação e devolver o resultado validado.
 
 Depois de usar um sistema, abra o código Python e os testes diretamente pelo card correspondente.
 
