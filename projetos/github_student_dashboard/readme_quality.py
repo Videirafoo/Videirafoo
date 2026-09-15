@@ -1,5 +1,7 @@
 import base64
 import re
+from posixpath import normpath
+from urllib.parse import unquote, urlparse
 
 from projetos.github_student_dashboard.engine import normalizar_referencia
 from projetos.github_student_dashboard.github_client import GitHubApiError, GitHubClient
@@ -19,10 +21,66 @@ def _contar_blocos_codigo(texto):
     return len(re.findall(r"```", texto)) // 2
 
 
+def _extrair_links(texto):
+    markdown = re.findall(r"\[[^\]]+\]\(([^)]+)\)", texto)
+    html = re.findall(r"href=[\"']([^\"']+)[\"']", texto, re.IGNORECASE)
+    return [link.strip().strip("<>") for link in markdown + html if link.strip()]
+
+
 def _contar_links(texto):
-    markdown = len(re.findall(r"\[[^\]]+\]\(([^)]+)\)", texto))
-    html = len(re.findall(r"href=[\"'][^\"']+[\"']", texto, re.IGNORECASE))
-    return markdown + html
+    return len(_extrair_links(texto))
+
+
+def _normalizar_link_interno(destino):
+    destino = destino.strip()
+    if not destino or destino.startswith("#") or destino.startswith("//"):
+        return None
+
+    parsed = urlparse(destino)
+    if parsed.scheme or parsed.netloc:
+        return None
+
+    caminho = unquote(parsed.path or "").strip()
+    if not caminho:
+        return None
+
+    normalizado = normpath(caminho.lstrip("/"))
+    if normalizado in {"", "."}:
+        return None
+    return normalizado
+
+
+def _analisar_links_internos(texto, caminhos=None):
+    if caminhos is None:
+        return {
+            "verificados": False,
+            "total": 0,
+            "validos": 0,
+            "quebrados": [],
+        }
+
+    caminhos = {caminho.rstrip("/") for caminho in caminhos if caminho}
+    internos = []
+    for destino in _extrair_links(texto):
+        normalizado = _normalizar_link_interno(destino)
+        if normalizado:
+            internos.append(normalizado)
+
+    validos = []
+    quebrados = []
+    for caminho in internos:
+        existe = caminho in caminhos or any(item.startswith(f"{caminho.rstrip('/')}/") for item in caminhos)
+        if existe:
+            validos.append(caminho)
+        else:
+            quebrados.append(caminho)
+
+    return {
+        "verificados": True,
+        "total": len(internos),
+        "validos": len(validos),
+        "quebrados": sorted(set(quebrados)),
+    }
 
 
 def _criterio(passou, observado, impacto, acao):
@@ -148,12 +206,13 @@ def _criterios_projeto(texto):
     }
 
 
-def analisar_readme_texto(texto, owner, repo):
+def analisar_readme_texto(texto, owner, repo, caminhos=None):
     texto = texto or ""
     tipo = "perfil_github" if owner.lower() == repo.lower() else "projeto"
     criterios = _criterios_perfil(texto) if tipo == "perfil_github" else _criterios_projeto(texto)
     aprovados = sum(item["passou"] for item in criterios.values())
     total = len(criterios)
+    links_internos = _analisar_links_internos(texto, caminhos)
 
     return {
         "tipo_detectado": tipo,
@@ -169,6 +228,7 @@ def analisar_readme_texto(texto, owner, repo):
             "blocos_codigo": _contar_blocos_codigo(texto),
             "links": _contar_links(texto),
         },
+        "links_internos": links_internos,
         "observacao": "A cobertura mede presença de elementos documentais verificáveis; não é uma nota subjetiva de qualidade textual.",
     }
 
@@ -194,7 +254,20 @@ def analisar_readme_remoto(referencia, client=None):
     except (ValueError, UnicodeDecodeError) as erro:
         raise ValueError("Não foi possível decodificar o README em UTF-8.") from erro
 
-    relatorio = analisar_readme_texto(texto, owner, repo)
+    caminhos = None
+    try:
+        metadata = client.buscar_repositorio(owner, repo)
+        branch = metadata.get("default_branch") or "main"
+        arvore = client.buscar_arvore(owner, repo, branch)
+        caminhos = {
+            item.get("path")
+            for item in arvore.get("tree", [])
+            if item.get("path")
+        }
+    except (GitHubApiError, AttributeError):
+        caminhos = None
+
+    relatorio = analisar_readme_texto(texto, owner, repo, caminhos=caminhos)
     relatorio["repositorio"] = f"{owner}/{repo}"
     relatorio["arquivo"] = resposta.get("path") or "README.md"
     return relatorio
