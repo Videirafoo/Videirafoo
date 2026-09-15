@@ -52,7 +52,9 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [x] persistência em JSON na Agenda
 - [x] testes automatizados da Agenda
 - [x] CI dos conteúdos Python
-- [ ] Mini Sistema 02 — Lista de Tarefas
+- [x] Mini Sistema 02 — Lista de Tarefas
+- [x] persistência em JSON na Lista de Tarefas
+- [x] testes automatizados da Lista de Tarefas
 - [ ] Mini Sistema 03 — Cadastro de Alunos
 - [ ] Mini Sistema 04 — Controle de Estoque
 - [ ] Mini Sistema 05 — Sistema de Biblioteca
@@ -63,6 +65,12 @@ Objetivo: transformar fundamentos em pequenos sistemas completos, testáveis e f
 - [ ] Mini Sistema 10 — Projeto integrado
 
 Conteúdo atual: `conteudos/mini_sistemas/`.
+
+## Referências arquiteturais estudadas
+
+- [x] `alibaba/open-code-review` estudado como referência de arquitetura híbrida: validações determinísticas + agente/LLM para contexto e julgamento.
+- [x] princípio incorporado: **automatizar deterministicamente o que pode ser provado e usar IA para explicar, orientar e revisar pontos ambíguos**.
+- [x] referência registrada em `REFERENCIAS_OPEN_SOURCE.md`.
 
 ## Fase 4 — Projeto público principal
 
@@ -78,6 +86,25 @@ Construir uma ferramenta realmente útil para estudantes que analise repositóri
 - progresso de estudos;
 - sugestões de melhoria;
 - checklist de boas práticas.
+
+### Arquitetura planejada
+
+Inspirada em padrões generalizados estudados em projetos open source maduros:
+
+**Camada determinística**
+
+- ler metadados e arquivos via GitHub API;
+- verificar README, licença, topics, CI, testes e estrutura;
+- produzir evidências objetivas;
+- evitar recomendações inventadas ou baseadas apenas em prompt.
+
+**Camada de IA**
+
+- explicar os achados para iniciantes;
+- priorizar melhorias;
+- sugerir próximos passos;
+- adaptar a explicação ao nível do projeto;
+- nunca substituir uma verificação objetiva quando ela puder ser feita por código.
 
 Objetivos técnicos:
 
