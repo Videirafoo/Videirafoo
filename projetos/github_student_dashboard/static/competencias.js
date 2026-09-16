@@ -66,8 +66,35 @@
     return box;
   }
 
-  function renderMatrix(data) {
+  function renderLivePlan(item) {
+    const box = document.createElement("div");
+    box.className = "next";
+    box.append(text("strong", "Plano vivo: "));
+
+    if (!item || !item.acao) {
+      box.append(document.createTextNode(item?.motivo_sem_acao || "Nenhuma ação verificável disponível agora."));
+      return box;
+    }
+
+    box.append(document.createTextNode(`${item.acao.objetivo}. `));
+    box.append(text("span", `${item.acao.titulo} — ${item.acao.descricao}`, "small"));
+    box.append(document.createElement("br"));
+
+    const link = document.createElement("a");
+    link.href = item.acao.url;
+    link.textContent = `Abrir próxima ação (${item.acao.origem}) →`;
+    if (item.acao.url.startsWith("http")) {
+      link.target = "_blank";
+      link.rel = "noreferrer";
+    }
+    box.append(link);
+    return box;
+  }
+
+  function renderMatrix(data, plan) {
     matrix.replaceChildren();
+    const planByCompetence = new Map((plan.itens || []).map((item) => [item.competencia_id, item]));
+
     for (const item of data.competencias || []) {
       const card = document.createElement("article");
       card.className = "card";
@@ -88,12 +115,19 @@
       for (const evidence of item.evidencias || []) list.append(renderEvidence(evidence));
       card.append(list);
 
-      const next = document.createElement("div");
-      next.className = "next";
-      next.append(text("strong", "Próximo passo: "), document.createTextNode(item.proximo_passo || "—"));
-      card.append(next);
+      const direction = document.createElement("div");
+      direction.className = "next";
+      direction.append(text("strong", "Direção geral: "), document.createTextNode(item.proximo_passo || "—"));
+      card.append(direction, renderLivePlan(planByCompetence.get(item.id)));
       matrix.append(card);
     }
+  }
+
+  async function fetchJson(path) {
+    const response = await fetch(path, { headers: { Accept: "application/json" } });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.erro || `HTTP ${response.status}`);
+    return data;
   }
 
   async function loadMatrix() {
@@ -101,13 +135,12 @@
     errorBox.hidden = true;
     updatedAt.textContent = "Consultando evidências públicas…";
     try {
-      const response = await fetch("/api/competencias", { headers: { Accept: "application/json" } });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.erro || `HTTP ${response.status}`);
+      const data = await fetchJson("/api/competencias");
+      const plan = await fetchJson("/api/plano-evolucao");
       renderSummary(data);
-      renderMatrix(data);
+      renderMatrix(data, plan);
       const when = data.gerado_em ? new Date(data.gerado_em).toLocaleString("pt-BR") : "agora";
-      updatedAt.textContent = `Última verificação: ${when}. Cache de até ${data.cache_segundos ?? 600}s para respeitar a API pública.`;
+      updatedAt.textContent = `Última verificação: ${when}. Plano calculado a partir da Trilha; nenhuma missão é marcada automaticamente.`;
     } catch (error) {
       errorBox.textContent = `Não foi possível atualizar a matriz: ${error.message}`;
       errorBox.hidden = false;

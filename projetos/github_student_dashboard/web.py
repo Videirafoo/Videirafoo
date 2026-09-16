@@ -7,6 +7,7 @@ from projetos.github_student_dashboard.engine import (
     analisar_perfil_remoto,
     analisar_repositorio_remoto,
 )
+from projetos.github_student_dashboard.evolution_plan import gerar_plano_evolucao
 from projetos.github_student_dashboard.github_client import GitHubApiError
 from projetos.github_student_dashboard.history import analisar_historico_remoto
 from projetos.github_student_dashboard.lab_web import register_lab_routes
@@ -79,6 +80,7 @@ def create_app(
     analisador_historico=analisar_historico_remoto,
     explicador=explicar_repositorio_remoto,
     gerador_competencias=None,
+    gerador_plano=None,
 ):
     app = Flask(__name__)
     app.json.ensure_ascii = False
@@ -197,6 +199,18 @@ def create_app(
         else:
             relatorio = gerar_matriz_competencias(health_checker=_evidencia_runtime_publico)
         return jsonify(relatorio), 200
+
+    @app.get("/api/plano-evolucao")
+    def api_plano_evolucao():
+        if gerador_plano is not None:
+            plano = gerador_plano()
+        else:
+            if gerador_competencias is not None:
+                matriz = gerador_competencias()
+            else:
+                matriz = gerar_matriz_competencias(health_checker=_evidencia_runtime_publico)
+            plano = gerar_plano_evolucao(matriz)
+        return jsonify(plano), 200
 
     @app.get("/api/analisar")
     def analisar():
