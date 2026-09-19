@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="250" viewBox="0 0 760 250" role="img" aria-label="Linguagens por repositório">
+<style>
+text{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Arial,sans-serif}
+.title{fill:#f0f6fc;font-size:24px;font-weight:700}
+.label{fill:#8b949e;font-size:14px}
+.value{fill:#f0f6fc;font-size:30px;font-weight:700}
+.small{fill:#8b949e;font-size:12px}
+</style>
+<rect x="1" y="1" width="758" height="248" rx="14" fill="#0d1117" stroke="#30363d"/>
+<text class="title" x="28" y="40">Linguagens por repositório</text>
+<text class="label" x="30" y="92">Python</text>
+<rect x="210" y="78" width="500" height="16" rx="8" fill="#161b22"/>
+<rect x="210" y="78" width="500" height="16" rx="8" fill="#58a6ff"/>
+<text class="small" x="706" y="91" text-anchor="end">7 repo(s)</text>
+<text class="small" x="30" y="232">Base: 7 repositório(s) próprio(s) não-fork.</text>
+</svg>
