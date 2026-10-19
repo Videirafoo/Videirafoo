@@ -22,19 +22,19 @@ Compare busca sequencial e busca binária e observe o custo de cada estratégia.
 
 ## 4. Recursividade
 
-Estude [lista-04-segundo-periodo](https://github.com/Videirafoo/lista-04-segundo-periodo).
+Estude [lista-04-segundo-periodo](https://github.com/Videirafoo/Lista-04-segundo-periodo).
 
 Aprenda a identificar caso base, passo recursivo, redução do problema e retorno das chamadas.
 
 ## 5. Revisão
 
-Use [lista-05-revisao-segundo-periodo](https://github.com/Videirafoo/lista-05-revisao-segundo-periodo) para consolidar os fundamentos.
+Use [lista-05-revisao-segundo-periodo](https://github.com/Videirafoo/Lista-05-revisao-segundo-periodo) para consolidar os fundamentos.
 
 Não apenas releia: tente resolver novamente sem consultar a solução.
 
 ## 6. Primeiro pequeno sistema
 
-Aplique os conceitos no [jogo_primeiro_periodo](https://github.com/Videirafoo/jogo_primeiro_periodo).
+Aplique os conceitos no [jogo_primeiro_periodo](https://github.com/Videirafoo/Jogo_primeiro_periodo).
 
 Aqui os fundamentos deixam de aparecer isolados e passam a trabalhar juntos em um programa completo.
 
