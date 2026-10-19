@@ -1,0 +1,30 @@
+name: Educational quality
+on:
+  push:
+    paths:
+      - '**/*.md'
+      - 'scripts/check_links.py'
+      - 'scripts/test_educational.py'
+      - 'conteudos/python-para-iniciantes/algoritmos_exemplos.py'
+      - '.github/workflows/educational-quality.yml'
+  pull_request:
+    paths:
+      - '**/*.md'
+      - 'scripts/check_links.py'
+      - 'scripts/test_educational.py'
+      - 'conteudos/python-para-iniciantes/algoritmos_exemplos.py'
+      - '.github/workflows/educational-quality.yml'
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check internal Markdown links
+        run: python scripts/check_links.py
+      - name: Test educational algorithms
+        run: python -m unittest discover -s scripts -p 'test_educational.py'

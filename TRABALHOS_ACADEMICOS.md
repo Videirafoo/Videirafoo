@@ -11,9 +11,9 @@ Este índice organiza os trabalhos acadêmicos publicados na conta `Videirafoo` 
 | [`Lista-01-segundo-periodo`](https://github.com/Videirafoo/Lista-01-segundo-periodo) | fundamentos de algoritmos e lógica em Python | entrega acadêmica preservada |
 | [`Lista-02-segundo-periodo`](https://github.com/Videirafoo/Lista-02-segundo-periodo) | exercícios de Python, listas, funções e manipulação de dados | entrega acadêmica preservada |
 | [`Lista-03-segundo-periodo`](https://github.com/Videirafoo/Lista-03-segundo-periodo) | busca sequencial, busca binária e exercícios de algoritmos | entrega acadêmica preservada |
-| [`lista-04-segundo-periodo`](https://github.com/Videirafoo/lista-04-segundo-periodo) | recursividade em Python | entrega acadêmica preservada |
-| [`lista-05-revisao-segundo-periodo`](https://github.com/Videirafoo/lista-05-revisao-segundo-periodo) | revisão de algoritmos e lógica | entrega acadêmica preservada |
-| [`jogo_primeiro_periodo`](https://github.com/Videirafoo/jogo_primeiro_periodo) | jogo de adivinhação com funções, validação e CI | entrega acadêmica preservada |
+| [`lista-04-segundo-periodo`](https://github.com/Videirafoo/Lista-04-segundo-periodo) | recursividade em Python | entrega acadêmica preservada |
+| [`lista-05-revisao-segundo-periodo`](https://github.com/Videirafoo/Lista-05-revisao-segundo-periodo) | revisão de algoritmos e lógica | entrega acadêmica preservada |
+| [`jogo_primeiro_periodo`](https://github.com/Videirafoo/Jogo_primeiro_periodo) | jogo de adivinhação com funções, validação e CI | entrega acadêmica preservada |
 
 ## Como usar este índice
 

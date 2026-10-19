@@ -71,3 +71,14 @@ Compare busca sequencial e binária em listas de tamanhos diferentes contando co
 ## Próximo passo
 
 Vamos estudar recursividade e aprender a reconhecer caso base e passo recursivo.
+
+## Exemplos executáveis e testes
+
+O arquivo [`algoritmos_exemplos.py`](algoritmos_exemplos.py) reúne as duas buscas e a ordenação bolha. A ordenação retorna uma nova lista e preserva a entrada. Execute na raiz do repositório:
+
+```bash
+python -m unittest discover -s scripts -p 'test_educational.py'
+python scripts/check_links.py
+```
+
+A busca binária exige dados previamente ordenados. Para poucos elementos, a busca sequencial pode ser mais simples. A ordenação bolha tem custo quadrático `O(n²)` no pior caso e serve aqui para aprendizagem; em aplicações reais, prefira `sorted()`.

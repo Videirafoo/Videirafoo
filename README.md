@@ -155,9 +155,9 @@ A coleção de mini sistemas não é apenas uma lista em Markdown. Há diretóri
 | [Lista-01-segundo-periodo](https://github.com/Videirafoo/Lista-01-segundo-periodo) | fundamentos de algoritmos e lógica em Python |
 | [Lista-02-segundo-periodo](https://github.com/Videirafoo/Lista-02-segundo-periodo) | listas, funções e manipulação de dados |
 | [Lista-03-segundo-periodo](https://github.com/Videirafoo/Lista-03-segundo-periodo) | busca sequencial e busca binária |
-| [lista-04-segundo-periodo](https://github.com/Videirafoo/lista-04-segundo-periodo) | recursividade em Python |
-| [lista-05-revisao-segundo-periodo](https://github.com/Videirafoo/lista-05-revisao-segundo-periodo) | revisão de algoritmos e lógica |
-| [jogo_primeiro_periodo](https://github.com/Videirafoo/jogo_primeiro_periodo) | jogo de adivinhação com funções, validação e CI |
+| [lista-04-segundo-periodo](https://github.com/Videirafoo/Lista-04-segundo-periodo) | recursividade em Python |
+| [lista-05-revisao-segundo-periodo](https://github.com/Videirafoo/Lista-05-revisao-segundo-periodo) | revisão de algoritmos e lógica |
+| [jogo_primeiro_periodo](https://github.com/Videirafoo/Jogo_primeiro_periodo) | jogo de adivinhação com funções, validação e CI |
 
 ---
 
