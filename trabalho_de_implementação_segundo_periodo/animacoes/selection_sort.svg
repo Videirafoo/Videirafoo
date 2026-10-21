@@ -1,0 +1,500 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-label="Animação: Selection Sort">
+<rect width="960" height="420" fill="#101a30"/>
+<rect x="24" y="20" width="912" height="380" rx="22" fill="#182744" stroke="#345079"/>
+<text x="55" y="77" font-family="Arial,sans-serif" font-size="34" font-weight="bold" fill="#ffffff">Selection Sort</text>
+<text x="55" y="108" font-family="Arial,sans-serif" font-size="18" fill="#b9cbe4">Seleciona sempre o menor valor</text>
+<text x="55" y="382" font-family="Arial,sans-serif" font-size="16" fill="#9eb4d2">Dourado: em análise  ·  Verde: posição resolvida  ·  Animação em repetição</text>
+<g opacity="1" data-frame="1">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Começamos com os números misturados</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">1 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">3</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">5</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">1</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">2</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">4</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="2">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Procuramos o menor valor restante</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">2 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">7</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">3</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">5</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">2</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">4</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="3">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Colocamos o menor na posição correta</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">3 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#fff3b2" stroke-width="3"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">3</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">5</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">2</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">4</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="4">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Procuramos o menor valor restante</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">4 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">5</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">4</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="5">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Colocamos o menor na posição correta</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">5 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#fff3b2" stroke-width="3"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">5</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">3</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">4</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="6">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Procuramos o menor valor restante</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">6 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">5</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">4</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="7">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Colocamos o menor na posição correta</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">7 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#fff3b2" stroke-width="3"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">5</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">4</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="8">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Procuramos o menor valor restante</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">8 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">7</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">5</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="9">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Colocamos o menor na posição correta</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">9 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#fff3b2" stroke-width="3"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">5</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="10">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Procuramos o menor valor restante</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">10 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">8</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">5</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="11">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Colocamos o menor na posição correta</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">11 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#fff3b2" stroke-width="3"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">5</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="12">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Procuramos o menor valor restante</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">12 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">5</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">8</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">6</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="13">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Colocamos o menor na posição correta</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">13 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">5</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#fff3b2" stroke-width="3"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">6</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">7</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="14">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Procuramos o menor valor restante</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">14 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">5</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">6</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">8</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">7</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="15">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Colocamos o menor na posição correta</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">15 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">5</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">6</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#fff3b2" stroke-width="3"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">7</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#345c91" stroke="#5f83b5" stroke-width="1"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#f8fbff">8</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="16">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Procuramos o menor valor restante</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">16 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">5</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">6</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">7</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#fac85e" stroke="#fff3b2" stroke-width="3"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">8</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+<g opacity="0" data-frame="17">
+<text x="55" y="157" font-family="Arial,sans-serif" font-size="21" fill="#ecf2fa">Colocamos o menor na posição correta</text>
+<text x="844" y="157" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" fill="#9db4d4">17 / 17</text>
+<rect x="64" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="109" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">1</text>
+<text x="109" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">1</text>
+<rect x="170" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="215" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">2</text>
+<text x="215" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">2</text>
+<rect x="276" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="321" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">3</text>
+<text x="321" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">3</text>
+<rect x="382" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="427" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">4</text>
+<text x="427" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">4</text>
+<rect x="488" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="533" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">5</text>
+<text x="533" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">5</text>
+<rect x="594" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="639" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">6</text>
+<text x="639" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">6</text>
+<rect x="700" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#5f83b5" stroke-width="1"/>
+<text x="745" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">7</text>
+<text x="745" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">7</text>
+<rect x="806" y="205" width="90" height="95" rx="13" fill="#22a77d" stroke="#fff3b2" stroke-width="3"/>
+<text x="851" y="266" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#102037">8</text>
+<text x="851" y="328" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#acbed5">8</text>
+<animate attributeName="opacity" values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0" keyTimes="0;0.058823529411764705;0.11764705882352941;0.17647058823529413;0.23529411764705882;0.29411764705882354;0.35294117647058826;0.4117647058823529;0.47058823529411764;0.5294117647058824;0.5882352941176471;0.6470588235294118;0.7058823529411765;0.7647058823529411;0.8235294117647058;0.8823529411764706;0.9411764705882353;1" dur="27.200000000000003s" calcMode="discrete" repeatCount="indefinite"/>
+</g>
+</svg>
