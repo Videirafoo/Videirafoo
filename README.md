@@ -190,16 +190,6 @@ As coleções abaixo são **direção futura**. Elas não são tratadas como rep
 
 ---
 
-## Projetos em desenvolvimento
-
-### MarcaIA
-SaaS multi-tenant para atendimento, agenda, CRM, automações e IA. **Em desenvolvimento; não é apresentado aqui como demo pública concluída.**
-
-### FitCore Pro
-Aplicação mobile para treino e gestão fitness. **Em desenvolvimento; não é apresentado aqui como produto público concluído.**
-
----
-
 ## Stack principal
 
 <div align="center">
