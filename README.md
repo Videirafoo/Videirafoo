@@ -2,7 +2,9 @@
 
 # Fernando Otávio Videira Junior
 
-### Software Engineering • Full-Stack • Mobile • AI Systems
+### Engenharia de Software · Universidade de Vassouras
+
+**Estudante de Engenharia de Software | Universidade de Vassouras | Python, Java e desenvolvimento web | Projetos acadêmicos e aprendizado prático.**
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=22&pause=1000&color=58A6FF&center=true&vCenter=true&width=900&lines=Engenharia+de+Software;Python+%7C+Java+%7C+TypeScript+%7C+Flutter;SaaS+%7C+APIs+%7C+Automa%C3%A7%C3%A3o+%7C+IA;Aprender+%E2%86%92+Construir+%E2%86%92+Testar+%E2%86%92+Melhorar)](https://git.io/typing-svg)
 
